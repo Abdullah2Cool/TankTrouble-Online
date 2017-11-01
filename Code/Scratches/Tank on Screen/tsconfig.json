@@ -1,11 +1,10 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "none",
     "target": "es5",
     "sourceMap": true
   },
   "exclude": [
-    "node_modules",
-    "tsDefinitions"
+    "node_modules"
   ]
 }
