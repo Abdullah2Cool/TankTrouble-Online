@@ -1,3 +1,5 @@
+import TilemapLayer = Phaser.TilemapLayer;
+
 class SimpleGame {
     game: Phaser.Game;
     map: Phaser.Tilemap;
@@ -16,6 +18,7 @@ class SimpleGame {
         this.game.load.tilemap('map', 'gameMap.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tiles', 'Tileset.png');
         this.game.load.image("tank", "Red Tank.png");
+        this.game.load.image("bullet", "bullet.png");
     }
 
     create() {
@@ -38,8 +41,13 @@ class SimpleGame {
     update() {
         this.tank.update();
         this.game.physics.arcade.collide(this.tank, this.layer);
+        this.game.physics.arcade.collide(this.tank.weapon.bullets, this.layer, this.testFunction);
     }
 
+    testFunction(bullet, layer) {
+        bullet.kill();
+        console.log("Bullet hits")
+    }
 }
 
 window.onload = () => {

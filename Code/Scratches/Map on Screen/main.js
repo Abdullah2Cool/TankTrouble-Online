@@ -1,6 +1,6 @@
 var SimpleGame = (function () {
     function SimpleGame() {
-        this.game = new Phaser.Game(1600, 900, Phaser.AUTO, 'content', {
+        this.game = new Phaser.Game(1200, 700, Phaser.AUTO, 'content', {
             preload: this.preload,
             create: this.create,
             update: this.update
@@ -16,14 +16,11 @@ var SimpleGame = (function () {
         this.game.stage.backgroundColor = '#dfdfdf';
         this.map = this.game.add.tilemap('map');
         this.map.addTilesetImage('tiles');
-        // this.map.setTileSize(40, 40);
         this.layer = this.map.createLayer("Tile Layer 1");
         this.layer.resizeWorld();
-        this.map.setCollision([21]);
+        this.map.setCollision([33]);
         this.tank = new Tank(this.game, 200, 60, "tank");
         this.game.add.existing(this.tank);
-        this.game.physics.enable(this.tank);
-        this.tank.body.collideWorldBounds = true;
         this.game.camera.follow(this.tank);
     };
     SimpleGame.prototype.update = function () {

@@ -1,4 +1,3 @@
-
 class Tank extends Phaser.Sprite {
 
     sName: string;
@@ -7,7 +6,9 @@ class Tank extends Phaser.Sprite {
     downKey: Phaser.Key;
     lefKey: Phaser.Key;
     rightKey: Phaser.Key;
+    shootKey: Phaser.Key;
     velocity: number;
+    weapon: Phaser.Weapon;
 
     constructor(game: Phaser.Game, x: number, y: number, sName: string) {
         super(game, x, y, sName);
@@ -20,11 +21,30 @@ class Tank extends Phaser.Sprite {
         this.game.physics.arcade.enable(this);
 
         // this.scale.setTo(0.8, 0.8);
+        //  Creates 30 bullets, using the 'bullet' graphic
+        this.weapon = game.add.weapon(30, 'bullet');
+
+        //  The bullets will be automatically killed when they are 2000ms old
+        this.weapon.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
+        this.weapon.bulletLifespan = 6000;
+
+        //  The speed at which the bullet is fired
+        this.weapon.bulletSpeed = 500;
+
+        //  Speed-up the rate of fire, allowing them to shoot 1 bullet every 60ms
+        this.weapon.fireRate = 100;
+
+        //  Tell the Weapon to track the 'player' Sprite
+        //  With no offsets from the position
+        //  But the 'true' argument tells the weapon to track sprite rotation
+        this.weapon.trackSprite(this, 0, 0, true);
+
 
         this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
         this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
         this.lefKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+        this.shootKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     }
 
     update() {
@@ -44,5 +64,10 @@ class Tank extends Phaser.Sprite {
         } else if (this.downKey.isDown) {
             this.game.physics.arcade.velocityFromAngle(this.angle, -this.velocity, this.body.velocity);
         }
+
+        if (this.shootKey.isDown) {
+            this.weapon.fire();
+        }
+        this.weapon.debug();
     }
 }

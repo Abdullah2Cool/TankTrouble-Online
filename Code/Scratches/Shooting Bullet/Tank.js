@@ -18,10 +18,24 @@ var Tank = (function (_super) {
         _this.anchor.setTo(0.5, 0.5);
         _this.game.physics.arcade.enable(_this);
         // this.scale.setTo(0.8, 0.8);
+        //  Creates 30 bullets, using the 'bullet' graphic
+        _this.weapon = game.add.weapon(30, 'bullet');
+        //  The bullets will be automatically killed when they are 2000ms old
+        _this.weapon.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
+        _this.weapon.bulletLifespan = 6000;
+        //  The speed at which the bullet is fired
+        _this.weapon.bulletSpeed = 500;
+        //  Speed-up the rate of fire, allowing them to shoot 1 bullet every 60ms
+        _this.weapon.fireRate = 100;
+        //  Tell the Weapon to track the 'player' Sprite
+        //  With no offsets from the position
+        //  But the 'true' argument tells the weapon to track sprite rotation
+        _this.weapon.trackSprite(_this, 0, 0, true);
         _this.upKey = _this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
         _this.downKey = _this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
         _this.lefKey = _this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         _this.rightKey = _this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+        _this.shootKey = _this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         return _this;
     }
     Tank.prototype.update = function () {
@@ -40,6 +54,10 @@ var Tank = (function (_super) {
         else if (this.downKey.isDown) {
             this.game.physics.arcade.velocityFromAngle(this.angle, -this.velocity, this.body.velocity);
         }
+        if (this.shootKey.isDown) {
+            this.weapon.fire();
+        }
+        this.weapon.debug();
     };
     return Tank;
 }(Phaser.Sprite));
