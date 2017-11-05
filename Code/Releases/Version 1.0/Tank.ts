@@ -1,5 +1,4 @@
 class Tank extends Phaser.Sprite {
-
     sName: string;
     game: Phaser.Game;
     upKey: Phaser.Key;
@@ -9,6 +8,7 @@ class Tank extends Phaser.Sprite {
     shootKey: Phaser.Key;
     velocity: number;
     weapon: Phaser.Weapon;
+    id: any;
 
     constructor(game: Phaser.Game, x: number, y: number, sName: string) {
         super(game, x, y, sName);
@@ -17,9 +17,7 @@ class Tank extends Phaser.Sprite {
         this.velocity = 250;
 
         this.anchor.setTo(0.5, 0.5);
-
         this.game.physics.arcade.enable(this);
-
         // this.scale.setTo(0.8, 0.8);
         //  Creates 30 bullets, using the 'bullet' graphic
         this.weapon = game.add.weapon(30, 'bullet');
@@ -27,15 +25,13 @@ class Tank extends Phaser.Sprite {
         this.weapon.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
         this.weapon.bulletLifespan = 6000;
         //  The speed at which the bullet is fired
-        this.weapon.bulletSpeed = 500;
+        this.weapon.bulletSpeed = 300;
         //  Speed-up the rate of fire, allowing them to shoot 1 bullet every 60ms
         this.weapon.fireRate = 100;
-
         //  Tell the Weapon to track the 'player' Sprite
         //  With no offsets from the position
         //  But the 'true' argument tells the weapon to track sprite rotation
         this.weapon.trackSprite(this, 0, 0, true);
-
         this.weapon.onFire.add(this.bulletFire);
 
         this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
@@ -43,11 +39,12 @@ class Tank extends Phaser.Sprite {
         this.lefKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
         this.shootKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
     }
 
     bulletFire(bullet, weapon) {
-        console.log("Bullet Fired");
         bullet.body.bounce.setTo(1, 1);
+        // console.log(bullet);
     }
 
     update() {
@@ -71,6 +68,6 @@ class Tank extends Phaser.Sprite {
         if (this.shootKey.isDown) {
             this.weapon.fire();
         }
-        this.weapon.debug();
     }
+
 }

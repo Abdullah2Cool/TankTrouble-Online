@@ -2,36 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66799a8f-530a-41bc-a670-9f7241755d59" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Red Tank.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tileset.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bullet.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/Shooting Bullet.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/typescript-compiler.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tank.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WeaponPlugin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gameMap.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/phaser.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tsDefinitions/box2d.d.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tsDefinitions/p2.d.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tsDefinitions/phaser.comments.d.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tsDefinitions/phaser.d.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tsDefinitions/phaser_box2d.d.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tsDefinitions/pixi.comments.d.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tsDefinitions/pixi.d.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tsconfig.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/Red Tank.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/Tileset.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/bullet.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/.idea/Version 1.0.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/.idea/typescript-compiler.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/Tank.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/WeaponPlugin.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/gameMap.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/main.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/phaser.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/tsDefinitions/box2d.d.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/tsDefinitions/p2.d.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/tsDefinitions/phaser.comments.d.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/tsDefinitions/phaser.d.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/tsDefinitions/phaser_box2d.d.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/tsDefinitions/pixi.comments.d.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/tsDefinitions/pixi.d.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/tsconfig.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Releases/Version 1.0/util_Firebase.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../Documents/Journal.docx" afterPath="$PROJECT_DIR$/../../../Documents/Journal.docx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Map on Screen/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Map on Screen/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Map on Screen/Tank.js" afterPath="$PROJECT_DIR$/../Map on Screen/Tank.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Map on Screen/Tank.js.map" afterPath="$PROJECT_DIR$/../Map on Screen/Tank.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Map on Screen/Tank.ts" afterPath="$PROJECT_DIR$/../Map on Screen/Tank.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Map on Screen/gameMap.json" afterPath="$PROJECT_DIR$/../Map on Screen/gameMap.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Map on Screen/index.html" afterPath="$PROJECT_DIR$/../Map on Screen/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Map on Screen/main.js" afterPath="$PROJECT_DIR$/../Map on Screen/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Map on Screen/main.js.map" afterPath="$PROJECT_DIR$/../Map on Screen/main.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Map on Screen/main.ts" afterPath="$PROJECT_DIR$/../Map on Screen/main.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tank.js" afterPath="$PROJECT_DIR$/Tank.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tank.js.map" afterPath="$PROJECT_DIR$/Tank.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tank.ts" afterPath="$PROJECT_DIR$/Tank.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TypeScript + Firebase/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../TypeScript + Firebase/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -48,28 +47,28 @@
       <file leaf-file-name="main.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="726">
-              <caret line="48" column="32" lean-forward="false" selection-start-line="48" selection-start-column="32" selection-end-line="48" selection-end-column="32" />
+            <state relative-caret-position="66">
+              <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tank.ts" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Tank.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Tank.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="39" column="50" lean-forward="false" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
+            <state relative-caret-position="528">
+              <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="16" column="7" lean-forward="true" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+            <state relative-caret-position="154">
+              <caret line="7" column="35" lean-forward="false" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -96,9 +95,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="953" />
-    <option name="width" value="974" />
-    <option name="height" value="1047" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -116,7 +116,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -128,7 +128,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -137,7 +137,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="C:\Users\hafiz\AppData\Roaming\npm\node_modules\tslint" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Releases/Version 1.0" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
   </component>
   <component name="RecentsManager">
@@ -172,11 +172,14 @@
       <updated>1509663775895</updated>
       <workItem from="1509663777358" duration="94000" />
       <workItem from="1509663877804" duration="3807000" />
+      <workItem from="1509675899934" duration="629000" />
+      <workItem from="1509729771928" duration="2585000" />
+      <workItem from="1509761484978" duration="1629000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3901000" />
+    <option name="totallyTimeSpent" value="8744000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -186,11 +189,10 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -198,6 +200,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -209,6 +212,14 @@
         <option value="$PROJECT_DIR$/Tank.js.map" />
         <option value="$PROJECT_DIR$/Tank.js" />
         <option value="$PROJECT_DIR$/main.js.map" />
+        <option value="$PROJECT_DIR$/../../Releases/Version 1.0/main.js" />
+        <option value="$PROJECT_DIR$/../../Releases/Version 1.0/Tank.js.map" />
+        <option value="$PROJECT_DIR$/../../Releases/Version 1.0/Tank.js" />
+        <option value="$PROJECT_DIR$/../../Releases/Version 1.0/main.js.map" />
+        <option value="$PROJECT_DIR$/../../../../Phaser Projects/TypeScript + Firebase + Hosting/public/main.js" />
+        <option value="$PROJECT_DIR$/../../../../Phaser Projects/TypeScript + Firebase + Hosting/public/Tank.js.map" />
+        <option value="$PROJECT_DIR$/../../../../Phaser Projects/TypeScript + Firebase + Hosting/public/Tank.js" />
+        <option value="$PROJECT_DIR$/../../../../Phaser Projects/TypeScript + Firebase + Hosting/public/main.js.map" />
       </list>
     </option>
   </component>
@@ -222,16 +233,40 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/main.ts">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="792">
+          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="16" column="7" lean-forward="false" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tank.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1320">
+          <caret line="60" column="40" lean-forward="false" selection-start-line="60" selection-start-column="40" selection-end-line="60" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.ts">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tsDefinitions/p2.d.ts">
+    <entry file="file://$PROJECT_DIR$/Tank.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="792">
+          <caret line="36" column="44" lean-forward="true" selection-start-line="36" selection-start-column="44" selection-end-line="36" selection-end-column="44" />
           <folding />
         </state>
       </provider>
@@ -244,28 +279,72 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WeaponPlugin.js">
+    <entry file="file://$PROJECT_DIR$/main.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2706">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
+        <state relative-caret-position="1056">
+          <caret line="48" column="32" lean-forward="false" selection-start-line="48" selection-start-column="32" selection-end-line="48" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.ts">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="48" column="32" lean-forward="false" selection-start-line="48" selection-start-column="32" selection-end-line="48" selection-end-column="32" />
+        <state relative-caret-position="352">
+          <caret line="16" column="7" lean-forward="true" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Tank.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
+        <state relative-caret-position="858">
           <caret line="39" column="50" lean-forward="false" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tsDefinitions/p2.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WeaponPlugin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2706">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tank.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="35" lean-forward="false" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
           <folding />
         </state>
       </provider>

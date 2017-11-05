@@ -24,7 +24,7 @@ var Tank = (function (_super) {
         _this.weapon.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
         _this.weapon.bulletLifespan = 6000;
         //  The speed at which the bullet is fired
-        _this.weapon.bulletSpeed = 500;
+        _this.weapon.bulletSpeed = 300;
         //  Speed-up the rate of fire, allowing them to shoot 1 bullet every 60ms
         _this.weapon.fireRate = 100;
         //  Tell the Weapon to track the 'player' Sprite
@@ -40,8 +40,8 @@ var Tank = (function (_super) {
         return _this;
     }
     Tank.prototype.bulletFire = function (bullet, weapon) {
-        console.log("Bullet Fired");
         bullet.body.bounce.setTo(1, 1);
+        // console.log(bullet);
     };
     Tank.prototype.update = function () {
         this.body.velocity.x = 0;
@@ -62,7 +62,6 @@ var Tank = (function (_super) {
         if (this.shootKey.isDown) {
             this.weapon.fire();
         }
-        this.weapon.debug();
     };
     return Tank;
 }(Phaser.Sprite));
