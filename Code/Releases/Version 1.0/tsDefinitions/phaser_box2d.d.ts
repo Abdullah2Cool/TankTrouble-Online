@@ -298,7 +298,7 @@ declare module Phaser {
                 game: Phaser.Game;
                 // @property {Phaser.Physics.Box2D} world - Local reference to the Box2D World.
                 world: Physics.Box2D;
-                // @property {number} id - a unique id for this body in the world
+                // @property {number} myID - a unique myID for this body in the world
                 id: number;
                 // @property {Phaser.Sprite} sprite - Reference to the parent Sprite.
                 sprite: Phaser.Sprite;

@@ -11526,7 +11526,7 @@ declare module Phaser {
         * The pointerId property is not set until the Pointer has been used at least once, as its populated by the DOM event.
         * Also it can change every time you press the pointer down if the browser recycles it.
         * 
-        * @param pointerId The `pointerId` (not 'id') value to search for.
+        * @param pointerId The `pointerId` (not 'myID') value to search for.
         * @return A Pointer object or null if no Pointer object matches the requested identifier.
         */
         getPointerFromId(pointerID: number): Phaser.Pointer;
@@ -17795,7 +17795,7 @@ declare module Phaser {
 
             /**
             * This will create a Ninja Physics Tile body on the given game object. There are 34 different types of tile you can create, including 45 degree slopes,
-            * convex and concave circles and more. The id parameter controls which Tile type is created, but you can also change it at run-time.
+            * convex and concave circles and more. The myID parameter controls which Tile type is created, but you can also change it at run-time.
             * Note that for all degree based tile types they need to have an equal width and height. If the given object doesn't have equal width and height it will use the width.
             * A game object can only have 1 physics body active at any one time, and it can't be changed until the object is destroyed.
             * 
@@ -17811,7 +17811,7 @@ declare module Phaser {
             * 
             * @param object The game object to create the physics body on. Can also be an array or Group of objects, a body will be created on every child that has a `body` property.
             * @param type The type of Ninja shape to create. 1 = AABB, 2 = Circle or 3 = Tile. - Default: 1
-            * @param id If this body is using a Tile shape, you can set the Tile id here, i.e. Phaser.Physics.Ninja.Tile.SLOPE_45DEGpn, Phaser.Physics.Ninja.Tile.CONVEXpp, etc. - Default: 1
+            * @param id If this body is using a Tile shape, you can set the Tile myID here, i.e. Phaser.Physics.Ninja.Tile.SLOPE_45DEGpn, Phaser.Physics.Ninja.Tile.CONVEXpp, etc. - Default: 1
             * @param radius If this body is using a Circle shape this controls the radius.
             * @param children Should a body be created on all children of this object? If true it will recurse down the display list as far as it can go. - Default: true
             */
@@ -17882,7 +17882,7 @@ declare module Phaser {
                 * @param system The physics system this Body belongs to.
                 * @param sprite The Sprite object this physics body belongs to.
                 * @param type The type of Ninja shape to create. 1 = AABB, 2 = Circle or 3 = Tile. - Default: 1
-                * @param id If this body is using a Tile shape, you can set the Tile id here, i.e. Phaser.Physics.Ninja.Tile.SLOPE_45DEGpn, Phaser.Physics.Ninja.Tile.CONVEXpp, etc. - Default: 1
+                * @param id If this body is using a Tile shape, you can set the Tile myID here, i.e. Phaser.Physics.Ninja.Tile.SLOPE_45DEGpn, Phaser.Physics.Ninja.Tile.CONVEXpp, etc. - Default: 1
                 * @param radius If this body is using a Circle shape this controls the radius. - Default: 16
                 * @param x The x coordinate of this Body. This is only used if a sprite is not provided.
                 * @param y The y coordinate of this Body. This is only used if a sprite is not provided.
@@ -19763,7 +19763,7 @@ declare module Phaser {
                 collides(group: any, callback?: Function, callbackContext?: any, shape?: p2.Shape): void;
 
                 /**
-                * Sets a callback to be fired any time a shape in this Body impacts with a shape in the given Body. The impact test is performed against body.id values.
+                * Sets a callback to be fired any time a shape in this Body impacts with a shape in the given Body. The impact test is performed against body.myID values.
                 * The callback will be sent 4 parameters: This body, the body that impacted, the Shape in this body and the shape in the impacting body.
                 * Note that the impact event happens after collision resolution, so it cannot be used to prevent a collision from happening.
                 * It also happens mid-step. So do not destroy a Body during this callback, instead set safeDestroy to true so it will be killed on the next preUpdate.

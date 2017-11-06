@@ -35,7 +35,7 @@ class otherTank extends Phaser.Sprite {
         this.FIREBASE.getDatabase().ref("Players/" + this.id).on("value", snap => {
             this.x = snap.val().x;
             this.y = snap.val().y;
-            this.rotation = snap.val().rotation;
+            this.rotation = snap.val().r;
         });
     }
 

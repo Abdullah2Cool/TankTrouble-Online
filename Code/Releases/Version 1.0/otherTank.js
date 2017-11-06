@@ -37,7 +37,7 @@ var otherTank = (function (_super) {
         _this.FIREBASE.getDatabase().ref("Players/" + _this.id).on("value", function (snap) {
             _this.x = snap.val().x;
             _this.y = snap.val().y;
-            _this.rotation = snap.val().rotation;
+            _this.rotation = snap.val().r;
         });
         return _this;
     }

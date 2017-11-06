@@ -10,11 +10,12 @@ class Tank extends Phaser.Sprite {
     weapon: Phaser.Weapon;
     id: any;
 
-    constructor(game: Phaser.Game, x: number, y: number, sName: string) {
+    constructor(game: Phaser.Game, x: number, y: number, sName: string, id: any) {
         super(game, x, y, sName);
         this.game = game;
         this.sName = sName;
         this.velocity = 250;
+        this.id = id;
 
         this.anchor.setTo(0.5, 0.5);
         this.game.physics.arcade.enable(this);

@@ -10,11 +10,12 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var Tank = (function (_super) {
     __extends(Tank, _super);
-    function Tank(game, x, y, sName) {
+    function Tank(game, x, y, sName, id) {
         var _this = _super.call(this, game, x, y, sName) || this;
         _this.game = game;
         _this.sName = sName;
         _this.velocity = 250;
+        _this.id = id;
         _this.anchor.setTo(0.5, 0.5);
         _this.game.physics.arcade.enable(_this);
         // this.scale.setTo(0.8, 0.8);

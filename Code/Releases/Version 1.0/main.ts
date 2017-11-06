@@ -4,6 +4,7 @@ class SimpleGame {
     layer: Phaser.TilemapLayer;
     tank: Tank;
     FIREBASE: util_Firebase;
+    id: any;
 
     constructor() {
         this.game = new Phaser.Game(1200, 700, Phaser.AUTO, 'content', {
@@ -24,7 +25,7 @@ class SimpleGame {
 
     create() {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
-
+        this.id = this.FIREBASE.generateKey();
         this.game.stage.backgroundColor = '#dfdfdf';
 
         this.map = this.game.add.tilemap('map');
@@ -33,8 +34,7 @@ class SimpleGame {
         this.layer.resizeWorld();
         this.map.setCollision([33]);
 
-        this.tank = new Tank(this.game, 200, 60, "tank");
-        this.tank.id = this.FIREBASE.generateKey();
+        this.tank = new Tank(this.game, 200, 60, "tank", this.id);
         this.game.add.existing(this.tank);
 
         this.game.camera.follow(this.tank);
@@ -42,7 +42,10 @@ class SimpleGame {
         this.FIREBASE.pushNewestPlayer(this.tank.id);
 
         this.FIREBASE.checkForNewPlayers();
+
+        this.FIREBASE.checkForPreviousPlayers(this.id, this.FIREBASE, this.game);
     }
+
 
     update() {
         this.tank.update();

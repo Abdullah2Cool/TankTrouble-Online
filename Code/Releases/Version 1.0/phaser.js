@@ -7612,7 +7612,7 @@ module.exports = Body;
  * @param {Number} [options.ccdSpeedThreshold=-1]
  * @param {Number} [options.fixedRotation=false]
  * @param {Number} [options.gravityScale]
- * @param {Number} [options.id]
+ * @param {Number} [options.myID]
  * @param {Number} [options.mass=0] A number >= 0. If zero, the .type will be set to Body.STATIC.
  * @param {Number} [options.sleepSpeedLimit]
  * @param {Number} [options.sleepTimeLimit]
@@ -11650,7 +11650,7 @@ OverlapKeeper.prototype.getBodyDiff = function(overlaps, result){
     while(l--){
         var data = overlaps[l];
 
-        // Since we use body id's for the accumulator, these will be a subset of the original one
+        // Since we use body myID's for the accumulator, these will be a subset of the original one
         accumulator.set(data.bodyA.id|0, data.bodyB.id|0, data);
     }
 
@@ -12795,7 +12795,7 @@ World.prototype.removeContactMaterial = function(cm){
  * @param {Material} materialA
  * @param {Material} materialB
  * @return {ContactMaterial} The matching ContactMaterial, or false on fail.
- * @todo Use faster hash map to lookup from material id's
+ * @todo Use faster hash map to lookup from material myID's
  */
 World.prototype.getContactMaterial = function(materialA,materialB){
     var cmats = this.contactMaterials;
@@ -13383,7 +13383,7 @@ World.prototype.removeBody = function(body){
 };
 
 /**
- * Get a body by its id.
+ * Get a body by its myID.
  * @method getBodyById
  * @param {number} id
  * @return {Body} The body, or false if it was not found.
@@ -16616,7 +16616,7 @@ PIXI.PixiShader.prototype.syncUniforms = function()
                     gl.bindTexture(gl.TEXTURE_2D, uniform.value.baseTexture._glTextures[gl.id]);
                 }
 
-                //  gl.bindTexture(gl.TEXTURE_2D, uniform.value.baseTexture._glTextures[gl.id] || PIXI.createWebGLTexture( uniform.value.baseTexture, gl));
+                //  gl.bindTexture(gl.TEXTURE_2D, uniform.value.baseTexture._glTextures[gl.myID] || PIXI.createWebGLTexture( uniform.value.baseTexture, gl));
                 gl.uniform1i(uniform.uniformLocation, this.textureCount);
                 this.textureCount++;
             }
@@ -17581,7 +17581,7 @@ PIXI.WebGLRenderer.prototype.updateTexture = function(texture)
 
     texture._dirty[gl.id] = false;
 
-    // return texture._glTextures[gl.id];
+    // return texture._glTextures[gl.myID];
     return true;
 
 };
@@ -28346,7 +28346,7 @@ Phaser.Camera = function (game, id, x, y, width, height) {
     this.world = game.world;
 
     /**
-    * @property {number} id - Reserved for future multiple camera set-ups.
+    * @property {number} myID - Reserved for future multiple camera set-ups.
     * @default
     */
     this.id = 0;
@@ -35461,7 +35461,7 @@ Object.defineProperty(Phaser.World.prototype, "randomY", {
 Phaser.Game = function (width, height, renderer, parent, state, transparent, antialias, physicsConfig) {
 
     /**
-    * @property {number} id - Phaser Game ID (for when Pixi supports multiple instances).
+    * @property {number} myID - Phaser Game ID (for when Pixi supports multiple instances).
     * @readonly
     */
     this.id = Phaser.GAMES.push(this) - 1;
@@ -37519,7 +37519,7 @@ Phaser.Input.prototype = {
     * Also it can change every time you press the pointer down if the browser recycles it.
     *
     * @method Phaser.Input#getPointerFromId
-    * @param {number} pointerId - The `pointerId` (not 'id') value to search for.
+    * @param {number} pointerId - The `pointerId` (not 'myID') value to search for.
     * @return {Phaser.Pointer} A Pointer object or null if no Pointer object matches the requested identifier.
     */
     getPointerFromId: function (pointerId) {
@@ -39287,7 +39287,7 @@ Phaser.Pointer = function (game, id, pointerMode) {
     this.game = game;
 
     /**
-    * @property {number} id - The ID of the Pointer object within the game. Each game can have up to 10 active pointers.
+    * @property {number} myID - The ID of the Pointer object within the game. Each game can have up to 10 active pointers.
     */
     this.id = id;
 
@@ -91386,7 +91386,7 @@ Phaser.Physics.P2.Body = function (game, sprite, x, y, mass) {
 Phaser.Physics.P2.Body.prototype = {
 
     /**
-    * Sets a callback to be fired any time a shape in this Body impacts with a shape in the given Body. The impact test is performed against body.id values.
+    * Sets a callback to be fired any time a shape in this Body impacts with a shape in the given Body. The impact test is performed against body.myID values.
     * The callback will be sent 4 parameters: This body, the body that impacted, the Shape in this body and the shape in the impacting body.
     * Note that the impact event happens after collision resolution, so it cannot be used to prevent a collision from happening.
     * It also happens mid-step. So do not destroy a Body during this callback, instead set safeDestroy to true so it will be killed on the next preUpdate.
@@ -93112,7 +93112,7 @@ Object.defineProperty(Phaser.Physics.P2.Body.prototype, "y", {
 
 /**
 * @name Phaser.Physics.P2.Body#id
-* @property {number} id - The Body ID. Each Body that has been added to the World has a unique ID.
+* @property {number} myID - The Body ID. Each Body that has been added to the World has a unique ID.
 * @readonly
 */
 Object.defineProperty(Phaser.Physics.P2.Body.prototype, "id", {
@@ -93842,7 +93842,7 @@ Phaser.Physics.P2.Material.prototype.constructor = Phaser.Physics.P2.Material;
 Phaser.Physics.P2.ContactMaterial = function (materialA, materialB, options) {
 
 	/**
-	* @property {number} id - The contact material identifier.
+	* @property {number} myID - The contact material identifier.
 	*/
 
 	/**

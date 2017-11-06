@@ -5,6 +5,7 @@ class util_Firebase {
     database;
     game: Phaser.Game;
     simpleGame: SimpleGame;
+    myID: any;
 
     constructor(simpleGame: SimpleGame) {
         this.database = firebase.database();
@@ -13,7 +14,9 @@ class util_Firebase {
     }
 
     generateKey(): number {
-        return this.database.ref().push().key;
+        this.myID = this.database.ref().push().key;
+        // this.myID = Math.floor(Math.random() * 5000);
+        return this.myID;
     }
 
     updatePlayerInfo(playerID: number, x: number, y: number, r: number) {
@@ -36,14 +39,32 @@ class util_Firebase {
         let ref = this.database.ref("New");
 
         ref.on("value", snap => {
-            if (snap.val().id != this.simpleGame.tank.id) {
-                let id = snap.val().id;
+            let id = snap.val().id;
+            if (id != this.simpleGame.tank.id) {
                 console.log("Newest Player: " + id);
                 let otherPlayer = new otherTank(this.game, 0, 0, id, this.simpleGame.FIREBASE);
                 this.game.add.existing(otherPlayer);
-                console.log(otherPlayer);
+                // console.log(otherPlayer);
             }
         });
+    }
+
+    checkForPreviousPlayers(passedID: any, refFire: util_Firebase, game) {
+        let ref = this.database.ref("Players");
+
+        ref.once("value")
+            .then(function (snapshot) {
+                snapshot.forEach(function (childSnapshot) {
+                    let otherID = childSnapshot.key;
+                    if (otherID != passedID) {
+                        console.log("Previous Player's Id: " + otherID);
+                        console.log("My myID: " + passedID);
+                        let otherPlayer = new otherTank(game, 0, 0, otherID, refFire);
+                        console.log(otherPlayer);
+                        game.add.existing(otherPlayer);
+                    }
+                })
+            });
     }
 
     getDatabase(): any {
