@@ -18,6 +18,7 @@ class SimpleGame {
         this.game.load.tilemap('map', 'gameMap.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tiles', 'Tileset.png');
         this.game.load.image("tank", "Red Tank.png");
+        this.game.load.image("otherTank", "Blue Tank.png");
         this.game.load.image("bullet", "bullet.png");
 
         this.FIREBASE = new util_Firebase();
@@ -34,13 +35,15 @@ class SimpleGame {
         this.map.setCollision([33]);
 
         this.id = this.FIREBASE.generateKey();
-        this.tank = new Tank(this.game, this.game.rnd.integerInRange(0, this.game.width), this.game.rnd.integerInRange(0, this.game.width), "tank", this.id);
+        // this.tank = new Tank(this.game, this.game.rnd.integerInRange(100, this.game.width - 100),
+        //     this.game.rnd.integerInRange(100, this.game.height), "tank", this.id);
+        this.tank = new Tank(this.game, 300, 200, "tank", this.id);
         this.game.add.existing(this.tank);
         this.game.camera.follow(this.tank);
 
         this.FIREBASE.pushNewestPlayer(this.tank.id);
-        this.FIREBASE.checkForPreviousPlayers(this.tank.id, this.game);
-        this.FIREBASE.checkForNewPlayers(this.tank.id, this.game);
+        this.FIREBASE.checkForPreviousPlayers(this.tank.id, this.game, this.layer);
+        this.FIREBASE.checkForNewPlayers(this.tank.id, this.game, this.layer);
         this.FIREBASE.onClose(this.tank.id);
     }
 
@@ -49,7 +52,7 @@ class SimpleGame {
         this.tank.update();
         this.game.physics.arcade.collide(this.tank, this.layer);
         this.game.physics.arcade.collide(this.tank.weapon.bullets, this.layer);
-        // this.FIREBASE.updatePlayerInfo(this.tank.id, this.tank.x, this.tank.y, this.tank.rotation, this.tank.bulletShot);
+        // this.FIREBASE.updatePlayerInfo(this.tank.id, this.tank.x, this.tank.y, this.tank.rotation, this.tank.bulletsShot);
     }
 }
 

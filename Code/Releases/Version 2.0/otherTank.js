@@ -8,13 +8,16 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var TilemapLayer = Phaser.TilemapLayer;
 var otherTank = (function (_super) {
     __extends(otherTank, _super);
-    function otherTank(game, x, y, id) {
-        var _this = _super.call(this, game, x, y, "tank") || this;
+    function otherTank(game, x, y, id, layer) {
+        var _this = _super.call(this, game, x, y, "otherTank") || this;
         _this.game = game;
         _this.id = id;
         _this.FIREBASE = new util_Firebase();
+        _this.bulletsShot = 0;
+        _this.layer = layer;
         _this.anchor.setTo(0.5, 0.5);
         _this.game.physics.arcade.enable(_this);
         _this.weapon = game.add.weapon(30, 'bullet');
@@ -25,15 +28,34 @@ var otherTank = (function (_super) {
         _this.weapon.trackSprite(_this, 0, 0, true);
         _this.weapon.onFire.add(_this.bulletFire);
         _this.FIREBASE.getDatabase().ref("Players/" + _this.id).on("value", function (snap) {
-            _this.x = snap.val().x;
-            _this.y = snap.val().y;
-            _this.rotation = snap.val().r;
+            if (!snap.exists()) {
+                console.log("Player doesn't exist anymore.");
+                _this.destroy();
+            }
+            else {
+                _this.x = snap.val().x;
+                _this.y = snap.val().y;
+                _this.rotation = snap.val().r;
+            }
+        });
+        _this.FIREBASE.getDatabase().ref("Players/" + _this.id).on("value", function (snap) {
+            if (snap.exists()) {
+                if (snap.val().bullet != _this.bulletsShot) {
+                    console.log("Other Player shot bullet.");
+                    while (snap.val().bullet > _this.bulletsShot) {
+                        _this.weapon.fire();
+                        _this.bulletsShot += 1;
+                    }
+                }
+            }
         });
         return _this;
     }
     otherTank.prototype.bulletFire = function (bullet, weapon) {
         bullet.body.bounce.setTo(1, 1);
-        // console.log(bullet);
+    };
+    otherTank.prototype.update = function () {
+        this.game.physics.arcade.collide(this.weapon.bullets, this.layer);
     };
     return otherTank;
 }(Phaser.Sprite));

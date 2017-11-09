@@ -9,7 +9,7 @@ class Tank extends Phaser.Sprite {
     velocity: number;
     weapon: Phaser.Weapon;
     id: any;
-    bulletShot: number;
+    bulletsShot: number;
     FIREBASE: util_Firebase;
 
     constructor(game: Phaser.Game, x: number, y: number, sName: string, id: any) {
@@ -21,7 +21,7 @@ class Tank extends Phaser.Sprite {
 
         this.FIREBASE = new util_Firebase();
 
-        this.bulletShot = 1;
+        this.bulletsShot = 0;
 
         this.anchor.setTo(0.5, 0.5);
         this.game.physics.arcade.enable(this);
@@ -39,7 +39,8 @@ class Tank extends Phaser.Sprite {
         //  With no offsets from the position
         //  But the 'true' argument tells the weapon to track sprite rotation
         this.weapon.trackSprite(this, 0, 0, true);
-        this.weapon.onFire.add(this.bulletFire);
+        this.weapon.onFire.add(this.bulletFire, this);
+        this.weapon.onKill.add(this.bulletDead, this);
 
         this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
         this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
@@ -51,7 +52,13 @@ class Tank extends Phaser.Sprite {
 
     bulletFire(bullet, weapon) {
         bullet.body.bounce.setTo(1, 1);
-        console.log(Math.floor(Math.random() * 100));
+        this.bulletsShot += 1;
+        console.log(this.bulletsShot);
+    }
+
+    bulletDead(sprite) {
+        this.bulletsShot -= 1;
+        console.log(this.bulletsShot);
     }
 
     update() {
@@ -72,7 +79,9 @@ class Tank extends Phaser.Sprite {
             this.game.physics.arcade.velocityFromAngle(this.angle, -this.velocity, this.body.velocity);
         }
 
-        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, 10);
+        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletsShot);
+
+        this.weapon.debug();
 
         if (this.shootKey.isDown) {
             this.weapon.fire();

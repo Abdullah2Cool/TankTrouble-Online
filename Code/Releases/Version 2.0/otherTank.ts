@@ -1,15 +1,21 @@
+import TilemapLayer = Phaser.TilemapLayer;
+
 class otherTank extends Phaser.Sprite {
 
     game: Phaser.Game;
     weapon: Phaser.Weapon;
     id: any;
     FIREBASE: util_Firebase;
+    bulletsShot: number;
+    layer: TilemapLayer;
 
-    constructor(game: Phaser.Game, x: number, y: number, id: any) {
-        super(game, x, y, "tank");
+    constructor(game: Phaser.Game, x: number, y: number, id: any, layer: TilemapLayer) {
+        super(game, x, y, "otherTank");
         this.game = game;
         this.id = id;
         this.FIREBASE = new util_Firebase();
+        this.bulletsShot = 0;
+        this.layer = layer;
 
         this.anchor.setTo(0.5, 0.5);
         this.game.physics.arcade.enable(this);
@@ -24,15 +30,34 @@ class otherTank extends Phaser.Sprite {
 
 
         this.FIREBASE.getDatabase().ref("Players/" + this.id).on("value", snap => {
-            this.x = snap.val().x;
-            this.y = snap.val().y;
-            this.rotation = snap.val().r;
+            if (!snap.exists()) {
+                console.log("Player doesn't exist anymore.")
+                this.destroy();
+            } else {
+                this.x = snap.val().x;
+                this.y = snap.val().y;
+                this.rotation = snap.val().r
+            }
+        });
+        this.FIREBASE.getDatabase().ref("Players/" + this.id).on("value", snap => {
+            if (snap.exists()) {
+                if (snap.val().bullet != this.bulletsShot) {
+                    console.log("Other Player shot bullet.")
+                    while (snap.val().bullet > this.bulletsShot) {
+                        this.weapon.fire();
+                        this.bulletsShot += 1;
+                    }
+                }
+            }
         });
     }
 
     bulletFire(bullet, weapon) {
         bullet.body.bounce.setTo(1, 1);
-        // console.log(bullet);
+    }
+
+    update() {
+        this.game.physics.arcade.collide(this.weapon.bullets, this.layer);
     }
 
 }
