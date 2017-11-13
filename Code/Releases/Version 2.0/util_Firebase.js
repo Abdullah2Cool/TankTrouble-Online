@@ -12,19 +12,19 @@ var util_Firebase = (function () {
             id: playerID
         });
     };
-    util_Firebase.prototype.checkForNewPlayers = function (myID, game, layer) {
+    util_Firebase.prototype.checkForNewPlayers = function (myID, game, layer, tank) {
         var ref = this.database.ref("New");
         ref.on("value", function (snap) {
             var id = snap.val().id;
             if (id != myID) {
                 console.log("Newest Player: " + id);
-                var otherPlayer = new otherTank(game, 0, 0, id, layer);
+                var otherPlayer = new otherTank(game, 0, 0, id, layer, tank);
                 game.add.existing(otherPlayer);
                 // console.log(otherPlayer);
             }
         });
     };
-    util_Firebase.prototype.checkForPreviousPlayers = function (myID, game, layer) {
+    util_Firebase.prototype.checkForPreviousPlayers = function (myID, game, layer, tank) {
         var ref = this.database.ref("Players");
         ref.once("value")
             .then(function (snapshot) {
@@ -33,7 +33,7 @@ var util_Firebase = (function () {
                 if (otherID != myID) {
                     console.log("Previous Player's Id: " + otherID);
                     // console.log("My myID: " + myID);
-                    var otherPlayer = new otherTank(game, 0, 0, otherID, layer);
+                    var otherPlayer = new otherTank(game, 0, 0, otherID, layer, tank);
                     // console.log(otherPlayer);
                     game.add.existing(otherPlayer);
                 }

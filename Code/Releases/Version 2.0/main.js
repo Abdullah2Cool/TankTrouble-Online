@@ -25,19 +25,16 @@ var SimpleGame = (function () {
         this.id = this.FIREBASE.generateKey();
         // this.tank = new Tank(this.game, this.game.rnd.integerInRange(100, this.game.width - 100),
         //     this.game.rnd.integerInRange(100, this.game.height), "tank", this.id);
-        this.tank = new Tank(this.game, 300, 200, "tank", this.id);
+        this.tank = new Tank(this.game, 300, 200, "tank", this.id, this.layer);
         this.game.add.existing(this.tank);
         this.game.camera.follow(this.tank);
         this.FIREBASE.pushNewestPlayer(this.tank.id);
-        this.FIREBASE.checkForPreviousPlayers(this.tank.id, this.game, this.layer);
-        this.FIREBASE.checkForNewPlayers(this.tank.id, this.game, this.layer);
+        this.FIREBASE.checkForPreviousPlayers(this.tank.id, this.game, this.layer, this.tank);
+        this.FIREBASE.checkForNewPlayers(this.tank.id, this.game, this.layer, this.tank);
         this.FIREBASE.onClose(this.tank.id);
     };
     SimpleGame.prototype.update = function () {
-        this.tank.update();
-        this.game.physics.arcade.collide(this.tank, this.layer);
-        this.game.physics.arcade.collide(this.tank.weapon.bullets, this.layer);
-        // this.FIREBASE.updatePlayerInfo(this.tank.id, this.tank.x, this.tank.y, this.tank.rotation, this.tank.bulletsShot);
+        // this.tank.update();
     };
     return SimpleGame;
 }());

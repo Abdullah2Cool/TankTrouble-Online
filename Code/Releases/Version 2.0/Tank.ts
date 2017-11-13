@@ -11,15 +11,19 @@ class Tank extends Phaser.Sprite {
     id: any;
     bulletsShot: number;
     FIREBASE: util_Firebase;
+    layer: TilemapLayer;
+    otherTanks: Phaser.Group;
 
-    constructor(game: Phaser.Game, x: number, y: number, sName: string, id: any) {
+    constructor(game: Phaser.Game, x: number, y: number, sName: string, id: any, layer: TilemapLayer) {
         super(game, x, y, sName);
         this.game = game;
         this.sName = sName;
         this.velocity = 250;
         this.id = id;
+        this.layer = layer;
 
         this.FIREBASE = new util_Firebase();
+        this.otherTanks = game.add.group();
 
         this.bulletsShot = 0;
 
@@ -62,6 +66,14 @@ class Tank extends Phaser.Sprite {
     }
 
     update() {
+        this.game.physics.arcade.collide(this, this.layer);
+        this.game.physics.arcade.collide(this.weapon.bullets, this.layer);
+        this.game.physics.arcade.collide(this, this.weapon.bullets, this.bulletHit);
+        this.otherTanks.forEach(function(otherTank) {
+            this.game.physics.arcade.collide(otherTank, this.weapon.bullets, this.bulletHit);
+        }, this);
+        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletsShot);
+
         this.body.velocity.x = 0;
         this.body.velocity.y = 0;
         this.body.angularVelocity = 0;
@@ -78,14 +90,16 @@ class Tank extends Phaser.Sprite {
         } else if (this.downKey.isDown) {
             this.game.physics.arcade.velocityFromAngle(this.angle, -this.velocity, this.body.velocity);
         }
-
-        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletsShot);
-
-        this.weapon.debug();
-
         if (this.shootKey.isDown) {
             this.weapon.fire();
         }
+
+        this.weapon.debug();
+    }
+
+    bulletHit(tank, bullet) {
+        console.log(bullet);
+        bullet.kill();
     }
 
 }

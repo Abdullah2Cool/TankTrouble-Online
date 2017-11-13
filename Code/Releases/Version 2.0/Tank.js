@@ -10,13 +10,15 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var Tank = (function (_super) {
     __extends(Tank, _super);
-    function Tank(game, x, y, sName, id) {
+    function Tank(game, x, y, sName, id, layer) {
         var _this = _super.call(this, game, x, y, sName) || this;
         _this.game = game;
         _this.sName = sName;
         _this.velocity = 250;
         _this.id = id;
+        _this.layer = layer;
         _this.FIREBASE = new util_Firebase();
+        _this.otherTanks = game.add.group();
         _this.bulletsShot = 0;
         _this.anchor.setTo(0.5, 0.5);
         _this.game.physics.arcade.enable(_this);
@@ -53,6 +55,13 @@ var Tank = (function (_super) {
         console.log(this.bulletsShot);
     };
     Tank.prototype.update = function () {
+        this.game.physics.arcade.collide(this, this.layer);
+        this.game.physics.arcade.collide(this.weapon.bullets, this.layer);
+        this.game.physics.arcade.collide(this, this.weapon.bullets, this.bulletHit);
+        this.otherTanks.forEach(function (otherTank) {
+            this.game.physics.arcade.collide(otherTank, this.weapon.bullets, this.bulletHit);
+        }, this);
+        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletsShot);
         this.body.velocity.x = 0;
         this.body.velocity.y = 0;
         this.body.angularVelocity = 0;
@@ -68,11 +77,14 @@ var Tank = (function (_super) {
         else if (this.downKey.isDown) {
             this.game.physics.arcade.velocityFromAngle(this.angle, -this.velocity, this.body.velocity);
         }
-        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletsShot);
-        this.weapon.debug();
         if (this.shootKey.isDown) {
             this.weapon.fire();
         }
+        this.weapon.debug();
+    };
+    Tank.prototype.bulletHit = function (tank, bullet) {
+        console.log(bullet);
+        bullet.kill();
     };
     return Tank;
 }(Phaser.Sprite));

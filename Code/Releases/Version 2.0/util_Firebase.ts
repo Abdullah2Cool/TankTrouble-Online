@@ -19,21 +19,21 @@ class util_Firebase {
         });
     }
 
-    checkForNewPlayers(myID: any, game: Phaser.Game, layer: TilemapLayer) {
+    checkForNewPlayers(myID: any, game: Phaser.Game, layer: TilemapLayer, tank: Tank) {
         let ref = this.database.ref("New");
 
         ref.on("value", snap => {
             let id = snap.val().id;
             if (id != myID) {
                 console.log("Newest Player: " + id);
-                let otherPlayer = new otherTank(game, 0, 0, id, layer);
+                let otherPlayer = new otherTank(game, 0, 0, id, layer, tank);
                 game.add.existing(otherPlayer);
                 // console.log(otherPlayer);
             }
         });
     }
 
-    checkForPreviousPlayers(myID: any, game: Phaser.Game, layer: TilemapLayer) {
+    checkForPreviousPlayers(myID: any, game: Phaser.Game, layer: TilemapLayer, tank: Tank) {
         let ref = this.database.ref("Players");
 
         ref.once("value")
@@ -43,7 +43,7 @@ class util_Firebase {
                     if (otherID != myID) {
                         console.log("Previous Player's Id: " + otherID);
                         // console.log("My myID: " + myID);
-                        let otherPlayer = new otherTank(game, 0, 0, otherID, layer);
+                        let otherPlayer = new otherTank(game, 0, 0, otherID, layer, tank);
                         // console.log(otherPlayer);
                         game.add.existing(otherPlayer);
                     }

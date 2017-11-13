@@ -8,14 +8,16 @@ class otherTank extends Phaser.Sprite {
     FIREBASE: util_Firebase;
     bulletsShot: number;
     layer: TilemapLayer;
+    tank: Tank;
 
-    constructor(game: Phaser.Game, x: number, y: number, id: any, layer: TilemapLayer) {
+    constructor(game: Phaser.Game, x: number, y: number, id: any, layer: TilemapLayer, tank: Tank) {
         super(game, x, y, "otherTank");
         this.game = game;
         this.id = id;
         this.FIREBASE = new util_Firebase();
         this.bulletsShot = 0;
         this.layer = layer;
+        this.tank = tank;
 
         this.anchor.setTo(0.5, 0.5);
         this.game.physics.arcade.enable(this);
@@ -26,7 +28,10 @@ class otherTank extends Phaser.Sprite {
         this.weapon.bulletSpeed = 300;
         this.weapon.fireRate = 100;
         this.weapon.trackSprite(this, 0, 0, true);
-        this.weapon.onFire.add(this.bulletFire);
+        this.weapon.onFire.add(this.bulletFire, this);
+        this.weapon.onKill.add(this.bulletDead, this);
+
+        this.body.immovable = true;
 
 
         this.FIREBASE.getDatabase().ref("Players/" + this.id).on("value", snap => {
@@ -43,7 +48,9 @@ class otherTank extends Phaser.Sprite {
             if (snap.exists()) {
                 if (snap.val().bullet != this.bulletsShot) {
                     console.log("Other Player shot bullet.")
+                    this.weapon.trackSprite(this, 0, 0, true);
                     while (snap.val().bullet > this.bulletsShot) {
+                        console.log("Bullets remaining to shoot: " + (snap.val().bullet - this.bulletsShot));
                         this.weapon.fire();
                         this.bulletsShot += 1;
                     }
@@ -56,8 +63,18 @@ class otherTank extends Phaser.Sprite {
         bullet.body.bounce.setTo(1, 1);
     }
 
+    bulletDead(sprite) {
+        this.bulletsShot -= 1;
+    }
+
     update() {
         this.game.physics.arcade.collide(this.weapon.bullets, this.layer);
+        this.game.physics.arcade.collide(this.tank, this.weapon.bullets, this.bulletHit);
+    }
+
+    bulletHit(tank, bullet) {
+        console.log("Other tank shot me.");
+        bullet.kill();
     }
 
 }
