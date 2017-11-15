@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0fafefc6-e570-44dc-9b2c-36eed897335d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../Documents/Journal.docx" afterPath="$PROJECT_DIR$/../../../Documents/Journal.docx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tank.js" afterPath="$PROJECT_DIR$/Tank.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tank.js.map" afterPath="$PROJECT_DIR$/Tank.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tank.ts" afterPath="$PROJECT_DIR$/Tank.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.js" afterPath="$PROJECT_DIR$/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.js.map" afterPath="$PROJECT_DIR$/main.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.ts" afterPath="$PROJECT_DIR$/main.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/otherTank.js" afterPath="$PROJECT_DIR$/otherTank.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/otherTank.js.map" afterPath="$PROJECT_DIR$/otherTank.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/otherTank.ts" afterPath="$PROJECT_DIR$/otherTank.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util_Firebase.js" afterPath="$PROJECT_DIR$/util_Firebase.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util_Firebase.js.map" afterPath="$PROJECT_DIR$/util_Firebase.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util_Firebase.ts" afterPath="$PROJECT_DIR$/util_Firebase.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -187,12 +173,12 @@
       <workItem from="1510285818155" duration="2043000" />
       <workItem from="1510338813592" duration="954000" />
       <workItem from="1510341304787" duration="344000" />
-      <workItem from="1510765057009" duration="410000" />
+      <workItem from="1510765057009" duration="438000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23957000" />
+    <option name="totallyTimeSpent" value="23985000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
