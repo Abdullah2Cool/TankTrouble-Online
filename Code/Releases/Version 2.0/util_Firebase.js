@@ -2,7 +2,6 @@ var firebase;
 var util_Firebase = (function () {
     function util_Firebase() {
         this.database = firebase.database();
-        // this.simpleGame = simpleGame;
     }
     util_Firebase.prototype.generateKey = function () {
         return this.database.ref().push().key;
@@ -19,8 +18,7 @@ var util_Firebase = (function () {
             if (id != myID) {
                 console.log("Newest Player: " + id);
                 var otherPlayer = new otherTank(game, 0, 0, id, layer, tank);
-                game.add.existing(otherPlayer);
-                // console.log(otherPlayer);
+                tank.addNewPlayer(otherPlayer);
             }
         });
     };
@@ -32,10 +30,8 @@ var util_Firebase = (function () {
                 var otherID = childSnapshot.key;
                 if (otherID != myID) {
                     console.log("Previous Player's Id: " + otherID);
-                    // console.log("My myID: " + myID);
                     var otherPlayer = new otherTank(game, 0, 0, otherID, layer, tank);
-                    // console.log(otherPlayer);
-                    game.add.existing(otherPlayer);
+                    tank.addNewPlayer(otherPlayer);
                 }
             });
         });
@@ -46,7 +42,7 @@ var util_Firebase = (function () {
             x: x,
             y: y,
             r: r,
-            bullet: bullet
+            bullets: bullet
         });
     };
     util_Firebase.prototype.onClose = function (myID) {

@@ -9,10 +9,11 @@ class Tank extends Phaser.Sprite {
     velocity: number;
     weapon: Phaser.Weapon;
     id: any;
-    bulletsShot: number;
     FIREBASE: util_Firebase;
     layer: TilemapLayer;
     otherTanks: Phaser.Group;
+    maxBullets: number = 6;
+    bulletInfo = []
 
     constructor(game: Phaser.Game, x: number, y: number, sName: string, id: any, layer: TilemapLayer) {
         super(game, x, y, sName);
@@ -25,13 +26,15 @@ class Tank extends Phaser.Sprite {
         this.FIREBASE = new util_Firebase();
         this.otherTanks = game.add.group();
 
-        this.bulletsShot = 0;
+        for (let i = 0; i < this.maxBullets; i++) {
+            this.bulletInfo.push(0);
+        }
 
         this.anchor.setTo(0.5, 0.5);
         this.game.physics.arcade.enable(this);
         // this.scale.setTo(0.8, 0.8);
         //  Creates 30 bullets, using the 'bullet' graphic
-        this.weapon = game.add.weapon(30, 'bullet');
+        this.weapon = game.add.weapon(this.maxBullets, 'bullet');
         //  The bullets will be automatically killed when they are 2000ms old
         this.weapon.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
         this.weapon.bulletLifespan = 6000;
@@ -42,9 +45,11 @@ class Tank extends Phaser.Sprite {
         //  Tell the Weapon to track the 'player' Sprite
         //  With no offsets from the position
         //  But the 'true' argument tells the weapon to track sprite rotation
-        this.weapon.trackSprite(this, 0, 0, true);
+        this.weapon.trackSprite(this, 34, 0, true);
         this.weapon.onFire.add(this.bulletFire, this);
         this.weapon.onKill.add(this.bulletDead, this);
+
+        this.body.immovable = true;
 
         this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
         this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
@@ -56,23 +61,24 @@ class Tank extends Phaser.Sprite {
 
     bulletFire(bullet, weapon) {
         bullet.body.bounce.setTo(1, 1);
-        this.bulletsShot += 1;
-        console.log(this.bulletsShot);
+        this.game.world.bringToTop(this);
     }
 
     bulletDead(sprite) {
-        this.bulletsShot -= 1;
-        console.log(this.bulletsShot);
+
     }
 
     update() {
+        // collide with the map
         this.game.physics.arcade.collide(this, this.layer);
+        // collide the bullets with the map
         this.game.physics.arcade.collide(this.weapon.bullets, this.layer);
+        // collide with the the bullets
         this.game.physics.arcade.collide(this, this.weapon.bullets, this.bulletHit);
-        this.otherTanks.forEach(function(otherTank) {
+        // collide with other tank's bullets
+        this.otherTanks.forEach(function (otherTank) {
             this.game.physics.arcade.collide(otherTank, this.weapon.bullets, this.bulletHit);
         }, this);
-        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletsShot);
 
         this.body.velocity.x = 0;
         this.body.velocity.y = 0;
@@ -93,13 +99,42 @@ class Tank extends Phaser.Sprite {
         if (this.shootKey.isDown) {
             this.weapon.fire();
         }
+        let x = 0;
+        this.weapon.bullets.forEach(function (bull) {
+            if (bull.alive) {
+                this.bulletInfo[x] = 1;
+            } else {
+                this.bulletInfo[x] = 0;
+            }
+            x++;
+        }, this);
+        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletInfo);
 
-        this.weapon.debug();
     }
 
     bulletHit(tank, bullet) {
-        console.log(bullet);
+        // console.log(bullet);
         bullet.kill();
+        // tank.resetTank();
+    }
+
+    addNewPlayer(player: otherTank) {
+        this.otherTanks.add(player);
+        this.otherTanks.forEach(function (tank: otherTank) {
+            tank.setOtherTanks(this.otherTanks);
+        }, this);
+    }
+
+    getOtherPlayers(): Phaser.Group {
+        return this.otherTanks;
+    }
+
+    resetTank() {
+        this.x = Math.floor(50 + Math.random() * 200);
+        this.y = Math.floor(50 + Math.random() * 200);
+        this.weapon.bullets.forEach(function (bull) {
+            bull.kill();
+        }, this);
     }
 
 }

@@ -6,7 +6,6 @@ class util_Firebase {
 
     constructor() {
         this.database = firebase.database();
-        // this.simpleGame = simpleGame;
     }
 
     generateKey(): number {
@@ -27,8 +26,7 @@ class util_Firebase {
             if (id != myID) {
                 console.log("Newest Player: " + id);
                 let otherPlayer = new otherTank(game, 0, 0, id, layer, tank);
-                game.add.existing(otherPlayer);
-                // console.log(otherPlayer);
+                tank.addNewPlayer(otherPlayer);
             }
         });
     }
@@ -42,22 +40,20 @@ class util_Firebase {
                     let otherID = childSnapshot.key;
                     if (otherID != myID) {
                         console.log("Previous Player's Id: " + otherID);
-                        // console.log("My myID: " + myID);
                         let otherPlayer = new otherTank(game, 0, 0, otherID, layer, tank);
-                        // console.log(otherPlayer);
-                        game.add.existing(otherPlayer);
+                        tank.addNewPlayer(otherPlayer);
                     }
                 })
             });
     }
 
-    updatePlayerInfo(playerID: any, x: number, y: number, r: number, bullet: number) {
+    updatePlayerInfo(playerID: any, x: number, y: number, r: number, bullet) {
         var ref = this.database.ref("Players/" + playerID);
         ref.set({
             x: x,
             y: y,
             r: r,
-            bullet: bullet
+            bullets: bullet
         });
     }
 

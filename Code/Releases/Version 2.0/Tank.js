@@ -12,6 +12,8 @@ var Tank = (function (_super) {
     __extends(Tank, _super);
     function Tank(game, x, y, sName, id, layer) {
         var _this = _super.call(this, game, x, y, sName) || this;
+        _this.maxBullets = 6;
+        _this.bulletInfo = [];
         _this.game = game;
         _this.sName = sName;
         _this.velocity = 250;
@@ -19,12 +21,14 @@ var Tank = (function (_super) {
         _this.layer = layer;
         _this.FIREBASE = new util_Firebase();
         _this.otherTanks = game.add.group();
-        _this.bulletsShot = 0;
+        for (var i = 0; i < _this.maxBullets; i++) {
+            _this.bulletInfo.push(0);
+        }
         _this.anchor.setTo(0.5, 0.5);
         _this.game.physics.arcade.enable(_this);
         // this.scale.setTo(0.8, 0.8);
         //  Creates 30 bullets, using the 'bullet' graphic
-        _this.weapon = game.add.weapon(30, 'bullet');
+        _this.weapon = game.add.weapon(_this.maxBullets, 'bullet');
         //  The bullets will be automatically killed when they are 2000ms old
         _this.weapon.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
         _this.weapon.bulletLifespan = 6000;
@@ -35,9 +39,10 @@ var Tank = (function (_super) {
         //  Tell the Weapon to track the 'player' Sprite
         //  With no offsets from the position
         //  But the 'true' argument tells the weapon to track sprite rotation
-        _this.weapon.trackSprite(_this, 0, 0, true);
+        _this.weapon.trackSprite(_this, 34, 0, true);
         _this.weapon.onFire.add(_this.bulletFire, _this);
         _this.weapon.onKill.add(_this.bulletDead, _this);
+        _this.body.immovable = true;
         _this.upKey = _this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
         _this.downKey = _this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
         _this.lefKey = _this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
@@ -47,21 +52,21 @@ var Tank = (function (_super) {
     }
     Tank.prototype.bulletFire = function (bullet, weapon) {
         bullet.body.bounce.setTo(1, 1);
-        this.bulletsShot += 1;
-        console.log(this.bulletsShot);
+        this.game.world.bringToTop(this);
     };
     Tank.prototype.bulletDead = function (sprite) {
-        this.bulletsShot -= 1;
-        console.log(this.bulletsShot);
     };
     Tank.prototype.update = function () {
+        // collide with the map
         this.game.physics.arcade.collide(this, this.layer);
+        // collide the bullets with the map
         this.game.physics.arcade.collide(this.weapon.bullets, this.layer);
+        // collide with the the bullets
         this.game.physics.arcade.collide(this, this.weapon.bullets, this.bulletHit);
+        // collide with other tank's bullets
         this.otherTanks.forEach(function (otherTank) {
             this.game.physics.arcade.collide(otherTank, this.weapon.bullets, this.bulletHit);
         }, this);
-        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletsShot);
         this.body.velocity.x = 0;
         this.body.velocity.y = 0;
         this.body.angularVelocity = 0;
@@ -80,11 +85,38 @@ var Tank = (function (_super) {
         if (this.shootKey.isDown) {
             this.weapon.fire();
         }
-        this.weapon.debug();
+        var x = 0;
+        this.weapon.bullets.forEach(function (bull) {
+            if (bull.alive) {
+                this.bulletInfo[x] = 1;
+            }
+            else {
+                this.bulletInfo[x] = 0;
+            }
+            x++;
+        }, this);
+        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletInfo);
     };
     Tank.prototype.bulletHit = function (tank, bullet) {
-        console.log(bullet);
+        // console.log(bullet);
         bullet.kill();
+        // tank.resetTank();
+    };
+    Tank.prototype.addNewPlayer = function (player) {
+        this.otherTanks.add(player);
+        this.otherTanks.forEach(function (tank) {
+            tank.setOtherTanks(this.otherTanks);
+        }, this);
+    };
+    Tank.prototype.getOtherPlayers = function () {
+        return this.otherTanks;
+    };
+    Tank.prototype.resetTank = function () {
+        this.x = Math.floor(50 + Math.random() * 200);
+        this.y = Math.floor(50 + Math.random() * 200);
+        this.weapon.bullets.forEach(function (bull) {
+            bull.kill();
+        }, this);
     };
     return Tank;
 }(Phaser.Sprite));

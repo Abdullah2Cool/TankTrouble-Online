@@ -6,8 +6,8 @@ class SimpleGame {
     FIREBASE: util_Firebase;
     id: any;
 
-    constructor() {
-        this.game = new Phaser.Game(1200, 700, Phaser.AUTO, 'content', {
+    constructor(divID: string) {
+        this.game = new Phaser.Game(900, 800, Phaser.AUTO, divID, {
             preload: this.preload,
             create: this.create,
             update: this.update
@@ -54,5 +54,6 @@ class SimpleGame {
 }
 
 window.onload = () => {
-    var game = new SimpleGame();
+    var game1 = new SimpleGame("content");
+    // var game2 = new SimpleGame("second");
 };

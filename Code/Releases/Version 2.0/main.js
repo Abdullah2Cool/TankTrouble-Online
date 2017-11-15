@@ -1,6 +1,6 @@
 var SimpleGame = (function () {
-    function SimpleGame() {
-        this.game = new Phaser.Game(1200, 700, Phaser.AUTO, 'content', {
+    function SimpleGame(divID) {
+        this.game = new Phaser.Game(900, 800, Phaser.AUTO, divID, {
             preload: this.preload,
             create: this.create,
             update: this.update
@@ -39,6 +39,7 @@ var SimpleGame = (function () {
     return SimpleGame;
 }());
 window.onload = function () {
-    var game = new SimpleGame();
+    var game1 = new SimpleGame("content");
+    // var game2 = new SimpleGame("second");
 };
 //# sourceMappingURL=main.js.map
