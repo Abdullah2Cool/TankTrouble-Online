@@ -72,17 +72,17 @@ class Tank extends Phaser.Sprite {
         this.displayName = this.game.add.text(0, 0, this.sName, style);
         this.displayName.anchor.set(0.5, 0.5);
 
-        this.JoyStickPlugin = this.game.plugins.add(Phaser.VirtualJoystick as any);
+        this.JoyStickPlugin = this.game.plugins.add(Phaser.VirtualJoystick);
         this.stick = this.JoyStickPlugin.addStick(0, 0, 100, 'arcade');
-        this.stick.scale = 0.6;
-        this.stick.alignBottomLeft(60);
+        this.stick.scale = 0.5;
+        this.stick.alignBottomLeft(0);
         // this.stick.showOnTouch = true;
 
         this.shootButton = this.JoyStickPlugin.addButton(0, 0, 'arcade', 'button3-up', 'button3-down');
         this.shootButton.onDown.add(function () {
             this.weapon.fire();
         }, this);
-        this.shootButton.alignBottomRight(60);
+        this.shootButton.alignBottomRight(0);
         this.shootButton.scale = 0.9;
     }
 

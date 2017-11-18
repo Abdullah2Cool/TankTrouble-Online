@@ -58,14 +58,14 @@ var Tank = (function (_super) {
         _this.displayName.anchor.set(0.5, 0.5);
         _this.JoyStickPlugin = _this.game.plugins.add(Phaser.VirtualJoystick);
         _this.stick = _this.JoyStickPlugin.addStick(0, 0, 100, 'arcade');
-        _this.stick.scale = 0.6;
-        _this.stick.alignBottomLeft(60);
+        _this.stick.scale = 0.5;
+        _this.stick.alignBottomLeft(0);
         // this.stick.showOnTouch = true;
         _this.shootButton = _this.JoyStickPlugin.addButton(0, 0, 'arcade', 'button3-up', 'button3-down');
         _this.shootButton.onDown.add(function () {
             this.weapon.fire();
         }, _this);
-        _this.shootButton.alignBottomRight(60);
+        _this.shootButton.alignBottomRight(0);
         _this.shootButton.scale = 0.9;
         return _this;
     }

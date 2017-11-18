@@ -87,7 +87,6 @@ declare class Phaser {
     static BOTTOM_CENTER: number;
     static BOTTOM_RIGHT: number;
 
-
 }
 
 declare module Phaser {
