@@ -23601,26 +23601,26 @@ Phaser.Utils = {
     * Takes the given string and pads it out, to the length required, using the character
     * specified. For example if you need a string to be 6 characters long, you can call:
     *
-    * `pad('bob', 6, '-', 2)`
+    * `JoyStickPlugin('bob', 6, '-', 2)`
     *
     * This would return: `bob---` as it has padded it out to 6 characters, using the `-` on the right.
     *
-    * You can also use it to pad numbers (they are always returned as strings):
+    * You can also use it to JoyStickPlugin numbers (they are always returned as strings):
     * 
-    * `pad(512, 6, '0', 1)`
+    * `JoyStickPlugin(512, 6, '0', 1)`
     *
     * Would return: `000512` with the string padded to the left.
     *
-    * If you don't specify a direction it'll pad to both sides:
+    * If you don't specify a direction it'll JoyStickPlugin to both sides:
     * 
-    * `pad('c64', 7, '*')`
+    * `JoyStickPlugin('c64', 7, '*')`
     *
     * Would return: `**c64**`
     *
-    * @method Phaser.Utils.pad
+    * @method Phaser.Utils.JoyStickPlugin
     * @param {string} str - The target string. `toString()` will be called on the string, which means you can also pass in common data types like numbers.
     * @param {integer} [len=0] - The number of characters to be added.
-    * @param {string} [pad=" "] - The string to pad it out with (defaults to a space).
+    * @param {string} [pad=" "] - The string to JoyStickPlugin it out with (defaults to a space).
     * @param {integer} [dir=3] - The direction dir = 1 (left), 2 (right), 3 (both).
     * @return {string} The padded string.
     */
@@ -36396,7 +36396,7 @@ Phaser.Game.prototype = {
     },
 
     /**
-    * Enable core game loop stepping. When enabled you must call game.step() directly (perhaps via a DOM button?)
+    * Enable core game loop stepping. When enabled you must call game.step() directly (perhaps via a DOM playButton?)
     * Calling step will advance the game loop by one frame. This is extremely useful for hard to track down errors!
     *
     * @method Phaser.Game#enableStep
@@ -36422,7 +36422,7 @@ Phaser.Game.prototype = {
     },
 
     /**
-    * When stepping is enabled you must call this function directly (perhaps via a DOM button?) to advance the game loop by one frame.
+    * When stepping is enabled you must call this function directly (perhaps via a DOM playButton?) to advance the game loop by one frame.
     * This is extremely useful to hard to track down errors! Use the internal stepCount property to monitor progress.
     *
     * @method Phaser.Game#step
@@ -37785,7 +37785,7 @@ Object.defineProperty(Phaser.Input.prototype, "worldY", {
 * when not over the game.
 *
 * You should not normally access this class directly, but instead use a Phaser.Pointer object
-* which normalises all game input for you, including accurate button handling.
+* which normalises all game input for you, including accurate playButton handling.
 *
 * @class Phaser.Mouse
 * @constructor
@@ -37841,9 +37841,9 @@ Phaser.Mouse = function (game) {
 
     /**
     * This property was removed in Phaser 2.4 and should no longer be used.
-    * Instead please see the Pointer button properties such as `Pointer.leftButton`, `Pointer.rightButton` and so on.
-    * Or Pointer.button holds the DOM event button value if you require that.
-    * @property {number} button
+    * Instead please see the Pointer playButton properties such as `Pointer.leftButton`, `Pointer.rightButton` and so on.
+    * Or Pointer.playButton holds the DOM event playButton value if you require that.
+    * @property {number} playButton
     * @default
     */
     this.button = -1;
@@ -38504,9 +38504,9 @@ Object.defineProperties(WheelEventProxy.prototype, {
 * http://msdn.microsoft.com/en-us/library/ie/hh673557(v=vs.85).aspx
 *
 * You should not normally access this class directly, but instead use a Phaser.Pointer object which 
-* normalises all game input for you including accurate button handling.
+* normalises all game input for you including accurate playButton handling.
 *
-* Please note that at the current time of writing Phaser does not yet support chorded button interactions:
+* Please note that at the current time of writing Phaser does not yet support chorded playButton interactions:
 * http://www.w3.org/TR/pointerevents/#chorded-button-interactions
 *
 * @class Phaser.MSPointer
@@ -38553,9 +38553,9 @@ Phaser.MSPointer = function (game) {
 
     /**
     * This property was removed in Phaser 2.4 and should no longer be used.
-    * Instead please see the Pointer button properties such as `Pointer.leftButton`, `Pointer.rightButton` and so on.
-    * Or Pointer.button holds the DOM event button value if you require that.
-    * @property {number} button
+    * Instead please see the Pointer playButton properties such as `Pointer.leftButton`, `Pointer.rightButton` and so on.
+    * Or Pointer.playButton holds the DOM event playButton value if you require that.
+    * @property {number} playButton
     */
     this.button = -1;
 
@@ -38952,30 +38952,30 @@ Phaser.MSPointer.prototype.constructor = Phaser.MSPointer;
 /**
 * DeviceButtons belong to both `Phaser.Pointer` and `Phaser.SinglePad` (Gamepad) instances.
 *
-* For Pointers they represent the various buttons that can exist on mice and pens, such as the left button, right button,
-* middle button and advanced buttons like back and forward.
+* For Pointers they represent the various buttons that can exist on mice and pens, such as the left playButton, right playButton,
+* middle playButton and advanced buttons like back and forward.
 *
 * Access them via `Pointer.leftbutton`, `Pointer.rightButton` and so on.
 *
-* On Gamepads they represent all buttons on the pad: from shoulder buttons to action buttons.
+* On Gamepads they represent all buttons on the JoyStickPlugin: from shoulder buttons to action buttons.
 *
 * At the time of writing this there are device limitations you should be aware of:
 *
-* - On Windows, if you install a mouse driver, and its utility software allows you to customize button actions 
-*   (e.g., IntelliPoint and SetPoint), the middle (wheel) button, the 4th button, and the 5th button might not be set, 
+* - On Windows, if you install a mouse driver, and its utility software allows you to customize playButton actions
+*   (e.g., IntelliPoint and SetPoint), the middle (wheel) playButton, the 4th playButton, and the 5th playButton might not be set,
 *   even when they are pressed.
-* - On Linux (GTK), the 4th button and the 5th button are not supported.
+* - On Linux (GTK), the 4th playButton and the 5th playButton are not supported.
 * - On Mac OS X 10.5 there is no platform API for implementing any advanced buttons.
 * 
 * @class Phaser.DeviceButton
 * @constructor
-* @param {Phaser.Pointer|Phaser.SinglePad} parent - A reference to the parent of this button. Either a Pointer or a Gamepad.
-* @param {number} buttonCode - The button code this DeviceButton is responsible for.
+* @param {Phaser.Pointer|Phaser.SinglePad} parent - A reference to the parent of this playButton. Either a Pointer or a Gamepad.
+* @param {number} buttonCode - The playButton code this DeviceButton is responsible for.
 */
 Phaser.DeviceButton = function (parent, buttonCode) {
 
     /**
-    * @property {Phaser.Pointer|Phaser.SinglePad} parent - A reference to the Pointer or Gamepad that owns this button.
+    * @property {Phaser.Pointer|Phaser.SinglePad} parent - A reference to the Pointer or Gamepad that owns this playButton.
     */
     this.parent = parent;
 
@@ -38985,45 +38985,45 @@ Phaser.DeviceButton = function (parent, buttonCode) {
     this.game = parent.game;
 
     /**
-    * @property {object} event - The DOM event that caused the change in button state.
+    * @property {object} event - The DOM event that caused the change in playButton state.
     * @default
     */
     this.event = null;
 
     /**
-    * @property {boolean} isDown - The "down" state of the button.
+    * @property {boolean} isDown - The "down" state of the playButton.
     * @default
     */
     this.isDown = false;
 
     /**
-    * @property {boolean} isUp - The "up" state of the button.
+    * @property {boolean} isUp - The "up" state of the playButton.
     * @default
     */
     this.isUp = true;
 
     /**
-    * @property {number} timeDown - The timestamp when the button was last pressed down.
+    * @property {number} timeDown - The timestamp when the playButton was last pressed down.
     * @default
     */
     this.timeDown = 0;
 
     /**
-    * @property {number} timeUp - The timestamp when the button was last released.
+    * @property {number} timeUp - The timestamp when the playButton was last released.
     * @default
     */
     this.timeUp = 0;
 
     /**
     * Gamepad only.
-    * If a button is held down this holds down the number of times the button has 'repeated'.
+    * If a playButton is held down this holds down the number of times the playButton has 'repeated'.
     * @property {number} repeats
     * @default
     */
     this.repeats = 0;
 
     /**
-    * True if the alt key was held down when this button was last pressed or released.
+    * True if the alt key was held down when this playButton was last pressed or released.
     * Not supported on Gamepads.
     * @property {boolean} altKey
     * @default
@@ -39031,7 +39031,7 @@ Phaser.DeviceButton = function (parent, buttonCode) {
     this.altKey = false;
 
     /**
-    * True if the shift key was held down when this button was last pressed or released.
+    * True if the shift key was held down when this playButton was last pressed or released.
     * Not supported on Gamepads.
     * @property {boolean} shiftKey
     * @default
@@ -39039,7 +39039,7 @@ Phaser.DeviceButton = function (parent, buttonCode) {
     this.shiftKey = false;
 
     /**
-    * True if the control key was held down when this button was last pressed or released.
+    * True if the control key was held down when this playButton was last pressed or released.
     * Not supported on Gamepads.
     * @property {boolean} ctrlKey
     * @default
@@ -39053,22 +39053,22 @@ Phaser.DeviceButton = function (parent, buttonCode) {
     this.value = 0;
 
     /**
-    * @property {number} buttonCode - The buttoncode of this button if a Gamepad, or the DOM button event value if a Pointer.
+    * @property {number} buttonCode - The buttoncode of this playButton if a Gamepad, or the DOM playButton event value if a Pointer.
     */
     this.buttonCode = buttonCode;
 
     /**
     * This Signal is dispatched every time this DeviceButton is pressed down.
-    * It is only dispatched once (until the button is released again).
-    * When dispatched it sends 2 arguments: A reference to this DeviceButton and the value of the button.
+    * It is only dispatched once (until the playButton is released again).
+    * When dispatched it sends 2 arguments: A reference to this DeviceButton and the value of the playButton.
     * @property {Phaser.Signal} onDown
     */
     this.onDown = new Phaser.Signal();
 
     /**
     * This Signal is dispatched every time this DeviceButton is released from a down state.
-    * It is only dispatched once (until the button is pressed again).
-    * When dispatched it sends 2 arguments: A reference to this DeviceButton and the value of the button.
+    * It is only dispatched once (until the playButton is pressed again).
+    * When dispatched it sends 2 arguments: A reference to this DeviceButton and the value of the playButton.
     * @property {Phaser.Signal} onUp
     */
     this.onUp = new Phaser.Signal();
@@ -39076,7 +39076,7 @@ Phaser.DeviceButton = function (parent, buttonCode) {
     /**
     * Gamepad only.
     * This Signal is dispatched every time this DeviceButton changes floating value (between, but not exactly, 0 and 1).
-    * When dispatched it sends 2 arguments: A reference to this DeviceButton and the value of the button.
+    * When dispatched it sends 2 arguments: A reference to this DeviceButton and the value of the playButton.
     * @property {Phaser.Signal} onFloat
     */
     this.onFloat = new Phaser.Signal();
@@ -39087,12 +39087,12 @@ Phaser.DeviceButton.prototype = {
 
     /**
     * Called automatically by Phaser.Pointer and Phaser.SinglePad.
-    * Handles the button down state.
+    * Handles the playButton down state.
     * 
     * @method Phaser.DeviceButton#start
     * @protected
-    * @param {object} [event] - The DOM event that triggered the button change.
-    * @param {number} [value] - The button value. Only get for Gamepads.
+    * @param {object} [event] - The DOM event that triggered the playButton change.
+    * @param {number} [value] - The playButton value. Only get for Gamepads.
     */
     start: function (event, value) {
 
@@ -39122,12 +39122,12 @@ Phaser.DeviceButton.prototype = {
 
     /**
     * Called automatically by Phaser.Pointer and Phaser.SinglePad.
-    * Handles the button up state.
+    * Handles the playButton up state.
     * 
     * @method Phaser.DeviceButton#stop
     * @protected
-    * @param {object} [event] - The DOM event that triggered the button change.
-    * @param {number} [value] - The button value. Only get for Gamepads.
+    * @param {object} [event] - The DOM event that triggered the playButton change.
+    * @param {number} [value] - The playButton value. Only get for Gamepads.
     */
     stop: function (event, value) {
 
@@ -39170,12 +39170,12 @@ Phaser.DeviceButton.prototype = {
     },
 
     /**
-    * Returns the "just pressed" state of this button.
-    * Just pressed is considered true if the button was pressed down within the duration given (default 250ms).
+    * Returns the "just pressed" state of this playButton.
+    * Just pressed is considered true if the playButton was pressed down within the duration given (default 250ms).
     * 
     * @method Phaser.DeviceButton#justPressed
-    * @param {number} [duration=250] - The duration in ms below which the button is considered as being just pressed.
-    * @return {boolean} True if the button is just pressed otherwise false.
+    * @param {number} [duration=250] - The duration in ms below which the playButton is considered as being just pressed.
+    * @return {boolean} True if the playButton is just pressed otherwise false.
     */
     justPressed: function (duration) {
 
@@ -39186,12 +39186,12 @@ Phaser.DeviceButton.prototype = {
     },
 
     /**
-    * Returns the "just released" state of this button.
-    * Just released is considered as being true if the button was released within the duration given (default 250ms).
+    * Returns the "just released" state of this playButton.
+    * Just released is considered as being true if the playButton was released within the duration given (default 250ms).
     * 
     * @method Phaser.DeviceButton#justReleased
-    * @param {number} [duration=250] - The duration in ms below which the button is considered as being just released.
-    * @return {boolean} True if the button is just released otherwise false.
+    * @param {number} [duration=250] - The duration in ms below which the playButton is considered as being just released.
+    * @return {boolean} True if the playButton is just released otherwise false.
     */
     justReleased: function (duration) {
 
@@ -39242,7 +39242,7 @@ Phaser.DeviceButton.prototype = {
 Phaser.DeviceButton.prototype.constructor = Phaser.DeviceButton;
 
 /**
-* How long the button has been held down for in milliseconds.
+* How long the playButton has been held down for in milliseconds.
 * If not currently down it returns -1.
 * 
 * @name Phaser.DeviceButton#duration
@@ -39327,19 +39327,19 @@ Phaser.Pointer = function (game, id, pointerMode) {
     this.target = null;
 
     /**
-    * The button property of the most recent DOM event when this Pointer is started.
-    * You should not rely on this value for accurate button detection, instead use the Pointer properties
+    * The playButton property of the most recent DOM event when this Pointer is started.
+    * You should not rely on this value for accurate playButton detection, instead use the Pointer properties
     * `leftButton`, `rightButton`, `middleButton` and so on.
-    * @property {any} button
+    * @property {any} playButton
     * @default
     */
     this.button = null;
 
     /**
-    * If this Pointer is a Mouse or Pen / Stylus then you can access its left button directly through this property.
+    * If this Pointer is a Mouse or Pen / Stylus then you can access its left playButton directly through this property.
     * 
     * The DeviceButton has its own properties such as `isDown`, `duration` and methods like `justReleased` for more fine-grained
-    * button control.
+    * playButton control.
     * 
     * @property {Phaser.DeviceButton} leftButton
     * @default
@@ -39347,12 +39347,12 @@ Phaser.Pointer = function (game, id, pointerMode) {
     this.leftButton = new Phaser.DeviceButton(this, Phaser.Pointer.LEFT_BUTTON);
 
     /**
-    * If this Pointer is a Mouse or Pen / Stylus then you can access its middle button directly through this property.
+    * If this Pointer is a Mouse or Pen / Stylus then you can access its middle playButton directly through this property.
     * 
     * The DeviceButton has its own properties such as `isDown`, `duration` and methods like `justReleased` for more fine-grained
-    * button control.
+    * playButton control.
     *
-    * Please see the DeviceButton docs for details on browser button limitations.
+    * Please see the DeviceButton docs for details on browser playButton limitations.
     * 
     * @property {Phaser.DeviceButton} middleButton
     * @default
@@ -39360,12 +39360,12 @@ Phaser.Pointer = function (game, id, pointerMode) {
     this.middleButton = new Phaser.DeviceButton(this, Phaser.Pointer.MIDDLE_BUTTON);
 
     /**
-    * If this Pointer is a Mouse or Pen / Stylus then you can access its right button directly through this property.
+    * If this Pointer is a Mouse or Pen / Stylus then you can access its right playButton directly through this property.
     * 
     * The DeviceButton has its own properties such as `isDown`, `duration` and methods like `justReleased` for more fine-grained
-    * button control.
+    * playButton control.
     *
-    * Please see the DeviceButton docs for details on browser button limitations.
+    * Please see the DeviceButton docs for details on browser playButton limitations.
     * 
     * @property {Phaser.DeviceButton} rightButton
     * @default
@@ -39373,12 +39373,12 @@ Phaser.Pointer = function (game, id, pointerMode) {
     this.rightButton = new Phaser.DeviceButton(this, Phaser.Pointer.RIGHT_BUTTON);
 
     /**
-    * If this Pointer is a Mouse or Pen / Stylus then you can access its X1 (back) button directly through this property.
+    * If this Pointer is a Mouse or Pen / Stylus then you can access its X1 (back) playButton directly through this property.
     * 
     * The DeviceButton has its own properties such as `isDown`, `duration` and methods like `justReleased` for more fine-grained
-    * button control.
+    * playButton control.
     *
-    * Please see the DeviceButton docs for details on browser button limitations.
+    * Please see the DeviceButton docs for details on browser playButton limitations.
     * 
     * @property {Phaser.DeviceButton} backButton
     * @default
@@ -39386,12 +39386,12 @@ Phaser.Pointer = function (game, id, pointerMode) {
     this.backButton = new Phaser.DeviceButton(this, Phaser.Pointer.BACK_BUTTON);
 
     /**
-    * If this Pointer is a Mouse or Pen / Stylus then you can access its X2 (forward) button directly through this property.
+    * If this Pointer is a Mouse or Pen / Stylus then you can access its X2 (forward) playButton directly through this property.
     * 
     * The DeviceButton has its own properties such as `isDown`, `duration` and methods like `justReleased` for more fine-grained
-    * button control.
+    * playButton control.
     *
-    * Please see the DeviceButton docs for details on browser button limitations.
+    * Please see the DeviceButton docs for details on browser playButton limitations.
     * 
     * @property {Phaser.DeviceButton} forwardButton
     * @default
@@ -39399,12 +39399,12 @@ Phaser.Pointer = function (game, id, pointerMode) {
     this.forwardButton = new Phaser.DeviceButton(this, Phaser.Pointer.FORWARD_BUTTON);
 
     /**
-    * If this Pointer is a Pen / Stylus then you can access its eraser button directly through this property.
+    * If this Pointer is a Pen / Stylus then you can access its eraser playButton directly through this property.
     * 
     * The DeviceButton has its own properties such as `isDown`, `duration` and methods like `justReleased` for more fine-grained
-    * button control.
+    * playButton control.
     *
-    * Please see the DeviceButton docs for details on browser button limitations.
+    * Please see the DeviceButton docs for details on browser playButton limitations.
     * 
     * @property {Phaser.DeviceButton} eraserButton
     * @default
@@ -39513,8 +39513,8 @@ Phaser.Pointer = function (game, id, pointerMode) {
     this.isMouse = (id === 0);
 
     /**
-    * If the Pointer is touching the touchscreen, or *any* mouse or pen button is held down, isDown is set to true.
-    * If you need to check a specific mouse or pen button then use the button properties, i.e. Pointer.rightButton.isDown.
+    * If the Pointer is touching the touchscreen, or *any* mouse or pen playButton is held down, isDown is set to true.
+    * If you need to check a specific mouse or pen playButton then use the playButton properties, i.e. Pointer.rightButton.isDown.
     * @property {boolean} isDown
     * @default
     */
@@ -39522,7 +39522,7 @@ Phaser.Pointer = function (game, id, pointerMode) {
 
     /**
     * If the Pointer is not touching the touchscreen, or *all* mouse or pen buttons are up, isUp is set to true.
-    * If you need to check a specific mouse or pen button then use the button properties, i.e. Pointer.rightButton.isUp.
+    * If you need to check a specific mouse or pen playButton then use the playButton properties, i.e. Pointer.rightButton.isUp.
     * @property {boolean} isUp
     * @default
     */
@@ -39634,28 +39634,28 @@ Phaser.Pointer = function (game, id, pointerMode) {
 Phaser.Pointer.NO_BUTTON = 0;
 
 /**
-* The Left Mouse button, or in PointerEvent devices a Touch contact or Pen contact.
+* The Left Mouse playButton, or in PointerEvent devices a Touch contact or Pen contact.
 * @constant
 * @type {number}
 */
 Phaser.Pointer.LEFT_BUTTON = 1;
 
 /**
-* The Right Mouse button, or in PointerEvent devices a Pen contact with a barrel button.
+* The Right Mouse playButton, or in PointerEvent devices a Pen contact with a barrel playButton.
 * @constant
 * @type {number}
 */
 Phaser.Pointer.RIGHT_BUTTON = 2;
 
 /**
-* The Middle Mouse button.
+* The Middle Mouse playButton.
 * @constant
 * @type {number}
 */
 Phaser.Pointer.MIDDLE_BUTTON = 4;
 
 /**
-* The X1 button. This is typically the mouse Back button, but is often reconfigured.
+* The X1 playButton. This is typically the mouse Back playButton, but is often reconfigured.
 * On Linux (GTK) this is unsupported. On Windows if advanced pointer software (such as IntelliPoint) is installed this doesn't register.
 * @constant
 * @type {number}
@@ -39663,7 +39663,7 @@ Phaser.Pointer.MIDDLE_BUTTON = 4;
 Phaser.Pointer.BACK_BUTTON = 8;
 
 /**
-* The X2 button. This is typically the mouse Forward button, but is often reconfigured.
+* The X2 playButton. This is typically the mouse Forward playButton, but is often reconfigured.
 * On Linux (GTK) this is unsupported. On Windows if advanced pointer software (such as IntelliPoint) is installed this doesn't register.
 * @constant
 * @type {number}
@@ -39671,7 +39671,7 @@ Phaser.Pointer.BACK_BUTTON = 8;
 Phaser.Pointer.FORWARD_BUTTON = 16;
 
 /**
-* The Eraser pen button on PointerEvent supported devices only.
+* The Eraser pen playButton on PointerEvent supported devices only.
 * @constant
 * @type {number}
 */
@@ -39680,7 +39680,7 @@ Phaser.Pointer.ERASER_BUTTON = 32;
 Phaser.Pointer.prototype = {
 
     /**
-    * Resets the states of all the button booleans.
+    * Resets the states of all the playButton booleans.
     * 
     * @method Phaser.Pointer#resetButtons
     * @protected
@@ -39792,7 +39792,7 @@ Phaser.Pointer.prototype = {
 
     /**
     * Called when the event.buttons property changes from zero.
-    * Contains a button bitmask.
+    * Contains a playButton bitmask.
     * 
     * @method Phaser.Pointer#updateButtons
     * @protected
@@ -39829,9 +39829,9 @@ Phaser.Pointer.prototype = {
             }
         }
 
-        //  On OS X (and other devices with trackpads) you have to press CTRL + the pad
+        //  On OS X (and other devices with trackpads) you have to press CTRL + the JoyStickPlugin
         //  to initiate a right-click event, so we'll check for that here ONLY if
-        //  event.buttons = 1 (i.e. they only have a 1 button mouse or trackpad)
+        //  event.buttons = 1 (i.e. they only have a 1 playButton mouse or trackpad)
 
         if (event.buttons === 1 && event.ctrlKey && this.leftButton.isDown)
         {
@@ -40458,7 +40458,7 @@ Phaser.Pointer.prototype.constructor = Phaser.Pointer;
 /**
 * How long the Pointer has been depressed on the touchscreen or *any* of the mouse buttons have been held down.
 * If not currently down it returns -1.
-* If you need to test a specific mouse or pen button then access the buttons directly, i.e. `Pointer.rightButton.duration`.
+* If you need to test a specific mouse or pen playButton then access the buttons directly, i.e. `Pointer.rightButton.duration`.
 * 
 * @name Phaser.Pointer#duration
 * @property {number} duration
@@ -40524,7 +40524,7 @@ Object.defineProperty(Phaser.Pointer.prototype, "worldY", {
 Phaser.PointerMode = {
 
     /**
-    * A 'CURSOR' is a pointer with a *passive cursor* such as a mouse, touchpad, watcom stylus, or even TV-control arrow-pad.
+    * A 'CURSOR' is a pointer with a *passive cursor* such as a mouse, touchpad, watcom stylus, or even TV-control arrow-JoyStickPlugin.
     *
     * It has the property that a cursor is passively moved without activating the input.
     * This currently corresponds with {@link Phaser.Pointer#isMouse} property.
@@ -42853,12 +42853,12 @@ Phaser.Gamepad = function (game) {
     this.onDisconnectCallback = null;
 
     /**
-    * @property {function} onDownCallback - This callback is invoked every time any gamepad button is pressed down.
+    * @property {function} onDownCallback - This callback is invoked every time any gamepad playButton is pressed down.
     */
     this.onDownCallback = null;
 
     /**
-    * @property {function} onUpCallback - This callback is invoked every time any gamepad button is released.
+    * @property {function} onUpCallback - This callback is invoked every time any gamepad playButton is released.
     */
     this.onUpCallback = null;
 
@@ -42868,7 +42868,7 @@ Phaser.Gamepad = function (game) {
     this.onAxisCallback = null;
 
     /**
-    * @property {function} onFloatCallback - This callback is invoked every time any gamepad button is changed to a value where value > 0 and value < 1.
+    * @property {function} onFloatCallback - This callback is invoked every time any gamepad playButton is changed to a value where value > 0 and value < 1.
     */
     this.onFloatCallback = null;
 
@@ -42900,7 +42900,7 @@ Phaser.Gamepad = function (game) {
 Phaser.Gamepad.prototype = {
 
     /**
-    * Add callbacks to the main Gamepad handler to handle connect/disconnect/button down/button up/axis change/float value buttons.
+    * Add callbacks to the main Gamepad handler to handle connect/disconnect/playButton down/playButton up/axis change/float value buttons.
     * 
     * @method Phaser.Gamepad#addCallbacks
     * @param {object} context - The context under which the callbacks are run.
@@ -43176,11 +43176,11 @@ Phaser.Gamepad.prototype = {
     },
 
     /**
-    * Returns the "just pressed" state of a button from ANY gamepad connected. Just pressed is considered true if the button was pressed down within the duration given (default 250ms).
+    * Returns the "just pressed" state of a playButton from ANY gamepad connected. Just pressed is considered true if the playButton was pressed down within the duration given (default 250ms).
     * @method Phaser.Gamepad#justPressed
-    * @param {number} buttonCode - The buttonCode of the button to check for.
-    * @param {number} [duration=250] - The duration below which the button is considered as being just pressed.
-    * @return {boolean} True if the button is just pressed otherwise false.
+    * @param {number} buttonCode - The buttonCode of the playButton to check for.
+    * @param {number} [duration=250] - The duration below which the playButton is considered as being just pressed.
+    * @return {boolean} True if the playButton is just pressed otherwise false.
     */
     justPressed: function (buttonCode, duration) {
 
@@ -43197,11 +43197,11 @@ Phaser.Gamepad.prototype = {
     },
 
     /**
-    * Returns the "just released" state of a button from ANY gamepad connected. Just released is considered as being true if the button was released within the duration given (default 250ms).
+    * Returns the "just released" state of a playButton from ANY gamepad connected. Just released is considered as being true if the playButton was released within the duration given (default 250ms).
     * @method Phaser.Gamepad#justPressed
-    * @param {number} buttonCode - The buttonCode of the button to check for.
-    * @param {number} [duration=250] - The duration below which the button is considered as being just released.
-    * @return {boolean} True if the button is just released otherwise false.
+    * @param {number} buttonCode - The buttonCode of the playButton to check for.
+    * @param {number} [duration=250] - The duration below which the playButton is considered as being just released.
+    * @return {boolean} True if the playButton is just released otherwise false.
     */
     justReleased: function (buttonCode, duration) {
 
@@ -43218,10 +43218,10 @@ Phaser.Gamepad.prototype = {
     },
 
     /**
-    * Returns true if the button is currently pressed down, on ANY gamepad.
+    * Returns true if the playButton is currently pressed down, on ANY gamepad.
     * @method Phaser.Gamepad#isDown
-    * @param {number} buttonCode - The buttonCode of the button to check for.
-    * @return {boolean} True if a button is currently down.
+    * @param {number} buttonCode - The buttonCode of the playButton to check for.
+    * @return {boolean} True if a playButton is currently down.
     */
     isDown: function (buttonCode) {
 
@@ -43383,7 +43383,7 @@ Phaser.Gamepad.AXIS_8 = 8;
 Phaser.Gamepad.AXIS_9 = 9;
 
 // Below mapping applies to XBOX 360 Wired and Wireless controller on Google Chrome (tested on Windows 7).
-// - Firefox uses different map! Separate amount of buttons and axes. DPAD = axis and not a button.
+// - Firefox uses different map! Separate amount of buttons and axes. DPAD = axis and not a playButton.
 // In other words - discrepancies when using gamepads.
 
 Phaser.Gamepad.XBOX360_A = 0;
@@ -43410,7 +43410,7 @@ Phaser.Gamepad.XBOX360_STICK_LEFT_Y = 1;
 Phaser.Gamepad.XBOX360_STICK_RIGHT_X = 2;
 Phaser.Gamepad.XBOX360_STICK_RIGHT_Y = 3;
 
-//  PlayStation 3 controller (masquerading as xbox360 controller) button mappings
+//  PlayStation 3 controller (masquerading as xbox360 controller) playButton mappings
 
 Phaser.Gamepad.PS3XC_X = 0;
 Phaser.Gamepad.PS3XC_CIRCLE = 1;
@@ -43483,12 +43483,12 @@ Phaser.SinglePad = function (game, padParent) {
     this.onDisconnectCallback = null;
 
     /**
-    * @property {function} onDownCallback - This callback is invoked every time a button is pressed down.
+    * @property {function} onDownCallback - This callback is invoked every time a playButton is pressed down.
     */
     this.onDownCallback = null;
 
     /**
-    * @property {function} onUpCallback - This callback is invoked every time a gamepad button is released.
+    * @property {function} onUpCallback - This callback is invoked every time a gamepad playButton is released.
     */
     this.onUpCallback = null;
 
@@ -43498,7 +43498,7 @@ Phaser.SinglePad = function (game, padParent) {
     this.onAxisCallback = null;
 
     /**
-    * @property {function} onFloatCallback - This callback is invoked every time a button is changed to a value where value > 0 and value < 1.
+    * @property {function} onFloatCallback - This callback is invoked every time a playButton is changed to a value where value > 0 and value < 1.
     */
     this.onFloatCallback = null;
 
@@ -43554,7 +43554,7 @@ Phaser.SinglePad = function (game, padParent) {
 Phaser.SinglePad.prototype = {
 
     /**
-    * Add callbacks to this Gamepad to handle connect / disconnect / button down / button up / axis change / float value buttons.
+    * Add callbacks to this Gamepad to handle connect / disconnect / playButton down / playButton up / axis change / float value buttons.
     * 
     * @method Phaser.SinglePad#addCallbacks
     * @param {object} context - The context under which the callbacks are run.
@@ -43581,7 +43581,7 @@ Phaser.SinglePad.prototype = {
     * The DeviceButton object can then be polled, have events attached to it, etc.
     *
     * @method Phaser.SinglePad#getButton
-    * @param {number} buttonCode - The buttonCode of the button, i.e. Phaser.Gamepad.BUTTON_0, Phaser.Gamepad.XBOX360_A, etc.
+    * @param {number} buttonCode - The buttonCode of the playButton, i.e. Phaser.Gamepad.BUTTON_0, Phaser.Gamepad.XBOX360_A, etc.
     * @return {Phaser.DeviceButton} The DeviceButton object which you can store locally and reference directly.
     */
     getButton: function (buttonCode) {
@@ -43787,10 +43787,10 @@ Phaser.SinglePad.prototype = {
     },
 
     /**
-    * Handles button down press.
+    * Handles playButton down press.
     * 
     * @method Phaser.SinglePad#processButtonDown
-    * @param {number} buttonCode - Which buttonCode of this button
+    * @param {number} buttonCode - Which buttonCode of this playButton
     * @param {object} value - Button value
     */
     processButtonDown: function (buttonCode, value) {
@@ -43813,10 +43813,10 @@ Phaser.SinglePad.prototype = {
     },
 
     /**
-    * Handles button release.
+    * Handles playButton release.
     * 
     * @method Phaser.SinglePad#processButtonUp
-    * @param {number} buttonCode - Which buttonCode of this button
+    * @param {number} buttonCode - Which buttonCode of this playButton
     * @param {object} value - Button value
     */
     processButtonUp: function (buttonCode, value) {
@@ -43839,10 +43839,10 @@ Phaser.SinglePad.prototype = {
     },
 
     /**
-    * Handles buttons with floating values (like analog buttons that acts almost like an axis but still registers like a button)
+    * Handles buttons with floating values (like analog buttons that acts almost like an axis but still registers like a playButton)
     * 
     * @method Phaser.SinglePad#processButtonFloat
-    * @param {number} buttonCode - Which buttonCode of this button
+    * @param {number} buttonCode - Which buttonCode of this playButton
     * @param {object} value - Button value (will range somewhere between 0 and 1, but not specifically 0 or 1.
     */
     processButtonFloat: function (buttonCode, value) {
@@ -43883,11 +43883,11 @@ Phaser.SinglePad.prototype = {
     },
 
     /**
-    * Returns true if the button is pressed down.
+    * Returns true if the playButton is pressed down.
     * 
     * @method Phaser.SinglePad#isDown
-    * @param {number} buttonCode - The buttonCode of the button to check.
-    * @return {boolean} True if the button is pressed down.
+    * @param {number} buttonCode - The buttonCode of the playButton to check.
+    * @return {boolean} True if the playButton is pressed down.
     */
     isDown: function (buttonCode) {
 
@@ -43901,11 +43901,11 @@ Phaser.SinglePad.prototype = {
     },
 
     /**
-    * Returns true if the button is not currently pressed.
+    * Returns true if the playButton is not currently pressed.
     * 
     * @method Phaser.SinglePad#isUp
-    * @param {number} buttonCode - The buttonCode of the button to check.
-    * @return {boolean} True if the button is not currently pressed down.
+    * @param {number} buttonCode - The buttonCode of the playButton to check.
+    * @return {boolean} True if the playButton is not currently pressed down.
     */
     isUp: function (buttonCode) {
 
@@ -43919,12 +43919,12 @@ Phaser.SinglePad.prototype = {
     },
 
     /**
-    * Returns the "just released" state of a button from this gamepad. Just released is considered as being true if the button was released within the duration given (default 250ms).
+    * Returns the "just released" state of a playButton from this gamepad. Just released is considered as being true if the playButton was released within the duration given (default 250ms).
     * 
     * @method Phaser.SinglePad#justReleased
-    * @param {number} buttonCode - The buttonCode of the button to check for.
-    * @param {number} [duration=250] - The duration below which the button is considered as being just released.
-    * @return {boolean} True if the button is just released otherwise false.
+    * @param {number} buttonCode - The buttonCode of the playButton to check for.
+    * @param {number} [duration=250] - The duration below which the playButton is considered as being just released.
+    * @return {boolean} True if the playButton is just released otherwise false.
     */
     justReleased: function (buttonCode, duration) {
 
@@ -43936,12 +43936,12 @@ Phaser.SinglePad.prototype = {
     },
 
     /**
-    * Returns the "just pressed" state of a button from this gamepad. Just pressed is considered true if the button was pressed down within the duration given (default 250ms).
+    * Returns the "just pressed" state of a playButton from this gamepad. Just pressed is considered true if the playButton was pressed down within the duration given (default 250ms).
     * 
     * @method Phaser.SinglePad#justPressed
-    * @param {number} buttonCode - The buttonCode of the button to check for.
-    * @param {number} [duration=250] - The duration below which the button is considered as being just pressed.
-    * @return {boolean} True if the button is just pressed otherwise false.
+    * @param {number} buttonCode - The buttonCode of the playButton to check for.
+    * @param {number} [duration=250] - The duration below which the playButton is considered as being just pressed.
+    * @return {boolean} True if the playButton is just pressed otherwise false.
     */
     justPressed: function (buttonCode, duration) {
 
@@ -43953,11 +43953,11 @@ Phaser.SinglePad.prototype = {
     },
 
     /**
-    * Returns the value of a gamepad button. Intended mainly for cases when you have floating button values, for example
+    * Returns the value of a gamepad playButton. Intended mainly for cases when you have floating playButton values, for example
     * analog trigger buttons on the XBOX 360 controller.
     * 
     * @method Phaser.SinglePad#buttonValue
-    * @param {number} buttonCode - The buttonCode of the button to check.
+    * @param {number} buttonCode - The buttonCode of the playButton to check.
     * @return {number} Button value if available otherwise null. Be careful as this can incorrectly evaluate to 0.
     */
     buttonValue: function (buttonCode) {
@@ -48506,13 +48506,13 @@ Phaser.GameObjectFactory.prototype = {
     /**
     * Creates a new Text object.
     *
-    * @method Phaser.GameObjectFactory#text
-    * @param {number} [x=0] - The x coordinate of the Text. The coordinate is relative to any parent container this text may be in.
-    * @param {number} [y=0] - The y coordinate of the Text. The coordinate is relative to any parent container this text may be in.
-    * @param {string} [text=''] - The text string that will be displayed.
+    * @method Phaser.GameObjectFactory#instructions
+    * @param {number} [x=0] - The x coordinate of the Text. The coordinate is relative to any parent container this instructions may be in.
+    * @param {number} [y=0] - The y coordinate of the Text. The coordinate is relative to any parent container this instructions may be in.
+    * @param {string} [text=''] - The instructions string that will be displayed.
     * @param {object} [style] - The style object containing style attributes like font, font size , etc.
     * @param {Phaser.Group} [group] - Optional Group to add the object to. If not specified it will be added to the World group.
-    * @return {Phaser.Text} The newly created text object.
+    * @return {Phaser.Text} The newly created instructions object.
     */
     text: function (x, y, text, style, group) {
 
@@ -48525,16 +48525,16 @@ Phaser.GameObjectFactory.prototype = {
     /**
     * Creates a new Button object.
     *
-    * @method Phaser.GameObjectFactory#button
-    * @param {number} [x=0] - The x coordinate of the Button. The coordinate is relative to any parent container this button may be in.
-    * @param {number} [y=0] - The y coordinate of the Button. The coordinate is relative to any parent container this button may be in.
-    * @param {string} [key] - The image key as defined in the Game.Cache to use as the texture for this button.
-    * @param {function} [callback] - The function to call when this button is pressed
+    * @method Phaser.GameObjectFactory#playButton
+    * @param {number} [x=0] - The x coordinate of the Button. The coordinate is relative to any parent container this playButton may be in.
+    * @param {number} [y=0] - The y coordinate of the Button. The coordinate is relative to any parent container this playButton may be in.
+    * @param {string} [key] - The image key as defined in the Game.Cache to use as the texture for this playButton.
+    * @param {function} [callback] - The function to call when this playButton is pressed
     * @param {object} [callbackContext] - The context in which the callback will be called (usually 'this')
-    * @param {string|number} [overFrame] - This is the frame or frameName that will be set when this button is in an over state. Give either a number to use a frame ID or a string for a frame name.
-    * @param {string|number} [outFrame] - This is the frame or frameName that will be set when this button is in an out state. Give either a number to use a frame ID or a string for a frame name.
-    * @param {string|number} [downFrame] - This is the frame or frameName that will be set when this button is in a down state. Give either a number to use a frame ID or a string for a frame name.
-    * @param {string|number} [upFrame] - This is the frame or frameName that will be set when this button is in an up state. Give either a number to use a frame ID or a string for a frame name.
+    * @param {string|number} [overFrame] - This is the frame or frameName that will be set when this playButton is in an over state. Give either a number to use a frame ID or a string for a frame name.
+    * @param {string|number} [outFrame] - This is the frame or frameName that will be set when this playButton is in an out state. Give either a number to use a frame ID or a string for a frame name.
+    * @param {string|number} [downFrame] - This is the frame or frameName that will be set when this playButton is in a down state. Give either a number to use a frame ID or a string for a frame name.
+    * @param {string|number} [upFrame] - This is the frame or frameName that will be set when this playButton is in an up state. Give either a number to use a frame ID or a string for a frame name.
     * @param {Phaser.Group} [group] - Optional Group to add the object to. If not specified it will be added to the World group.
     * @return {Phaser.Button} The newly created Button object.
     */
@@ -48588,9 +48588,9 @@ Phaser.GameObjectFactory.prototype = {
     * A RetroFont can be used as a texture for an Image or Sprite and optionally add it to the Cache.
     * A RetroFont uses a bitmap which contains fixed with characters for the font set. You use character spacing to define the set.
     * If you need variable width character support then use a BitmapText object instead. The main difference between a RetroFont and a BitmapText
-    * is that a RetroFont creates a single texture that you can apply to a game object, where-as a BitmapText creates one Sprite object per letter of text.
-    * The texture can be asssigned or one or multiple images/sprites, but note that the text the RetroFont uses will be shared across them all,
-    * i.e. if you need each Image to have different text in it, then you need to create multiple RetroFont objects.
+    * is that a RetroFont creates a single texture that you can apply to a game object, where-as a BitmapText creates one Sprite object per letter of instructions.
+    * The texture can be asssigned or one or multiple images/sprites, but note that the instructions the RetroFont uses will be shared across them all,
+    * i.e. if you need each Image to have different instructions in it, then you need to create multiple RetroFont objects.
     *
     * @method Phaser.GameObjectFactory#retroFont
     * @param {string} font - The key of the image in the Game.Cache that the RetroFont will use.
@@ -48614,14 +48614,14 @@ Phaser.GameObjectFactory.prototype = {
     * Create a new BitmapText object.
     *
     * BitmapText objects work by taking a texture file and an XML file that describes the font structure.
-    * It then generates a new Sprite object for each letter of the text, proportionally spaced out and aligned to 
+    * It then generates a new Sprite object for each letter of the instructions, proportionally spaced out and aligned to
     * match the font structure.
     * 
     * BitmapText objects are less flexible than Text objects, in that they have less features such as shadows, fills and the ability 
     * to use Web Fonts. However you trade this flexibility for pure rendering speed. You can also create visually compelling BitmapTexts by 
     * processing the font texture in an image editor first, applying fills and any other effects required.
     *
-    * To create multi-line text insert \r, \n or \r\n escape codes into the text string.
+    * To create multi-line instructions insert \r, \n or \r\n escape codes into the instructions string.
     *
     * To create a BitmapText data files you can use:
     *
@@ -48633,7 +48633,7 @@ Phaser.GameObjectFactory.prototype = {
     * @param {number} x - X coordinate to display the BitmapText object at.
     * @param {number} y - Y coordinate to display the BitmapText object at.
     * @param {string} font - The key of the BitmapText as stored in Phaser.Cache.
-    * @param {string} [text=''] - The text that will be rendered. This can also be set later via BitmapText.text.
+    * @param {string} [text=''] - The instructions that will be rendered. This can also be set later via BitmapText.instructions.
     * @param {number} [size=32] - The size the font will be rendered at in pixels.
     * @param {Phaser.Group} [group] - Optional Group to add the object to. If not specified it will be added to the World group.
     * @return {Phaser.BitmapText} The newly created bitmapText object.
@@ -48904,7 +48904,7 @@ Phaser.GameObjectCreator.prototype = {
     * @param {number} [volume=1] - The volume at which the sound will be played.
     * @param {boolean} [loop=false] - Whether or not the sound will loop.
     * @param {boolean} [connect=true] - Controls if the created Sound object will connect to the master gainNode of the SoundManager when running under WebAudio.
-    * @return {Phaser.Sound} The newly created text object.
+    * @return {Phaser.Sound} The newly created instructions object.
     */
     audio: function (key, volume, loop, connect) {
 
@@ -48933,7 +48933,7 @@ Phaser.GameObjectCreator.prototype = {
     * @param {number} [volume=1] - The volume at which the sound will be played.
     * @param {boolean} [loop=false] - Whether or not the sound will loop.
     * @param {boolean} [connect=true] - Controls if the created Sound object will connect to the master gainNode of the SoundManager when running under WebAudio.
-    * @return {Phaser.Sound} The newly created text object.
+    * @return {Phaser.Sound} The newly created instructions object.
     */
     sound: function (key, volume, loop, connect) {
 
@@ -48980,12 +48980,12 @@ Phaser.GameObjectCreator.prototype = {
     /**
     * Creates a new Text object.
     *
-    * @method Phaser.GameObjectCreator#text
-    * @param {number} x - X position of the new text object.
-    * @param {number} y - Y position of the new text object.
-    * @param {string} text - The actual text that will be written.
+    * @method Phaser.GameObjectCreator#instructions
+    * @param {number} x - X position of the new instructions object.
+    * @param {number} y - Y position of the new instructions object.
+    * @param {string} text - The actual instructions that will be written.
     * @param {object} style - The style object containing style attributes like font, font size , etc.
-    * @return {Phaser.Text} The newly created text object.
+    * @return {Phaser.Text} The newly created instructions object.
     */
     text: function (x, y, text, style) {
 
@@ -48996,17 +48996,17 @@ Phaser.GameObjectCreator.prototype = {
     /**
     * Creates a new Button object.
     *
-    * @method Phaser.GameObjectCreator#button
-    * @param {number} [x] X position of the new button object.
-    * @param {number} [y] Y position of the new button object.
-    * @param {string} [key] The image key as defined in the Game.Cache to use as the texture for this button.
-    * @param {function} [callback] The function to call when this button is pressed
+    * @method Phaser.GameObjectCreator#playButton
+    * @param {number} [x] X position of the new playButton object.
+    * @param {number} [y] Y position of the new playButton object.
+    * @param {string} [key] The image key as defined in the Game.Cache to use as the texture for this playButton.
+    * @param {function} [callback] The function to call when this playButton is pressed
     * @param {object} [callbackContext] The context in which the callback will be called (usually 'this')
-    * @param {string|number} [overFrame] This is the frame or frameName that will be set when this button is in an over state. Give either a number to use a frame ID or a string for a frame name.
-    * @param {string|number} [outFrame] This is the frame or frameName that will be set when this button is in an out state. Give either a number to use a frame ID or a string for a frame name.
-    * @param {string|number} [downFrame] This is the frame or frameName that will be set when this button is in a down state. Give either a number to use a frame ID or a string for a frame name.
-    * @param {string|number} [upFrame] This is the frame or frameName that will be set when this button is in an up state. Give either a number to use a frame ID or a string for a frame name.
-    * @return {Phaser.Button} The newly created button object.
+    * @param {string|number} [overFrame] This is the frame or frameName that will be set when this playButton is in an over state. Give either a number to use a frame ID or a string for a frame name.
+    * @param {string|number} [outFrame] This is the frame or frameName that will be set when this playButton is in an out state. Give either a number to use a frame ID or a string for a frame name.
+    * @param {string|number} [downFrame] This is the frame or frameName that will be set when this playButton is in a down state. Give either a number to use a frame ID or a string for a frame name.
+    * @param {string|number} [upFrame] This is the frame or frameName that will be set when this playButton is in an up state. Give either a number to use a frame ID or a string for a frame name.
+    * @return {Phaser.Button} The newly created playButton object.
     */
     button: function (x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame) {
 
@@ -49053,9 +49053,9 @@ Phaser.GameObjectCreator.prototype = {
     * A RetroFont can be used as a texture for an Image or Sprite and optionally add it to the Cache.
     * A RetroFont uses a bitmap which contains fixed with characters for the font set. You use character spacing to define the set.
     * If you need variable width character support then use a BitmapText object instead. The main difference between a RetroFont and a BitmapText
-    * is that a RetroFont creates a single texture that you can apply to a game object, where-as a BitmapText creates one Sprite object per letter of text.
-    * The texture can be asssigned or one or multiple images/sprites, but note that the text the RetroFont uses will be shared across them all,
-    * i.e. if you need each Image to have different text in it, then you need to create multiple RetroFont objects.
+    * is that a RetroFont creates a single texture that you can apply to a game object, where-as a BitmapText creates one Sprite object per letter of instructions.
+    * The texture can be asssigned or one or multiple images/sprites, but note that the instructions the RetroFont uses will be shared across them all,
+    * i.e. if you need each Image to have different instructions in it, then you need to create multiple RetroFont objects.
     *
     * @method Phaser.GameObjectCreator#retroFont
     * @param {string} font - The key of the image in the Game.Cache that the RetroFont will use.
@@ -49079,14 +49079,14 @@ Phaser.GameObjectCreator.prototype = {
     * Create a new BitmapText object.
     *
     * BitmapText objects work by taking a texture file and an XML file that describes the font structure.
-    * It then generates a new Sprite object for each letter of the text, proportionally spaced out and aligned to 
+    * It then generates a new Sprite object for each letter of the instructions, proportionally spaced out and aligned to
     * match the font structure.
     * 
     * BitmapText objects are less flexible than Text objects, in that they have less features such as shadows, fills and the ability 
     * to use Web Fonts. However you trade this flexibility for pure rendering speed. You can also create visually compelling BitmapTexts by 
     * processing the font texture in an image editor first, applying fills and any other effects required.
     *
-    * To create multi-line text insert \r, \n or \r\n escape codes into the text string.
+    * To create multi-line instructions insert \r, \n or \r\n escape codes into the instructions string.
     *
     * To create a BitmapText data files you can use:
     *
@@ -49098,9 +49098,9 @@ Phaser.GameObjectCreator.prototype = {
     * @param {number} x - X coordinate to display the BitmapText object at.
     * @param {number} y - Y coordinate to display the BitmapText object at.
     * @param {string} font - The key of the BitmapText as stored in Phaser.Cache.
-    * @param {string} [text=''] - The text that will be rendered. This can also be set later via BitmapText.text.
+    * @param {string} [text=''] - The instructions that will be rendered. This can also be set later via BitmapText.instructions.
     * @param {number} [size=32] - The size the font will be rendered at in pixels.
-    * @param {string} [align='left'] - The alignment of multi-line text. Has no effect if there is only one line of text.
+    * @param {string} [align='left'] - The alignment of multi-line instructions. Has no effect if there is only one line of instructions.
     * @return {Phaser.BitmapText} The newly created bitmapText object.
     */
     bitmapText: function (x, y, font, text, size, align) {
@@ -49450,10 +49450,10 @@ Phaser.Image.prototype.preUpdate = function() {
 * @param {string} [key] - The image key (in the Game.Cache) to use as the texture for this Button.
 * @param {function} [callback] - The function to call when this Button is pressed.
 * @param {object} [callbackContext] - The context in which the callback will be called (usually 'this').
-* @param {string|integer} [overFrame] - The frame / frameName when the button is in the Over state.
-* @param {string|integer} [outFrame] - The frame / frameName when the button is in the Out state.
-* @param {string|integer} [downFrame] - The frame / frameName when the button is in the Down state.
-* @param {string|integer} [upFrame] - The frame / frameName when the button is in the Up state.
+* @param {string|integer} [overFrame] - The frame / frameName when the playButton is in the Over state.
+* @param {string|integer} [outFrame] - The frame / frameName when the playButton is in the Out state.
+* @param {string|integer} [downFrame] - The frame / frameName when the playButton is in the Down state.
+* @param {string|integer} [upFrame] - The frame / frameName when the playButton is in the Up state.
 */
 Phaser.Button = function (game, x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame) {
 
@@ -49747,10 +49747,10 @@ Phaser.Button.prototype.changeStateFrame = function (state) {
 *
 * @method Phaser.Button#setFrames
 * @public
-* @param {string|integer} [overFrame] - The frame / frameName when the button is in the Over state.
-* @param {string|integer} [outFrame] - The frame / frameName when the button is in the Out state.
-* @param {string|integer} [downFrame] - The frame / frameName when the button is in the Down state.
-* @param {string|integer} [upFrame] - The frame / frameName when the button is in the Up state.
+* @param {string|integer} [overFrame] - The frame / frameName when the playButton is in the Over state.
+* @param {string|integer} [outFrame] - The frame / frameName when the playButton is in the Out state.
+* @param {string|integer} [downFrame] - The frame / frameName when the playButton is in the Down state.
+* @param {string|integer} [upFrame] - The frame / frameName when the playButton is in the Up state.
 */
 Phaser.Button.prototype.setFrames = function (overFrame, outFrame, downFrame, upFrame) {
 
@@ -51908,17 +51908,17 @@ Phaser.BitmapData.prototype = {
     },
 
     /**
-    * Draws text to the BitmapData in the given font and color.
-    * The default font is 14px Courier, so useful for quickly drawing debug text.
-    * If you need to do a lot of font work to this BitmapData we'd recommend implementing your own text draw method.
+    * Draws instructions to the BitmapData in the given font and color.
+    * The default font is 14px Courier, so useful for quickly drawing debug instructions.
+    * If you need to do a lot of font work to this BitmapData we'd recommend implementing your own instructions draw method.
     *
-    * @method Phaser.BitmapData#text
-    * @param {string} text - The text to write to the BitmapData.
-    * @param {number} x - The x coordinate of the top-left of the text string.
-    * @param {number} y - The y coordinate of the top-left of the text string.
+    * @method Phaser.BitmapData#instructions
+    * @param {string} text - The instructions to write to the BitmapData.
+    * @param {number} x - The x coordinate of the top-left of the instructions string.
+    * @param {number} y - The y coordinate of the top-left of the instructions string.
     * @param {string} [font='14px Courier'] - The font. This is passed directly to Context.font, so anything that can support, this can.
-    * @param {string} [color='rgb(255,255,255)'] - The color the text will be drawn in.
-    * @param {boolean} [shadow=true] - Draw a single pixel black shadow below the text (offset by text.x/y + 1)
+    * @param {string} [color='rgb(255,255,255)'] - The color the instructions will be drawn in.
+    * @param {boolean} [shadow=true] - Draw a single pixel black shadow below the instructions (offset by instructions.x/y + 1)
     * @return {Phaser.BitmapData} This BitmapData object for method chaining.
     */
     text: function (text, x, y, font, color, shadow) {
@@ -56169,9 +56169,9 @@ Phaser.RenderTexture.prototype.render = function (displayObject, matrix, clear) 
 * @extends Phaser.Sprite
 * @constructor
 * @param {Phaser.Game} game - Current game instance.
-* @param {number} x - X position of the new text object.
-* @param {number} y - Y position of the new text object.
-* @param {string} text - The actual text that will be written.
+* @param {number} x - X position of the new instructions object.
+* @param {number} y - Y position of the new instructions object.
+* @param {string} text - The actual instructions that will be written.
 * @param {object} [style] - The style properties to be set on the Text.
 * @param {string} [style.font='bold 20pt Arial'] - The style and size of the font.
 * @param {string} [style.fontStyle=(from font)] - The style of the font (eg. 'italic'): overrides the value in `style.font`.
@@ -56179,16 +56179,16 @@ Phaser.RenderTexture.prototype.render = function (displayObject, matrix, clear) 
 * @param {string} [style.fontWeight=(from font)] - The weight of the font (eg. 'bold'): overrides the value in `style.font`.
 * @param {string|number} [style.fontSize=(from font)] - The size of the font (eg. 32 or '32px'): overrides the value in `style.font`.
 * @param {string} [style.backgroundColor=null] - A canvas fillstyle that will be used as the background for the whole Text object. Set to `null` to disable.
-* @param {string} [style.fill='black'] - A canvas fillstyle that will be used on the text eg 'red', '#00FF00'.
-* @param {string} [style.align='left'] - Horizontal alignment of each line in multiline text. Can be: 'left', 'center' or 'right'. Does not affect single lines of text (see `textBounds` and `boundsAlignH` for that).
-* @param {string} [style.boundsAlignH='left'] - Horizontal alignment of the text within the `textBounds`. Can be: 'left', 'center' or 'right'.
-* @param {string} [style.boundsAlignV='top'] - Vertical alignment of the text within the `textBounds`. Can be: 'top', 'middle' or 'bottom'.
-* @param {string} [style.stroke='black'] - A canvas stroke style that will be used on the text stroke eg 'blue', '#FCFF00'.
+* @param {string} [style.fill='black'] - A canvas fillstyle that will be used on the instructions eg 'red', '#00FF00'.
+* @param {string} [style.align='left'] - Horizontal alignment of each line in multiline instructions. Can be: 'left', 'center' or 'right'. Does not affect single lines of instructions (see `textBounds` and `boundsAlignH` for that).
+* @param {string} [style.boundsAlignH='left'] - Horizontal alignment of the instructions within the `textBounds`. Can be: 'left', 'center' or 'right'.
+* @param {string} [style.boundsAlignV='top'] - Vertical alignment of the instructions within the `textBounds`. Can be: 'top', 'middle' or 'bottom'.
+* @param {string} [style.stroke='black'] - A canvas stroke style that will be used on the instructions stroke eg 'blue', '#FCFF00'.
 * @param {number} [style.strokeThickness=0] - A number that represents the thickness of the stroke. Default is 0 (no stroke).
 * @param {boolean} [style.wordWrap=false] - Indicates if word wrap should be used.
-* @param {number} [style.wordWrapWidth=100] - The width in pixels at which text will wrap.
-* @param {number} [style.maxLines=0] - The maximum number of lines to be shown for wrapped text.
-* @param {number} [style.tabs=0] - The size (in pixels) of the tabs, for when text includes tab characters. 0 disables. Can be an array of varying tab sizes, one per tab stop.
+* @param {number} [style.wordWrapWidth=100] - The width in pixels at which instructions will wrap.
+* @param {number} [style.maxLines=0] - The maximum number of lines to be shown for wrapped instructions.
+* @param {number} [style.tabs=0] - The size (in pixels) of the tabs, for when instructions includes tab characters. 0 disables. Can be an array of varying tab sizes, one per tab stop.
 */
 Phaser.Text = function (game, x, y, text, style) {
 
@@ -56226,7 +56226,7 @@ Phaser.Text = function (game, x, y, text, style) {
     this.padding = new Phaser.Point();
 
     /**
-    * The textBounds property allows you to specify a rectangular region upon which text alignment is based.
+    * The textBounds property allows you to specify a rectangular region upon which instructions alignment is based.
     * See `Text.setTextBounds` for more details.
     * @property {Phaser.Rectangle} textBounds
     * @readOnly
@@ -56234,12 +56234,12 @@ Phaser.Text = function (game, x, y, text, style) {
     this.textBounds = null;
 
     /**
-     * @property {HTMLCanvasElement} canvas - The canvas element that the text is rendered.
+     * @property {HTMLCanvasElement} canvas - The canvas element that the instructions is rendered.
      */
     this.canvas = PIXI.CanvasPool.create(this);
 
     /**
-     * @property {HTMLCanvasElement} context - The context of the canvas element that the text is rendered to.
+     * @property {HTMLCanvasElement} context - The context of the canvas element that the instructions is rendered to.
      */
     this.context = this.canvas.getContext('2d');
 
@@ -56265,7 +56265,7 @@ Phaser.Text = function (game, x, y, text, style) {
 
     /**
     * Should the linePositionX and Y values be automatically rounded before rendering the Text?
-    * You may wish to enable this if you want to remove the effect of sub-pixel aliasing from text.
+    * You may wish to enable this if you want to remove the effect of sub-pixel aliasing from instructions.
     * @property {boolean} autoRound
     * @default
     */
@@ -56303,13 +56303,13 @@ Phaser.Text = function (game, x, y, text, style) {
     this._fontComponents = null;
 
     /**
-    * @property {number} lineSpacing - Additional spacing (in pixels) between each line of text if multi-line.
+    * @property {number} lineSpacing - Additional spacing (in pixels) between each line of instructions if multi-line.
     * @private
     */
     this._lineSpacing = 0;
 
     /**
-    * @property {number} _charCount - Internal character counter used by the text coloring.
+    * @property {number} _charCount - Internal character counter used by the instructions coloring.
     * @private
     */
     this._charCount = 0;
@@ -56418,7 +56418,7 @@ Phaser.Text.prototype.setShadow = function (x, y, color, blur, shadowStroke, sha
 };
 
 /**
-* Set the style of the text by passing a single style object to it.
+* Set the style of the instructions by passing a single style object to it.
 *
 * @method Phaser.Text#setStyle
 * @param {object} [style] - The style properties to be set on the Text.
@@ -56428,16 +56428,16 @@ Phaser.Text.prototype.setShadow = function (x, y, color, blur, shadowStroke, sha
 * @param {string} [style.fontWeight=(from font)] - The weight of the font (eg. 'bold'): overrides the value in `style.font`.
 * @param {string|number} [style.fontSize=(from font)] - The size of the font (eg. 32 or '32px'): overrides the value in `style.font`.
 * @param {string} [style.backgroundColor=null] - A canvas fillstyle that will be used as the background for the whole Text object. Set to `null` to disable.
-* @param {string} [style.fill='black'] - A canvas fillstyle that will be used on the text eg 'red', '#00FF00'.
-* @param {string} [style.align='left'] - Horizontal alignment of each line in multiline text. Can be: 'left', 'center' or 'right'. Does not affect single lines of text (see `textBounds` and `boundsAlignH` for that).
-* @param {string} [style.boundsAlignH='left'] - Horizontal alignment of the text within the `textBounds`. Can be: 'left', 'center' or 'right'.
-* @param {string} [style.boundsAlignV='top'] - Vertical alignment of the text within the `textBounds`. Can be: 'top', 'middle' or 'bottom'.
-* @param {string} [style.stroke='black'] - A canvas stroke style that will be used on the text stroke eg 'blue', '#FCFF00'.
+* @param {string} [style.fill='black'] - A canvas fillstyle that will be used on the instructions eg 'red', '#00FF00'.
+* @param {string} [style.align='left'] - Horizontal alignment of each line in multiline instructions. Can be: 'left', 'center' or 'right'. Does not affect single lines of instructions (see `textBounds` and `boundsAlignH` for that).
+* @param {string} [style.boundsAlignH='left'] - Horizontal alignment of the instructions within the `textBounds`. Can be: 'left', 'center' or 'right'.
+* @param {string} [style.boundsAlignV='top'] - Vertical alignment of the instructions within the `textBounds`. Can be: 'top', 'middle' or 'bottom'.
+* @param {string} [style.stroke='black'] - A canvas stroke style that will be used on the instructions stroke eg 'blue', '#FCFF00'.
 * @param {number} [style.strokeThickness=0] - A number that represents the thickness of the stroke. Default is 0 (no stroke).
 * @param {boolean} [style.wordWrap=false] - Indicates if word wrap should be used.
-* @param {number} [style.wordWrapWidth=100] - The width in pixels at which text will wrap.
-* @param {number} [style.maxLines=0] - The maximum number of lines to be shown for wrapped text.
-* @param {number|array} [style.tabs=0] - The size (in pixels) of the tabs, for when text includes tab characters. 0 disables. Can be an array of varying tab sizes, one per tab stop.
+* @param {number} [style.wordWrapWidth=100] - The width in pixels at which instructions will wrap.
+* @param {number} [style.maxLines=0] - The maximum number of lines to be shown for wrapped instructions.
+* @param {number|array} [style.tabs=0] - The size (in pixels) of the tabs, for when instructions includes tab characters. 0 disables. Can be an array of varying tab sizes, one per tab stop.
 * @param {boolean} [update=false] - Immediately update the Text object after setting the new style? Or wait for the next frame.
 * @return {Phaser.Text} This Text instance.
 */
@@ -56507,7 +56507,7 @@ Phaser.Text.prototype.setStyle = function (style, update) {
 };
 
 /**
-* Renders text. This replaces the Pixi.Text.updateText function as we need a few extra bits in here.
+* Renders instructions. This replaces the Pixi.Text.updateText function as we need a few extra bits in here.
 *
 * @method Phaser.Text#updateText
 * @private
@@ -56525,10 +56525,10 @@ Phaser.Text.prototype.updateText = function () {
         outputText = this.runWordWrap(this.text);
     }
 
-    //  Split text into lines
+    //  Split instructions into lines
     var lines = outputText.split(/(?:\r\n|\r|\n)/);
 
-    //  Calculate text width
+    //  Calculate instructions width
     var tabs = this.style.tabs;
     var lineWidths = [];
     var maxLineWidth = 0;
@@ -56559,7 +56559,7 @@ Phaser.Text.prototype.updateText = function () {
                 lineWidth += this.context.measureText(lines[i]).width;
             }
 
-            // Adjust for wrapped text
+            // Adjust for wrapped instructions
             if (this.style.wordWrap)
             {
                 lineWidth -= this.context.measureText(' ').width;
@@ -56623,7 +56623,7 @@ Phaser.Text.prototype.updateText = function () {
 
     this.canvas.width = maxLineWidth * this._res;
     
-    //  Calculate text height
+    //  Calculate instructions height
     var lineHeight = fontProperties.fontSize + this.style.strokeThickness + this.padding.y;
     var height = lineHeight * drawnLines;
     var lineSpacing = this._lineSpacing;
@@ -56668,7 +56668,7 @@ Phaser.Text.prototype.updateText = function () {
 
     this._charCount = 0;
 
-    //  Draw text line by line
+    //  Draw instructions line by line
     for (i = 0; i < drawnLines; i++)
     {
         //  Split the line by
@@ -56739,12 +56739,12 @@ Phaser.Text.prototype.updateText = function () {
 };
 
 /**
-* Renders a line of text that contains tab characters if Text.tab > 0.
+* Renders a line of instructions that contains tab characters if Text.tab > 0.
 * Called automatically by updateText.
 *
 * @method Phaser.Text#renderTabLine
 * @private
-* @param {string} line - The line of text to render.
+* @param {string} line - The line of instructions to render.
 * @param {integer} x - The x position to start rendering from.
 * @param {integer} y - The y position to start rendering from.
 * @param {boolean} fill - If true uses fillText, if false uses strokeText.
@@ -56829,11 +56829,11 @@ Phaser.Text.prototype.updateShadow = function (state) {
 };
 
 /**
-* Measures a line of text character by character taking into the account the specified character styles.
+* Measures a line of instructions character by character taking into the account the specified character styles.
 *
 * @method Phaser.Text#measureLine
 * @private
-* @param {string} line - The line of text to measure.
+* @param {string} line - The line of instructions to measure.
 * @return {integer} length of the line.
 */
 Phaser.Text.prototype.measureLine = function (line) {
@@ -56890,7 +56890,7 @@ Phaser.Text.prototype.measureLine = function (line) {
 };
 
 /**
-* Updates a line of text, applying fill and stroke per-character colors or style and weight per-character font if applicable.
+* Updates a line of instructions, applying fill and stroke per-character colors or style and weight per-character font if applicable.
 *
 * @method Phaser.Text#updateLine
 * @private
@@ -56948,7 +56948,7 @@ Phaser.Text.prototype.updateLine = function (line, x, y) {
 };
 
 /**
-* Clears any text fill or stroke colors that were set by `addColor` or `addStrokeColor`.
+* Clears any instructions fill or stroke colors that were set by `addColor` or `addStrokeColor`.
 *
 * @method Phaser.Text#clearColors
 * @return {Phaser.Text} This Text instance.
@@ -56964,7 +56964,7 @@ Phaser.Text.prototype.clearColors = function () {
 };
 
 /**
-* Clears any text styles or weights font that were set by `addFontStyle` or `addFontWeight`.
+* Clears any instructions styles or weights font that were set by `addFontStyle` or `addFontWeight`.
 *
 * @method Phaser.Text#clearFontValues
 * @return {Phaser.Text} This Text instance.
@@ -56990,7 +56990,7 @@ Phaser.Text.prototype.clearFontValues = function () {
 * If you wish to change the stroke color see addStrokeColor instead.
 *
 * @method Phaser.Text#addColor
-* @param {string} color - A canvas fillstyle that will be used on the text eg `red`, `#00FF00`, `rgba()`.
+* @param {string} color - A canvas fillstyle that will be used on the instructions eg `red`, `#00FF00`, `rgba()`.
 * @param {number} position - The index of the character in the string to start applying this color value from.
 * @return {Phaser.Text} This Text instance.
 */
@@ -57013,10 +57013,10 @@ Phaser.Text.prototype.addColor = function (color, position) {
 *
 * This has no effect if stroke is disabled or has a thickness of 0.
 *
-* If you wish to change the text fill color see addColor instead.
+* If you wish to change the instructions fill color see addColor instead.
 *
 * @method Phaser.Text#addStrokeColor
-* @param {string} color - A canvas fillstyle that will be used on the text stroke eg `red`, `#00FF00`, `rgba()`.
+* @param {string} color - A canvas fillstyle that will be used on the instructions stroke eg `red`, `#00FF00`, `rgba()`.
 * @param {number} position - The index of the character in the string to start applying this color value from.
 * @return {Phaser.Text} This Text instance.
 */
@@ -57037,10 +57037,10 @@ Phaser.Text.prototype.addStrokeColor = function (color, position) {
 * Once set the font style remains in use until either another font style or the end of the string is encountered.
 * For example if the Text was `Photon Storm` and you did `Text.addFontStyle('italic', 6)` it would font style in the word `Storm` in italic.
 *
-* If you wish to change the text font weight see addFontWeight instead.
+* If you wish to change the instructions font weight see addFontWeight instead.
 *
 * @method Phaser.Text#addFontStyle
-* @param {string} style - A canvas font-style that will be used on the text style eg `normal`, `italic`, `oblique`.
+* @param {string} style - A canvas font-style that will be used on the instructions style eg `normal`, `italic`, `oblique`.
 * @param {number} position - The index of the character in the string to start applying this font style value from.
 * @return {Phaser.Text} This Text instance.
 */
@@ -57061,10 +57061,10 @@ Phaser.Text.prototype.addFontStyle = function (style, position) {
 * Once set the font weight remains in use until either another font weight or the end of the string is encountered.
 * For example if the Text was `Photon Storm` and you did `Text.addFontWeight('bold', 6)` it would font weight in the word `Storm` in bold.
 *
-* If you wish to change the text font style see addFontStyle instead.
+* If you wish to change the instructions font style see addFontStyle instead.
 *
 * @method Phaser.Text#addFontWeight
-* @param {string} style - A canvas font-weight that will be used on the text weight eg `normal`, `bold`, `bolder`, `lighter`, etc.
+* @param {string} style - A canvas font-weight that will be used on the instructions weight eg `normal`, `bold`, `bolder`, `lighter`, etc.
 * @param {number} position - The index of the character in the string to start applying this font weight value from.
 * @return {Phaser.Text} This Text instance.
 */
@@ -57078,15 +57078,15 @@ Phaser.Text.prototype.addFontWeight = function (weight, position) {
 };
 
 /**
-* Runs the given text through the Text.runWordWrap function and returns
+* Runs the given instructions through the Text.runWordWrap function and returns
 * the results as an array, where each element of the array corresponds to a wrapped
-* line of text.
+* line of instructions.
 *
 * Useful if you wish to control pagination on long pieces of content.
 *
 * @method Phaser.Text#precalculateWordWrap
-* @param {string} text - The text for which the wrapping will be calculated.
-* @return {array} An array of strings with the pieces of wrapped text.
+* @param {string} text - The instructions for which the wrapping will be calculated.
+* @return {array} An array of strings with the pieces of wrapped instructions.
 */
 Phaser.Text.prototype.precalculateWordWrap = function (text) {
 
@@ -57103,7 +57103,7 @@ Phaser.Text.prototype.precalculateWordWrap = function (text) {
 * Greedy wrapping algorithm that will wrap words as the line grows longer than its horizontal bounds.
 *
 * @method Phaser.Text#runWordWrap
-* @param {string} text - The text to perform word wrap detection against.
+* @param {string} text - The instructions to perform word wrap detection against.
 * @private
 */
 Phaser.Text.prototype.runWordWrap = function (text) {
@@ -57126,7 +57126,7 @@ Phaser.Text.prototype.runWordWrap = function (text) {
 * Throws an error if the user was smart enough to specify a wordWrapWidth less than a single character.
 *
 * @method Phaser.Text#advancedWordWrap
-* @param {string} text - The text to perform word wrap detection against.
+* @param {string} text - The instructions to perform word wrap detection against.
 * @private
 */
 Phaser.Text.prototype.advancedWordWrap = function (text) {
@@ -57197,7 +57197,7 @@ Phaser.Text.prototype.advancedWordWrap = function (text) {
                     // letter, shame user failure with a fatal error
                     if (!newWord.length)
                     {
-                        throw new Error('This text\'s wordWrapWidth setting is less than a single character!');
+                        throw new Error('This instructions\'s wordWrapWidth setting is less than a single character!');
                     }
 
                     // replace current word in array with remainder
@@ -57247,7 +57247,7 @@ Phaser.Text.prototype.advancedWordWrap = function (text) {
 * Greedy wrapping algorithm that will wrap words as the line grows longer than its horizontal bounds.
 *
 * @method Phaser.Text#basicWordWrap
-* @param {string} text - The text to perform word wrap detection against.
+* @param {string} text - The instructions to perform word wrap detection against.
 * @private
 */
 Phaser.Text.prototype.basicWordWrap = function (text) {
@@ -57403,9 +57403,9 @@ Phaser.Text.prototype.componentsToFont = function (components) {
 };
 
 /**
-* The text to be displayed by this Text object.
-* Use a \n to insert a carriage return and split the text.
-* The text will be rendered with any style currently set.
+* The instructions to be displayed by this Text object.
+* Use a \n to insert a carriage return and split the instructions.
+* The instructions will be rendered with any style currently set.
 *
 * Use the optional `immediate` argument if you need the Text display to update immediately.
 * 
@@ -57413,7 +57413,7 @@ Phaser.Text.prototype.componentsToFont = function (components) {
 * loop is called.
 *
 * @method Phaser.Text#setText
-* @param {string} [text] - The text to be displayed. Set to an empty string to clear text that is already present.
+* @param {string} [text] - The instructions to be displayed. Set to an empty string to clear instructions that is already present.
 * @param {boolean} [immediate=false] - Update the texture used by this Text object immediately (true) or automatically during the next render loop (false).
 * @return {Phaser.Text} This Text instance.
 */
@@ -57499,24 +57499,24 @@ Phaser.Text.prototype.parseList = function (list) {
 
 /**
  * The Text Bounds is a rectangular region that you control the dimensions of into which the Text object itself is positioned,
- * regardless of the number of lines in the text, the font size or any other attribute.
+ * regardless of the number of lines in the instructions, the font size or any other attribute.
  *
  * Alignment is controlled via the properties `boundsAlignH` and `boundsAlignV` within the Text.style object, or can be directly
- * set through the setters `Text.boundsAlignH` and `Text.boundsAlignV`. Bounds alignment is independent of text alignment.
+ * set through the setters `Text.boundsAlignH` and `Text.boundsAlignV`. Bounds alignment is independent of instructions alignment.
  *
- * For example: If your game is 800x600 in size and you set the text bounds to be 0,0,800,600 then by setting boundsAlignH to
- * 'center' and boundsAlignV to 'bottom' the text will render in the center and at the bottom of your game window, regardless of
- * how many lines of text there may be. Even if you adjust the text content or change the style it will remain at the bottom center
- * of the text bounds.
+ * For example: If your game is 800x600 in size and you set the instructions bounds to be 0,0,800,600 then by setting boundsAlignH to
+ * 'center' and boundsAlignV to 'bottom' the instructions will render in the center and at the bottom of your game window, regardless of
+ * how many lines of instructions there may be. Even if you adjust the instructions content or change the style it will remain at the bottom center
+ * of the instructions bounds.
  *
- * This is especially powerful when you need to align text against specific coordinates in your game, but the actual text dimensions
+ * This is especially powerful when you need to align instructions against specific coordinates in your game, but the actual instructions dimensions
  * may vary based on font (say for multi-lingual games).
  *
- * If `Text.wordWrapWidth` is greater than the width of the text bounds it is clamped to match the bounds width.
+ * If `Text.wordWrapWidth` is greater than the width of the instructions bounds it is clamped to match the bounds width.
  *
  * Call this method with no arguments given to reset an existing textBounds.
  * 
- * It works by calculating the final position based on the Text.canvas size, which is modified as the text is updated. Some fonts
+ * It works by calculating the final position based on the Text.canvas size, which is modified as the instructions is updated. Some fonts
  * have additional padding around them which you can mitigate by tweaking the Text.padding property. It then adjusts the `pivot`
  * property based on the given bounds and canvas size. This means if you need to set the pivot property directly in your game then
  * you either cannot use `setTextBounds` or you must place the Text object inside another DisplayObject on which you set the pivot.
@@ -57802,12 +57802,12 @@ Phaser.Text.prototype.getBounds = function (matrix) {
 };
 
 /**
-* The text to be displayed by this Text object.
-* Use a \n to insert a carriage return and split the text.
-* The text will be rendered with any style currently set.
+* The instructions to be displayed by this Text object.
+* Use a \n to insert a carriage return and split the instructions.
+* The instructions will be rendered with any style currently set.
 *
 * @name Phaser.Text#text
-* @property {string} text
+* @property {string} instructions
 */
 Object.defineProperty(Phaser.Text.prototype, 'text', {
 
@@ -57859,12 +57859,12 @@ Object.defineProperty(Phaser.Text.prototype, 'cssFont', {
 });
 
 /**
-* Change the font family that the text will be rendered in, such as 'Arial'.
+* Change the font family that the instructions will be rendered in, such as 'Arial'.
 *
 * Multiple CSS font families and generic fallbacks can be specified as long as
 * {@link http://www.w3.org/TR/CSS2/fonts.html#propdef-font-family CSS font-family rules} are followed.
 *
-* To change the entire font string use {@link Phaser.Text#cssFont cssFont} instead: eg. `text.cssFont = 'bold 20pt Arial'`.
+* To change the entire font string use {@link Phaser.Text#cssFont cssFont} instead: eg. `instructions.cssFont = 'bold 20pt Arial'`.
 *
 * @name Phaser.Text#font
 * @property {string} font
@@ -58000,7 +58000,7 @@ Object.defineProperty(Phaser.Text.prototype, 'fontVariant', {
 
 /**
 * @name Phaser.Text#fill
-* @property {object} fill - A canvas fillstyle that will be used on the text eg 'red', '#00FF00'.
+* @property {object} fill - A canvas fillstyle that will be used on the instructions eg 'red', '#00FF00'.
 */
 Object.defineProperty(Phaser.Text.prototype, 'fill', {
 
@@ -58021,9 +58021,9 @@ Object.defineProperty(Phaser.Text.prototype, 'fill', {
 });
 
 /**
-* Controls the horizontal alignment for multiline text.
+* Controls the horizontal alignment for multiline instructions.
 * Can be: 'left', 'center' or 'right'.
-* Does not affect single lines of text. For that please see `setTextBounds`.
+* Does not affect single lines of instructions. For that please see `setTextBounds`.
 * @name Phaser.Text#align
 * @property {string} align
 */
@@ -58046,7 +58046,7 @@ Object.defineProperty(Phaser.Text.prototype, 'align', {
 });
 
 /**
-* The resolution of the canvas the text is rendered to.
+* The resolution of the canvas the instructions is rendered to.
 * This defaults to match the resolution of the renderer, but can be changed on a per Text object basis.
 * @name Phaser.Text#resolution
 * @property {integer} resolution
@@ -58070,7 +58070,7 @@ Object.defineProperty(Phaser.Text.prototype, 'resolution', {
 });
 
 /**
-* The size (in pixels) of the tabs, for when text includes tab characters. 0 disables. 
+* The size (in pixels) of the tabs, for when instructions includes tab characters. 0 disables.
 * Can be an integer or an array of varying tab sizes, one tab per element.
 * For example if you set tabs to 100 then when Text encounters a tab it will jump ahead 100 pixels.
 * If you set tabs to be `[100,200]` then it will set the first tab at 100px and the second at 200px.
@@ -58097,7 +58097,7 @@ Object.defineProperty(Phaser.Text.prototype, 'tabs', {
 });
 
 /**
-* Horizontal alignment of the text within the `textBounds`. Can be: 'left', 'center' or 'right'.
+* Horizontal alignment of the instructions within the `textBounds`. Can be: 'left', 'center' or 'right'.
 * @name Phaser.Text#boundsAlignH
 * @property {string} boundsAlignH
 */
@@ -58120,7 +58120,7 @@ Object.defineProperty(Phaser.Text.prototype, 'boundsAlignH', {
 });
 
 /**
-* Vertical alignment of the text within the `textBounds`. Can be: 'top', 'middle' or 'bottom'.
+* Vertical alignment of the instructions within the `textBounds`. Can be: 'top', 'middle' or 'bottom'.
 * @name Phaser.Text#boundsAlignV
 * @property {string} boundsAlignV
 */
@@ -58144,7 +58144,7 @@ Object.defineProperty(Phaser.Text.prototype, 'boundsAlignV', {
 
 /**
 * @name Phaser.Text#stroke
-* @property {string} stroke - A canvas fillstyle that will be used on the text stroke eg 'blue', '#FCFF00'.
+* @property {string} stroke - A canvas fillstyle that will be used on the instructions stroke eg 'blue', '#FCFF00'.
 */
 Object.defineProperty(Phaser.Text.prototype, 'stroke', {
 
@@ -58210,7 +58210,7 @@ Object.defineProperty(Phaser.Text.prototype, 'wordWrap', {
 
 /**
 * @name Phaser.Text#wordWrapWidth
-* @property {number} wordWrapWidth - The width at which text will wrap.
+* @property {number} wordWrapWidth - The width at which instructions will wrap.
 */
 Object.defineProperty(Phaser.Text.prototype, 'wordWrapWidth', {
 
@@ -58232,7 +58232,7 @@ Object.defineProperty(Phaser.Text.prototype, 'wordWrapWidth', {
 
 /**
 * @name Phaser.Text#lineSpacing
-* @property {number} lineSpacing - Additional spacing (in pixels) between each line of text if multi-line.
+* @property {number} lineSpacing - Additional spacing (in pixels) between each line of instructions if multi-line.
 */
 Object.defineProperty(Phaser.Text.prototype, 'lineSpacing', {
 
@@ -58452,16 +58452,16 @@ Phaser.Text.fontPropertiesContext = Phaser.Text.fontPropertiesCanvas.getContext(
 
 /**
 * BitmapText objects work by taking a texture file and an XML or JSON file that describes the font structure.
-* It then generates a new Sprite object for each letter of the text, proportionally spaced out and aligned to 
+* It then generates a new Sprite object for each letter of the instructions, proportionally spaced out and aligned to
 * match the font structure.
 * 
 * BitmapText objects are less flexible than Text objects, in that they have less features such as shadows, fills and the ability 
 * to use Web Fonts, however you trade this flexibility for rendering speed. You can also create visually compelling BitmapTexts by
 * processing the font texture in an image editor, applying fills and any other effects required.
 *
-* To create multi-line text insert \r, \n or \r\n escape codes into the text string.
+* To create multi-line instructions insert \r, \n or \r\n escape codes into the instructions string.
 *
-* If you are having performance issues due to the volume of sprites being rendered, and do not require the text to be constantly
+* If you are having performance issues due to the volume of sprites being rendered, and do not require the instructions to be constantly
 * updating, you can use BitmapText.generateTexture to create a static texture from this BitmapText.
 *
 * To create a BitmapText data files you can use:
@@ -58493,9 +58493,9 @@ Phaser.Text.fontPropertiesContext = Phaser.Text.fontPropertiesCanvas.getContext(
 * @param {number} x - X coordinate to display the BitmapText object at.
 * @param {number} y - Y coordinate to display the BitmapText object at.
 * @param {string} font - The key of the BitmapText as stored in Phaser.Cache.
-* @param {string} [text=''] - The text that will be rendered. This can also be set later via BitmapText.text.
+* @param {string} [text=''] - The instructions that will be rendered. This can also be set later via BitmapText.instructions.
 * @param {number} [size=32] - The size the font will be rendered at in pixels.
-* @param {string} [align='left'] - The alignment of multi-line text. Has no effect if there is only one line of text.
+* @param {string} [align='left'] - The alignment of multi-line instructions. Has no effect if there is only one line of instructions.
 */
 Phaser.BitmapText = function (game, x, y, font, text, size, align) {
 
@@ -58521,13 +58521,13 @@ Phaser.BitmapText = function (game, x, y, font, text, size, align) {
     this.physicsType = Phaser.SPRITE;
 
     /**
-    * @property {number} textWidth - The width in pixels of the overall text area, taking into consideration multi-line text.
+    * @property {number} textWidth - The width in pixels of the overall instructions area, taking into consideration multi-line instructions.
     * @readOnly
     */
     this.textWidth = 0;
 
     /**
-    * @property {number} textHeight - The height in pixels of the overall text area, taking into consideration multi-line text.
+    * @property {number} textHeight - The height in pixels of the overall instructions area, taking into consideration multi-line instructions.
     * @readOnly
     */
     this.textHeight = 0;
@@ -58661,12 +58661,12 @@ Phaser.BitmapText.prototype.postUpdate = function () {
 };
 
 /**
-* The text to be displayed by this BitmapText object.
+* The instructions to be displayed by this BitmapText object.
 * 
-* It's faster to use `BitmapText.text = string`, but this is kept for backwards compatibility.
+* It's faster to use `BitmapText.instructions = string`, but this is kept for backwards compatibility.
 *
 * @method Phaser.BitmapText.prototype.setText
-* @param {string} text - The text to be displayed by this BitmapText object.
+* @param {string} text - The instructions to be displayed by this BitmapText object.
 */
 Phaser.BitmapText.prototype.setText = function (text) {
 
@@ -58675,14 +58675,14 @@ Phaser.BitmapText.prototype.setText = function (text) {
 };
 
 /**
-* Given the input text this will scan the characters until either a newline is encountered, 
+* Given the input instructions this will scan the characters until either a newline is encountered,
 * or the line exceeds maxWidth, taking into account kerning, character widths and scaling.
 * 
 * @method Phaser.BitmapText.prototype.scanLine
 * @private
 * @param {object} data - A reference to the font object in the Phaser.Cache.
 * @param {float} scale - The scale of the font in relation to the texture.
-* @param {string} text - The text to parse.
+* @param {string} text - The instructions to parse.
 * @return {object} An object containing the parsed characters, total pixel width and x offsets.
 */
 Phaser.BitmapText.prototype.scanLine = function (data, scale, text) {
@@ -58695,7 +58695,7 @@ Phaser.BitmapText.prototype.scanLine = function (data, scale, text) {
     var maxWidth = (this._maxWidth > 0) ? this._maxWidth : null;
     var chars = [];
 
-    //  Let's scan the text and work out if any of the lines are > maxWidth
+    //  Let's scan the instructions and work out if any of the lines are > maxWidth
     for (var i = 0; i < text.length; i++)
     {
         var end = (i === text.length - 1) ? true : false;
@@ -58756,15 +58756,15 @@ Phaser.BitmapText.prototype.scanLine = function (data, scale, text) {
 };
 
 /**
-* Given a text string this will scan each character in the string to ensure it exists
+* Given a instructions string this will scan each character in the string to ensure it exists
 * in the BitmapText font data. If it doesn't the character is removed, or replaced with the `replace` argument.
 *
 * If no font data has been loaded at all this returns an empty string, as nothing can be rendered.
 * 
 * @method Phaser.BitmapText.prototype.cleanText
-* @param {string} text - The text to parse.
+* @param {string} text - The instructions to parse.
 * @param {string} [replace=''] - The replacement string for any missing characters.
-* @return {string} The cleaned text string.
+* @return {string} The cleaned instructions string.
 */
 Phaser.BitmapText.prototype.cleanText = function (text, replace) {
 
@@ -58808,7 +58808,7 @@ Phaser.BitmapText.prototype.cleanText = function (text, replace) {
 };
 
 /**
-* Renders text and updates it when needed.
+* Renders instructions and updates it when needed.
 *
 * @method Phaser.BitmapText.prototype.updateText
 * @private
@@ -58928,7 +58928,7 @@ Phaser.BitmapText.prototype.updateText = function () {
 * If you know that the BitmapText will not grow any larger then you can purge out the excess glyphs from the pool 
 * by calling this method.
 *
-* Calling this doesn't prevent you from increasing the length of the text again in the future.
+* Calling this doesn't prevent you from increasing the length of the instructions again in the future.
 *
 * @method Phaser.BitmapText.prototype.purgeGlyphs
 * @return {integer} The amount of glyphs removed from the pool.
@@ -58980,7 +58980,7 @@ Phaser.BitmapText.prototype.updateTransform = function () {
 
 /**
 * @name Phaser.BitmapText#align
-* @property {string} align - Alignment for multi-line text ('left', 'center' or 'right'), does not affect single lines of text.
+* @property {string} align - Alignment for multi-line instructions ('left', 'center' or 'right'), does not affect single lines of instructions.
 */
 Object.defineProperty(Phaser.BitmapText.prototype, 'align', {
 
@@ -59024,7 +59024,7 @@ Object.defineProperty(Phaser.BitmapText.prototype, 'tint', {
 
 /**
 * @name Phaser.BitmapText#font
-* @property {string} font - The font the text will be rendered in, i.e. 'Arial'. Must be loaded in the browser before use.
+* @property {string} font - The font the instructions will be rendered in, i.e. 'Arial'. Must be loaded in the browser before use.
 */
 Object.defineProperty(Phaser.BitmapText.prototype, 'font', {
 
@@ -59071,7 +59071,7 @@ Object.defineProperty(Phaser.BitmapText.prototype, 'fontSize', {
 
 /**
 * @name Phaser.BitmapText#text
-* @property {string} text - The text to be displayed by this BitmapText object.
+* @property {string} instructions - The instructions to be displayed by this BitmapText object.
 */
 Object.defineProperty(Phaser.BitmapText.prototype, 'text', {
 
@@ -59094,7 +59094,7 @@ Object.defineProperty(Phaser.BitmapText.prototype, 'text', {
 /**
 * The maximum display width of this BitmapText in pixels.
 * 
-* If BitmapText.text is longer than maxWidth then the lines will be automatically wrapped 
+* If BitmapText.instructions is longer than maxWidth then the lines will be automatically wrapped
 * based on the last whitespace character found in the line.
 * 
 * If no whitespace was found then no wrapping will take place and consequently the maxWidth value will not be honored.
@@ -59127,7 +59127,7 @@ Object.defineProperty(Phaser.BitmapText.prototype, 'maxWidth', {
 /**
 * Enable or disable texture smoothing for this BitmapText.
 *
-* The smoothing is applied to the BaseTexture of this font, which all letters of the text reference.
+* The smoothing is applied to the BaseTexture of this font, which all letters of the instructions reference.
 * 
 * Smoothing is enabled by default.
 * 
@@ -59164,7 +59164,7 @@ Object.defineProperty(Phaser.BitmapText.prototype, 'smoothed', {
 */
 
 /**
-* A Retro Font is similar to a BitmapFont, in that it uses a texture to render the text. However unlike a BitmapFont every character in a RetroFont
+* A Retro Font is similar to a BitmapFont, in that it uses a texture to render the instructions. However unlike a BitmapFont every character in a RetroFont
 * is the same size. This makes it similar to a sprite sheet. You typically find font sheets like this from old 8/16-bit games and demos.
 * 
 * @class Phaser.RetroFont
@@ -59231,18 +59231,18 @@ Phaser.RetroFont = function (game, key, characterWidth, characterHeight, chars, 
     this.offsetY = yOffset || 0;
 
     /**
-    * @property {string} align - Alignment of the text when multiLine = true or a fixedWidth is set. Set to RetroFont.ALIGN_LEFT (default), RetroFont.ALIGN_RIGHT or RetroFont.ALIGN_CENTER.
+    * @property {string} align - Alignment of the instructions when multiLine = true or a fixedWidth is set. Set to RetroFont.ALIGN_LEFT (default), RetroFont.ALIGN_RIGHT or RetroFont.ALIGN_CENTER.
     */
     this.align = "left";
 
     /**
-    * @property {boolean} multiLine - If set to true all carriage-returns in text will form new lines (see align). If false the font will only contain one single line of text (the default)
+    * @property {boolean} multiLine - If set to true all carriage-returns in instructions will form new lines (see align). If false the font will only contain one single line of instructions (the default)
     * @default
     */
     this.multiLine = false;
 
     /**
-    * @property {boolean} autoUpperCase - Automatically convert any text to upper case. Lots of old bitmap fonts only contain upper-case characters, so the default is true.
+    * @property {boolean} autoUpperCase - Automatically convert any instructions to upper case. Lots of old bitmap fonts only contain upper-case characters, so the default is true.
     * @default
     */
     this.autoUpperCase = true;
@@ -59254,14 +59254,14 @@ Phaser.RetroFont = function (game, key, characterWidth, characterHeight, chars, 
     this.customSpacingX = 0;
 
     /**
-    * @property {number} customSpacingY - Adds vertical spacing between each line of multi-line text, set in pixels.
+    * @property {number} customSpacingY - Adds vertical spacing between each line of multi-line instructions, set in pixels.
     * @default
     */
     this.customSpacingY = 0;
 
     /**
     * If you need this RetroFont image to have a fixed width you can set the width in this value.
-    * If text is wider than the width specified it will be cropped off.
+    * If instructions is wider than the width specified it will be cropped off.
     * @property {number} fixedWidth
     */
     this.fixedWidth = 0;
@@ -59272,7 +59272,7 @@ Phaser.RetroFont = function (game, key, characterWidth, characterHeight, chars, 
     this.fontSet = game.cache.getImage(key);
 
     /**
-    * @property {string} _text - The text of the font image.
+    * @property {string} _text - The instructions of the font image.
     * @private
     */
     this._text = '';
@@ -59334,21 +59334,21 @@ Phaser.RetroFont.prototype = Object.create(Phaser.RenderTexture.prototype);
 Phaser.RetroFont.prototype.constructor = Phaser.RetroFont;
 
 /**
-* Align each line of multi-line text to the left.
+* Align each line of multi-line instructions to the left.
 * @constant
 * @type {string}
 */
 Phaser.RetroFont.ALIGN_LEFT = "left";
 
 /**
-* Align each line of multi-line text to the right.
+* Align each line of multi-line instructions to the right.
 * @constant
 * @type {string}
 */
 Phaser.RetroFont.ALIGN_RIGHT = "right";
 
 /**
-* Align each line of multi-line text in the center.
+* Align each line of multi-line instructions in the center.
 * @constant
 * @type {string}
 */
@@ -59433,12 +59433,12 @@ Phaser.RetroFont.TEXT_SET11 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ.,\"-+!?()':;0123456789
 
 /**
 * If you need this RetroFont to have a fixed width and custom alignment you can set the width here.
-* If text is wider than the width specified it will be cropped off.
+* If instructions is wider than the width specified it will be cropped off.
 *
 * @method Phaser.RetroFont#setFixedWidth
 * @memberof Phaser.RetroFont
 * @param {number} width - Width in pixels of this RetroFont. Set to zero to disable and re-enable automatic resizing.
-* @param {string} [lineAlignment='left'] - Align the text within this width. Set to RetroFont.ALIGN_LEFT (default), RetroFont.ALIGN_RIGHT or RetroFont.ALIGN_CENTER.
+* @param {string} [lineAlignment='left'] - Align the instructions within this width. Set to RetroFont.ALIGN_LEFT (default), RetroFont.ALIGN_RIGHT or RetroFont.ALIGN_CENTER.
 */
 Phaser.RetroFont.prototype.setFixedWidth = function (width, lineAlignment) {
 
@@ -59450,15 +59450,15 @@ Phaser.RetroFont.prototype.setFixedWidth = function (width, lineAlignment) {
 };
 
 /**
-* A helper function that quickly sets lots of variables at once, and then updates the text.
+* A helper function that quickly sets lots of variables at once, and then updates the instructions.
 *
 * @method Phaser.RetroFont#setText
 * @memberof Phaser.RetroFont
-* @param {string} content - The text of this sprite.
-* @param {boolean} [multiLine=false] - Set to true if you want to support carriage-returns in the text and create a multi-line sprite instead of a single line.
+* @param {string} content - The instructions of this sprite.
+* @param {boolean} [multiLine=false] - Set to true if you want to support carriage-returns in the instructions and create a multi-line sprite instead of a single line.
 * @param {number} [characterSpacing=0] - To add horizontal spacing between each character specify the amount in pixels.
-* @param {number} [lineSpacing=0] - To add vertical spacing between each line of text, set the amount in pixels.
-* @param {string} [lineAlignment='left'] - Align each line of multi-line text. Set to RetroFont.ALIGN_LEFT, RetroFont.ALIGN_RIGHT or RetroFont.ALIGN_CENTER.
+* @param {number} [lineSpacing=0] - To add vertical spacing between each line of instructions, set the amount in pixels.
+* @param {string} [lineAlignment='left'] - Align each line of multi-line instructions. Set to RetroFont.ALIGN_LEFT, RetroFont.ALIGN_RIGHT or RetroFont.ALIGN_CENTER.
 * @param {boolean} [allowLowerCase=false] - Lots of bitmap font sets only include upper-case characters, if yours needs to support lower case then set this to true.
 */
 Phaser.RetroFont.prototype.setText = function (content, multiLine, characterSpacing, lineSpacing, lineAlignment, allowLowerCase) {
@@ -59485,7 +59485,7 @@ Phaser.RetroFont.prototype.setText = function (content, multiLine, characterSpac
 };
 
 /**
-* Updates the texture with the new text.
+* Updates the texture with the new instructions.
 *
 * @method Phaser.RetroFont#buildRetroFontText
 * @memberof Phaser.RetroFont
@@ -59511,13 +59511,13 @@ Phaser.RetroFont.prototype.buildRetroFontText = function () {
             this.resize(this.getLongestLine() * (this.characterWidth + this.customSpacingX), (lines.length * (this.characterHeight + this.customSpacingY)) - this.customSpacingY, true);
         }
 
-        //  Loop through each line of text
+        //  Loop through each line of instructions
         for (var i = 0; i < lines.length; i++)
         {
             //  Phaser.RetroFont.ALIGN_LEFT
             cx = 0;
 
-            //  This line of text is held in lines[i] - need to work out the alignment
+            //  This line of instructions is held in lines[i] - need to work out the alignment
             if (this.align === Phaser.RetroFont.ALIGN_RIGHT)
             {
                 cx = this.width - (lines[i].length * (this.characterWidth + this.customSpacingX));
@@ -59577,12 +59577,12 @@ Phaser.RetroFont.prototype.buildRetroFontText = function () {
 };
 
 /**
-* Internal function that takes a single line of text (2nd parameter) and pastes it into the BitmapData at the given coordinates.
+* Internal function that takes a single line of instructions (2nd parameter) and pastes it into the BitmapData at the given coordinates.
 * Used by getLine and getMultiLine
 *
 * @method Phaser.RetroFont#pasteLine
 * @memberof Phaser.RetroFont
-* @param {string} line - The single line of text to paste.
+* @param {string} line - The single line of instructions to paste.
 * @param {number} x - The x coordinate.
 * @param {number} y - The y coordinate.
 * @param {number} customSpacingX - Custom X spacing.
@@ -59616,11 +59616,11 @@ Phaser.RetroFont.prototype.pasteLine = function (line, x, y, customSpacingX) {
 };
 
 /**
-* Works out the longest line of text in _text and returns its length
+* Works out the longest line of instructions in _text and returns its length
 *
 * @method Phaser.RetroFont#getLongestLine
 * @memberof Phaser.RetroFont
-* @return {number} The length of the longest line of text.
+* @return {number} The length of the longest line of instructions.
 */
 Phaser.RetroFont.prototype.getLongestLine = function () {
 
@@ -59705,7 +59705,7 @@ Phaser.RetroFont.prototype.updateOffset = function (x, y) {
 
 /**
 * @name Phaser.RetroFont#text
-* @property {string} text - Set this value to update the text in this sprite. Carriage returns are automatically stripped out if multiLine is false. Text is converted to upper case if autoUpperCase is true.
+* @property {string} instructions - Set this value to update the instructions in this sprite. Carriage returns are automatically stripped out if multiLine is false. Text is converted to upper case if autoUpperCase is true.
 */
 Object.defineProperty(Phaser.RetroFont.prototype, "text", {
 
@@ -69427,7 +69427,7 @@ Object.defineProperty(Phaser.Animation.prototype, 'enableUpdate', {
 * @param {number} start - The number to start sequentially counting from. If your frames are named 'explosion_0001' to 'explosion_0034' the start is 1.
 * @param {number} stop - The number to count to. If your frames are named 'explosion_0001' to 'explosion_0034' the stop value is 34.
 * @param {string} [suffix=''] - The end of the filename. If the filename was 'explosion_0001-large' the prefix would be '-large'.
-* @param {number} [zeroPad=0] - The number of zeros to pad the min and max values with. If your frames are named 'explosion_0001' to 'explosion_0034' then the zeroPad is 4.
+* @param {number} [zeroPad=0] - The number of zeros to JoyStickPlugin the min and max values with. If your frames are named 'explosion_0001' to 'explosion_0034' then the zeroPad is 4.
 * @return {string[]} An array of framenames.
 */
 Phaser.Animation.generateFrameNames = function (prefix, start, stop, suffix, zeroPad) {
@@ -69443,7 +69443,7 @@ Phaser.Animation.generateFrameNames = function (prefix, start, stop, suffix, zer
         {
             if (typeof zeroPad === 'number')
             {
-                //  str, len, pad, dir
+                //  str, len, JoyStickPlugin, dir
                 frame = Phaser.Utils.pad(i.toString(), zeroPad, '0', 1);
             }
             else
@@ -69462,7 +69462,7 @@ Phaser.Animation.generateFrameNames = function (prefix, start, stop, suffix, zer
         {
             if (typeof zeroPad === 'number')
             {
-                //  str, len, pad, dir
+                //  str, len, JoyStickPlugin, dir
                 frame = Phaser.Utils.pad(i.toString(), zeroPad, '0', 1);
             }
             else
@@ -70693,12 +70693,12 @@ Phaser.Cache.prototype = {
     },
 
     /**
-    * Add a new text data.
+    * Add a new instructions data.
     *
     * @method Phaser.Cache#addText
     * @param {string} key - The key that this asset will be stored in the cache under. This should be unique within this cache.
     * @param {string} url - The URL the asset was loaded from. If the asset was not loaded externally set to `null`.
-    * @param {object} data - Extra text data.
+    * @param {object} data - Extra instructions data.
     */
     addText: function (key, url, data) {
 
@@ -70841,7 +70841,7 @@ Phaser.Cache.prototype = {
     * @method Phaser.Cache#addXML
     * @param {string} key - The key that this asset will be stored in the cache under. This should be unique within this cache.
     * @param {string} url - The URL the asset was loaded from. If the asset was not loaded externally set to `null`.
-    * @param {object} data - Extra text data.
+    * @param {object} data - Extra instructions data.
     */
     addXML: function (key, url, data) {
 
@@ -71497,7 +71497,7 @@ Phaser.Cache.prototype = {
     *
     * @method Phaser.Cache#getText
     * @param {string} key - The key of the asset to retrieve from the cache.
-    * @return {object} The text data.
+    * @return {object} The instructions data.
     */
     getText: function (key) {
 
@@ -72021,7 +72021,7 @@ Phaser.Cache.prototype = {
     },
 
     /**
-    * Removes a text file from the cache.
+    * Removes a instructions file from the cache.
     *
     * Note that this only removes it from the Phaser.Cache. If you still have references to the data elsewhere
     * then it will persist in memory.
@@ -73082,9 +73082,9 @@ Phaser.Loader.prototype = {
     * and no URL is given then the Loader will set the URL to be "alien.txt". It will always add `.txt` as the extension.
     * If you do not desire this action then provide a URL.
     *
-    * @method Phaser.Loader#text
-    * @param {string} key - Unique asset key of the text file.
-    * @param {string} [url] - URL of the text file. If undefined or `null` the url will be set to `<key>.txt`, i.e. if `key` was "alien" then the URL will be "alien.txt".
+    * @method Phaser.Loader#instructions
+    * @param {string} key - Unique asset key of the instructions file.
+    * @param {string} [url] - URL of the instructions file. If undefined or `null` the url will be set to `<key>.txt`, i.e. if `key` was "alien" then the URL will be "alien.txt".
     * @param {boolean} [overwrite=false] - If an unloaded file with a matching key already exists in the queue, this entry will overwrite it.
     * @return {Phaser.Loader} This Loader instance.
     */
@@ -73102,7 +73102,7 @@ Phaser.Loader.prototype = {
     * The key must be a unique String. It is used to add the file to the Phaser.Cache upon successful load.
     *
     * Retrieve the file via `Cache.getJSON(key)`. JSON files are automatically parsed upon load.
-    * If you need to control when the JSON is parsed then use `Loader.text` instead and parse the text file as needed.
+    * If you need to control when the JSON is parsed then use `Loader.instructions` instead and parse the instructions file as needed.
     *
     * The URL can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
     *
@@ -73481,7 +73481,7 @@ Phaser.Loader.prototype = {
     * The key must be a unique String. It is used to add the file to the Phaser.Cache upon successful load.
     *
     * Retrieve the file via `Cache.getTilemapData(key)`. JSON files are automatically parsed upon load.
-    * If you need to control when the JSON is parsed then use `Loader.text` instead and parse the text file as needed.
+    * If you need to control when the JSON is parsed then use `Loader.instructions` instead and parse the instructions file as needed.
     *
     * The URL can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
     *
@@ -73560,7 +73560,7 @@ Phaser.Loader.prototype = {
     * The key must be a unique String. It is used to add the file to the Phaser.Cache upon successful load.
     *
     * Retrieve the file via `Cache.getJSON(key)`. JSON files are automatically parsed upon load.
-    * If you need to control when the JSON is parsed then use `Loader.text` instead and parse the text file as needed.
+    * If you need to control when the JSON is parsed then use `Loader.instructions` instead and parse the instructions file as needed.
     *
     * The URL can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
     *
@@ -73625,7 +73625,7 @@ Phaser.Loader.prototype = {
     * The key must be a unique String. It is used to add the file to the Phaser.Cache upon successful load.
     *
     * Retrieve the file via `Cache.getBitmapFont(key)`. XML files are automatically parsed upon load.
-    * If you need to control when the XML is parsed then use `Loader.text` instead and parse the XML file as needed.
+    * If you need to control when the XML is parsed then use `Loader.instructions` instead and parse the XML file as needed.
     *
     * The URLs can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
     *
@@ -73720,7 +73720,7 @@ Phaser.Loader.prototype = {
     * The key must be a unique String. It is used to add the file to the Phaser.Cache upon successful load.
     *
     * Retrieve the file via `Cache.getImage(key)`. JSON files are automatically parsed upon load.
-    * If you need to control when the JSON is parsed then use `Loader.text` instead and parse the JSON file as needed.
+    * If you need to control when the JSON is parsed then use `Loader.instructions` instead and parse the JSON file as needed.
     *
     * The URLs can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
     *
@@ -73766,7 +73766,7 @@ Phaser.Loader.prototype = {
     * The key must be a unique String. It is used to add the file to the Phaser.Cache upon successful load.
     *
     * Retrieve the file via `Cache.getImage(key)`. JSON files are automatically parsed upon load.
-    * If you need to control when the JSON is parsed then use `Loader.text` instead and parse the JSON file as needed.
+    * If you need to control when the JSON is parsed then use `Loader.instructions` instead and parse the JSON file as needed.
     *
     * The URLs can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
     *
@@ -73812,7 +73812,7 @@ Phaser.Loader.prototype = {
     * The key must be a unique String. It is used to add the file to the Phaser.Cache upon successful load.
     *
     * Retrieve the file via `Cache.getImage(key)`. XML files are automatically parsed upon load.
-    * If you need to control when the XML is parsed then use `Loader.text` instead and parse the XML file as needed.
+    * If you need to control when the XML is parsed then use `Loader.instructions` instead and parse the XML file as needed.
     *
     * The URLs can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
     *
@@ -73864,7 +73864,7 @@ Phaser.Loader.prototype = {
     * The key must be a unique String. It is used to add the file to the Phaser.Cache upon successful load.
     *
     * Retrieve the file via `Cache.getImage(key)`. JSON files are automatically parsed upon load.
-    * If you need to control when the JSON is parsed then use `Loader.text` instead and parse the JSON file as needed.
+    * If you need to control when the JSON is parsed then use `Loader.instructions` instead and parse the JSON file as needed.
     *
     * The URLs can be relative or absolute. If the URL is relative the `Loader.baseURL` and `Loader.path` values will be prepended to it.
     *
@@ -75090,7 +75090,7 @@ Phaser.Loader.prototype = {
             case 'script':
                 file.data = document.createElement('script');
                 file.data.language = 'javascript';
-                file.data.type = 'text/javascript';
+                file.data.type = 'instructions/javascript';
                 file.data.defer = false;
                 file.data.text = xhr.responseText;
                 document.head.appendChild(file.data);
@@ -75216,7 +75216,7 @@ Phaser.Loader.prototype = {
     *
     * @method Phaser.Loader#parseXml
     * @private
-    * @param {string} data - The XML text to parse
+    * @param {string} data - The XML instructions to parse
     * @return {?XMLDocument} Returns the xml document, or null if such could not parsed to a valid document.
     */
     parseXml: function (data) {
@@ -75228,7 +75228,7 @@ Phaser.Loader.prototype = {
             if (window['DOMParser'])
             {
                 var domparser = new DOMParser();
-                xml = domparser.parseFromString(data, "text/xml");
+                xml = domparser.parseFromString(data, "instructions/xml");
             }
             else
             {
@@ -80180,12 +80180,12 @@ Phaser.Utils.Debug = function (game) {
     this.columnWidth = 100;
 
     /**
-    * @property {number} lineHeight - The line height between the debug text.
+    * @property {number} lineHeight - The line height between the debug instructions.
     */
     this.lineHeight = 16;
 
     /**
-    * @property {boolean} renderShadow - Should the text be rendered with a slight shadow? Makes it easier to read on different types of background.
+    * @property {boolean} renderShadow - Should the instructions be rendered with a slight shadow? Makes it easier to read on different types of background.
     */
     this.renderShadow = true;
 
@@ -80306,7 +80306,7 @@ Phaser.Utils.Debug.prototype = {
     * @protected
     * @param {number} [x=0] - The X value the debug info will start from.
     * @param {number} [y=0] - The Y value the debug info will start from.
-    * @param {string} [color='rgb(255,255,255)'] - The color the debug text will drawn in.
+    * @param {string} [color='rgb(255,255,255)'] - The color the debug instructions will drawn in.
     * @param {number} [columnWidth=0] - The spacing between columns.
     */
     start: function (x, y, color, columnWidth) {
@@ -80345,7 +80345,7 @@ Phaser.Utils.Debug.prototype = {
     },
 
     /**
-    * Internal method that outputs a single line of text split over as many columns as needed, one per parameter.
+    * Internal method that outputs a single line of instructions split over as many columns as needed, one per parameter.
     *
     * @method Phaser.Utils.Debug#line
     * @protected
@@ -80450,7 +80450,7 @@ Phaser.Utils.Debug.prototype = {
     },
 
     /**
-    * Renders the Pointer.circle object onto the stage in green if down or red if up along with debug text.
+    * Renders the Pointer.circle object onto the stage in green if down or red if up along with debug instructions.
     *
     * @method Phaser.Utils.Debug#pointer
     * @param {Phaser.Pointer} pointer - The Pointer you wish to display.
@@ -80499,7 +80499,7 @@ Phaser.Utils.Debug.prototype = {
         this.context.stroke();
         this.context.closePath();
 
-        //  Render the text
+        //  Render the instructions
         this.line('ID: ' + pointer.id + " Active: " + pointer.active);
         this.line('World X: ' + pointer.worldX + " World Y: " + pointer.worldY);
         this.line('Screen X: ' + pointer.x + " Screen Y: " + pointer.y + " In: " + pointer.withinGame);
@@ -80795,14 +80795,14 @@ Phaser.Utils.Debug.prototype = {
     },
 
     /**
-    * Render a string of text.
+    * Render a string of instructions.
     *
-    * @method Phaser.Utils.Debug#text
-    * @param {string} text - The line of text to draw.
+    * @method Phaser.Utils.Debug#instructions
+    * @param {string} text - The line of instructions to draw.
     * @param {number} x - X position of the debug info to be rendered.
     * @param {number} y - Y position of the debug info to be rendered.
     * @param {string} [color] - Color of the debug info to be rendered (format is css color string).
-    * @param {string} [font] - The font of text to draw.
+    * @param {string} [font] - The font of instructions to draw.
     */
     text: function (text, x, y, color, font) {
 
@@ -82772,16 +82772,16 @@ Phaser.FlexGrid.prototype = {
         //     this.layers[i].debug();
         // }
 
-        // this.game.debug.text(this.boundsFull.width + ' x ' + this.boundsFull.height, this.boundsFull.x + 4, this.boundsFull.y + 16);
+        // this.game.debug.instructions(this.boundsFull.width + ' x ' + this.boundsFull.height, this.boundsFull.x + 4, this.boundsFull.y + 16);
         // this.game.debug.geom(this.boundsFull, 'rgba(0,0,255,0.9', false);
 
         this.game.debug.text(this.boundsFluid.width + ' x ' + this.boundsFluid.height, this.boundsFluid.x + 4, this.boundsFluid.y + 16);
         this.game.debug.geom(this.boundsFluid, 'rgba(255,0,0,0.9', false);
 
-        // this.game.debug.text(this.boundsNone.width + ' x ' + this.boundsNone.height, this.boundsNone.x + 4, this.boundsNone.y + 16);
+        // this.game.debug.instructions(this.boundsNone.width + ' x ' + this.boundsNone.height, this.boundsNone.x + 4, this.boundsNone.y + 16);
         // this.game.debug.geom(this.boundsNone, 'rgba(0,255,0,0.9', false);
 
-        // this.game.debug.text(this.boundsCustom.width + ' x ' + this.boundsCustom.height, this.boundsCustom.x + 4, this.boundsCustom.y + 16);
+        // this.game.debug.instructions(this.boundsCustom.width + ' x ' + this.boundsCustom.height, this.boundsCustom.x + 4, this.boundsCustom.y + 16);
         // this.game.debug.geom(this.boundsCustom, 'rgba(255,255,0,0.9', false);
 
     }
@@ -88281,7 +88281,7 @@ Phaser.Physics.Arcade.Body.render = function (context, body, color, filled) {
 };
 
 /**
-* Render Sprite Body Physics Data as text.
+* Render Sprite Body Physics Data as instructions.
 *
 * @method Phaser.Physics.Arcade.Body#renderBodyInfo
 * @param {Phaser.Physics.Arcade.Body} body - The Body to render the info of.
@@ -101616,7 +101616,7 @@ Phaser.Bullet.prototype.update = function () {
 * Small screen devices, especially iPod and iPhone will launch the video in its own native video player,
 * outside of the Safari browser. There is no way to avoid this, it's a device imposed limitation.
 *
-* Note: On iOS if you need to detect when the user presses the 'Done' button (before the video ends)
+* Note: On iOS if you need to detect when the user presses the 'Done' playButton (before the video ends)
 * then you need to add your own event listener
 *
 * @class Phaser.Video
@@ -101681,7 +101681,7 @@ Phaser.Video = function (game, key, url) {
     this.onChangeSource = new Phaser.Signal();
 
     /**
-    * @property {Phaser.Signal} onComplete - This signal is dispatched when the Video completes playback, i.e. enters an 'ended' state. On iOS specifically it also fires if the user hits the 'Done' button at any point during playback. Videos set to loop will never dispatch this signal.
+    * @property {Phaser.Signal} onComplete - This signal is dispatched when the Video completes playback, i.e. enters an 'ended' state. On iOS specifically it also fires if the user hits the 'Done' playButton at any point during playback. Videos set to loop will never dispatch this signal.
     */
     this.onComplete = new Phaser.Signal();
 
@@ -103063,3 +103063,5 @@ PIXI.TextureSilentFail = true;
 /*
 * "What matters in this life is not what we do but what we do for others, the legacy we leave and the imprint we make." - Eric Meyer
 */
+
+

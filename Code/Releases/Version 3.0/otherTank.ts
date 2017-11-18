@@ -10,15 +10,18 @@ class otherTank extends Phaser.Sprite {
     tank: Tank;
     otherTanks: Phaser.Group;
     bulletInfo = []
-    maxBullets: number = 6;
+    maxBullets: number = 10;
+    sName: string;
+    displayName: Phaser.Text;
 
-    constructor(game: Phaser.Game, x: number, y: number, id: any, layer: TilemapLayer, tank: Tank) {
+    constructor(game: Phaser.Game, x: number, y: number, id: any, layer: TilemapLayer, tank: Tank, sName: string) {
         super(game, x, y, "otherTank");
         this.game = game;
         this.id = id;
         this.FIREBASE = new util_Firebase();
         this.layer = layer;
         this.tank = tank;
+        this.sName = sName;
 
         for (let i = 0; i < this.maxBullets; i++) {
             this.bulletInfo.push(0);
@@ -29,26 +32,28 @@ class otherTank extends Phaser.Sprite {
         this.anchor.setTo(0.5, 0.5);
         this.game.physics.arcade.enable(this);
 
-        this.weapon = game.add.weapon(6, 'bullet');
+        this.weapon = game.add.weapon(6, 'blue_bullet');
         this.weapon.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
         this.weapon.bulletLifespan = 6000;
         this.weapon.bulletSpeed = 300;
         this.weapon.fireRate = 100;
-        this.weapon.trackSprite(this, 34, 0, true);
+        this.weapon.trackSprite(this, 38, 0, true);
         this.weapon.onFire.add(this.bulletFire, this);
         this.weapon.onKill.add(this.bulletDead, this);
 
-        this.body.immovable = true;
-
+        this.body.setCircle(33);
 
         this.FIREBASE.getDatabase().ref("Players/" + this.id).on("value", snap => {
             if (!snap.exists()) {
-                console.log("Player doesn't exist anymore.")
+                console.log("Player doesn't exist anymore.");
                 this.destroy();
+                this.displayName.destroy();
+                this.weapon.bullets.destroy();
             } else {
                 this.x = snap.val().x;
                 this.y = snap.val().y;
-                this.rotation = snap.val().r
+                this.rotation = snap.val().r;
+                this.sName = snap.val().name;
             }
         });
 
@@ -70,6 +75,14 @@ class otherTank extends Phaser.Sprite {
                 console.log("Updated: " + this.bulletInfo);
             }
         });
+
+        let style = {
+            font: "32px Arial",
+            fill: "#0009ff"
+        };
+
+        this.displayName = this.game.add.text(0, 0, this.sName, style);
+        this.displayName.anchor.set(0.5, 0.5);
     }
 
     bulletFire(bullet, weapon) {
@@ -104,6 +117,9 @@ class otherTank extends Phaser.Sprite {
             }
             x++;
         }, this);
+
+        this.displayName.x = Math.floor(this.x);
+        this.displayName.y = Math.floor(this.y - this.height / 2 - 15);
     }
 
     bulletHit(tank, bullet) {

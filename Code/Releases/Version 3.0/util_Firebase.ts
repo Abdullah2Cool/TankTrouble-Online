@@ -12,9 +12,10 @@ class util_Firebase {
         return this.database.ref().push().key;
     }
 
-    pushNewestPlayer(playerID: number) {
+    pushNewestPlayer(playerID: number, name:string) {
         this.database.ref("New").set({
-            id: playerID
+            id: playerID,
+            name: name
         });
     }
 
@@ -25,7 +26,8 @@ class util_Firebase {
             let id = snap.val().id;
             if (id != myID) {
                 console.log("Newest Player: " + id);
-                let otherPlayer = new otherTank(game, 0, 0, id, layer, tank);
+                console.log("Newest Player's Name: " + snap.val().name);
+                let otherPlayer = new otherTank(game, 0, 0, id, layer, tank, snap.val().name);
                 tank.addNewPlayer(otherPlayer);
             }
         });
@@ -40,20 +42,21 @@ class util_Firebase {
                     let otherID = childSnapshot.key;
                     if (otherID != myID) {
                         console.log("Previous Player's Id: " + otherID);
-                        let otherPlayer = new otherTank(game, 0, 0, otherID, layer, tank);
+                        let otherPlayer = new otherTank(game, 0, 0, otherID, layer, tank, childSnapshot.val().name);
                         tank.addNewPlayer(otherPlayer);
                     }
                 })
             });
     }
 
-    updatePlayerInfo(playerID: any, x: number, y: number, r: number, bullet) {
+    updatePlayerInfo(playerID: any, x: number, y: number, r: number, bullet, name:string) {
         var ref = this.database.ref("Players/" + playerID);
         ref.set({
             x: x,
             y: y,
             r: r,
-            bullets: bullet
+            bullets: bullet,
+            name:name
         });
     }
 

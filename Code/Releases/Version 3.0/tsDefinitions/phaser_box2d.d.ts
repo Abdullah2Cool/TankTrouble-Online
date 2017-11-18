@@ -126,7 +126,7 @@ declare module Phaser {
             // This could perhaps be made modifiable at runtime, but for now it is just rendering
             // shapes (see usage of b2Shapes flag below).
             renderDebugDraw(context: CanvasRenderingContext2D): void;
-            // Renders information about the body as text. This is intended to be used internally by Phaser.Utils.Debug.
+            // Renders information about the body as instructions. This is intended to be used internally by Phaser.Utils.Debug.
             // To make use of this from your code you would call something like game.debug.bodyInfo(sprite, x, y)
             renderBodyInfo(debug: Utils.Debug, body: Box2D.Body): void;
             // Returns all fixtures found under the given point. Set the onlyOne parameter to true if you only

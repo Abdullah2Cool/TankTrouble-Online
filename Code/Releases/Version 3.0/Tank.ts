@@ -12,11 +12,15 @@ class Tank extends Phaser.Sprite {
     FIREBASE: util_Firebase;
     layer: TilemapLayer;
     otherTanks: Phaser.Group;
-    maxBullets: number = 6;
+    maxBullets: number = 10;
     bulletInfo = []
+    displayName: Phaser.Text;
+    JoyStickPlugin;
+    stick;
+    shootButton;
 
     constructor(game: Phaser.Game, x: number, y: number, sName: string, id: any, layer: TilemapLayer) {
-        super(game, x, y, sName);
+        super(game, x, y, "tank");
         this.game = game;
         this.sName = sName;
         this.velocity = 250;
@@ -26,6 +30,8 @@ class Tank extends Phaser.Sprite {
         this.FIREBASE = new util_Firebase();
         this.otherTanks = game.add.group();
 
+        console.log(sName);
+
         for (let i = 0; i < this.maxBullets; i++) {
             this.bulletInfo.push(0);
         }
@@ -34,7 +40,7 @@ class Tank extends Phaser.Sprite {
         this.game.physics.arcade.enable(this);
         // this.scale.setTo(0.8, 0.8);
         //  Creates 30 bullets, using the 'bullet' graphic
-        this.weapon = game.add.weapon(this.maxBullets, 'bullet');
+        this.weapon = game.add.weapon(this.maxBullets, 'red_bullet');
         //  The bullets will be automatically killed when they are 2000ms old
         this.weapon.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
         this.weapon.bulletLifespan = 6000;
@@ -45,11 +51,9 @@ class Tank extends Phaser.Sprite {
         //  Tell the Weapon to track the 'player' Sprite
         //  With no offsets from the position
         //  But the 'true' argument tells the weapon to track sprite rotation
-        this.weapon.trackSprite(this, 34, 0, true);
+        this.weapon.trackSprite(this, 38, 0, true);
         this.weapon.onFire.add(this.bulletFire, this);
         this.weapon.onKill.add(this.bulletDead, this);
-
-        this.body.immovable = true;
 
         this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
         this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
@@ -57,6 +61,29 @@ class Tank extends Phaser.Sprite {
         this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
         this.shootKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
+        this.body.immovable = true;
+        this.body.setCircle(33);
+
+        let style = {
+            font: "32px Arial",
+            fill: "#ff0044"
+        };
+
+        this.displayName = this.game.add.text(0, 0, this.sName, style);
+        this.displayName.anchor.set(0.5, 0.5);
+
+        this.JoyStickPlugin = this.game.plugins.add(Phaser.VirtualJoystick as any);
+        this.stick = this.JoyStickPlugin.addStick(0, 0, 100, 'arcade');
+        this.stick.scale = 0.6;
+        this.stick.alignBottomLeft(60);
+        // this.stick.showOnTouch = true;
+
+        this.shootButton = this.JoyStickPlugin.addButton(0, 0, 'arcade', 'button3-up', 'button3-down');
+        this.shootButton.onDown.add(function () {
+            this.weapon.fire();
+        }, this);
+        this.shootButton.alignBottomRight(60);
+        this.shootButton.scale = 0.9;
     }
 
     bulletFire(bullet, weapon) {
@@ -79,6 +106,8 @@ class Tank extends Phaser.Sprite {
         this.otherTanks.forEach(function (otherTank) {
             this.game.physics.arcade.collide(otherTank, this.weapon.bullets, this.bulletHit);
         }, this);
+
+        // this.game.physics.arcade.collide(this.weapon.bullets, this.weapon.bullets);
 
         this.body.velocity.x = 0;
         this.body.velocity.y = 0;
@@ -108,8 +137,20 @@ class Tank extends Phaser.Sprite {
             }
             x++;
         }, this);
-        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletInfo);
 
+        // this.game.debug.body(this);
+
+        this.displayName.x = Math.floor(this.x);
+        this.displayName.y = Math.floor(this.y - this.height / 2 - 15);
+        // this.displayName.angle = Math.
+
+
+        if (this.stick.isDown) {
+            this.game.physics.arcade.velocityFromRotation(this.stick.rotation, this.stick.force * this.velocity, this.body.velocity);
+            this.rotation = this.stick.rotation;
+        }
+
+        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletInfo, this.sName);
     }
 
     bulletHit(tank, bullet) {
@@ -136,5 +177,5 @@ class Tank extends Phaser.Sprite {
             bull.kill();
         }, this);
     }
-
 }
+       

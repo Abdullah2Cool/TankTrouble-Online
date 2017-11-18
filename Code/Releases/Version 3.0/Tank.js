@@ -11,8 +11,8 @@ var __extends = (this && this.__extends) || (function () {
 var Tank = (function (_super) {
     __extends(Tank, _super);
     function Tank(game, x, y, sName, id, layer) {
-        var _this = _super.call(this, game, x, y, sName) || this;
-        _this.maxBullets = 6;
+        var _this = _super.call(this, game, x, y, "tank") || this;
+        _this.maxBullets = 10;
         _this.bulletInfo = [];
         _this.game = game;
         _this.sName = sName;
@@ -21,6 +21,7 @@ var Tank = (function (_super) {
         _this.layer = layer;
         _this.FIREBASE = new util_Firebase();
         _this.otherTanks = game.add.group();
+        console.log(sName);
         for (var i = 0; i < _this.maxBullets; i++) {
             _this.bulletInfo.push(0);
         }
@@ -28,7 +29,7 @@ var Tank = (function (_super) {
         _this.game.physics.arcade.enable(_this);
         // this.scale.setTo(0.8, 0.8);
         //  Creates 30 bullets, using the 'bullet' graphic
-        _this.weapon = game.add.weapon(_this.maxBullets, 'bullet');
+        _this.weapon = game.add.weapon(_this.maxBullets, 'red_bullet');
         //  The bullets will be automatically killed when they are 2000ms old
         _this.weapon.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
         _this.weapon.bulletLifespan = 6000;
@@ -39,15 +40,33 @@ var Tank = (function (_super) {
         //  Tell the Weapon to track the 'player' Sprite
         //  With no offsets from the position
         //  But the 'true' argument tells the weapon to track sprite rotation
-        _this.weapon.trackSprite(_this, 34, 0, true);
+        _this.weapon.trackSprite(_this, 38, 0, true);
         _this.weapon.onFire.add(_this.bulletFire, _this);
         _this.weapon.onKill.add(_this.bulletDead, _this);
-        _this.body.immovable = true;
         _this.upKey = _this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
         _this.downKey = _this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
         _this.lefKey = _this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         _this.rightKey = _this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
         _this.shootKey = _this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        _this.body.immovable = true;
+        _this.body.setCircle(33);
+        var style = {
+            font: "32px Arial",
+            fill: "#ff0044"
+        };
+        _this.displayName = _this.game.add.text(0, 0, _this.sName, style);
+        _this.displayName.anchor.set(0.5, 0.5);
+        _this.JoyStickPlugin = _this.game.plugins.add(Phaser.VirtualJoystick);
+        _this.stick = _this.JoyStickPlugin.addStick(0, 0, 100, 'arcade');
+        _this.stick.scale = 0.6;
+        _this.stick.alignBottomLeft(60);
+        // this.stick.showOnTouch = true;
+        _this.shootButton = _this.JoyStickPlugin.addButton(0, 0, 'arcade', 'button3-up', 'button3-down');
+        _this.shootButton.onDown.add(function () {
+            this.weapon.fire();
+        }, _this);
+        _this.shootButton.alignBottomRight(60);
+        _this.shootButton.scale = 0.9;
         return _this;
     }
     Tank.prototype.bulletFire = function (bullet, weapon) {
@@ -67,6 +86,7 @@ var Tank = (function (_super) {
         this.otherTanks.forEach(function (otherTank) {
             this.game.physics.arcade.collide(otherTank, this.weapon.bullets, this.bulletHit);
         }, this);
+        // this.game.physics.arcade.collide(this.weapon.bullets, this.weapon.bullets);
         this.body.velocity.x = 0;
         this.body.velocity.y = 0;
         this.body.angularVelocity = 0;
@@ -95,7 +115,15 @@ var Tank = (function (_super) {
             }
             x++;
         }, this);
-        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletInfo);
+        // this.game.debug.body(this);
+        this.displayName.x = Math.floor(this.x);
+        this.displayName.y = Math.floor(this.y - this.height / 2 - 15);
+        // this.displayName.angle = Math.
+        if (this.stick.isDown) {
+            this.game.physics.arcade.velocityFromRotation(this.stick.rotation, this.stick.force * this.velocity, this.body.velocity);
+            this.rotation = this.stick.rotation;
+        }
+        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletInfo, this.sName);
     };
     Tank.prototype.bulletHit = function (tank, bullet) {
         // console.log(bullet);
