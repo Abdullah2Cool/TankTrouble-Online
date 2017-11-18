@@ -36,6 +36,7 @@ var otherTank = (function (_super) {
         _this.weapon.onFire.add(_this.bulletFire, _this);
         _this.weapon.onKill.add(_this.bulletDead, _this);
         _this.body.setCircle(33);
+        _this.body.immovable = true;
         _this.FIREBASE.getDatabase().ref("Players/" + _this.id).on("value", function (snap) {
             if (!snap.exists()) {
                 console.log("Player doesn't exist anymore.");
@@ -86,8 +87,9 @@ var otherTank = (function (_super) {
     };
     otherTank.prototype.update = function () {
         this.game.physics.arcade.collide(this.weapon.bullets, this.layer);
+        // collide with the main player's bullets of this instance of the game
         this.game.physics.arcade.collide(this.tank, this.weapon.bullets, this.bulletHit);
-        // collide with other tank's bullets
+        // collide with otherPlayers' bullets
         this.otherTanks.forEach(function (otherTank) {
             this.game.physics.arcade.collide(otherTank, this.weapon.bullets, this.bulletHit);
         }, this);

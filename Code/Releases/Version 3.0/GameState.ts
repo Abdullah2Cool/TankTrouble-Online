@@ -32,7 +32,7 @@ class GameState extends Phaser.State {
         this.id = this.FIREBASE.generateKey();
         // this.tank = new Tank(this.game, this.game.rnd.integerInRange(100, this.game.width - 100),
         //     this.game.rnd.integerInRange(100, this.game.height), "tank", this.id);
-        this.tank = new Tank(this.game, 300, 200, this.name, this.id, this.layer);
+        this.tank = new Tank(this.game, 400, 400, this.name, this.id, this.layer);
         this.game.add.existing(this.tank);
         this.game.camera.follow(this.tank);
 

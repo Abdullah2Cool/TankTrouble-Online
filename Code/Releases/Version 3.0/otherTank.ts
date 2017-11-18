@@ -42,6 +42,7 @@ class otherTank extends Phaser.Sprite {
         this.weapon.onKill.add(this.bulletDead, this);
 
         this.body.setCircle(33);
+        this.body.immovable = true;
 
         this.FIREBASE.getDatabase().ref("Players/" + this.id).on("value", snap => {
             if (!snap.exists()) {
@@ -96,8 +97,9 @@ class otherTank extends Phaser.Sprite {
 
     update() {
         this.game.physics.arcade.collide(this.weapon.bullets, this.layer);
+        // collide with the main player's bullets of this instance of the game
         this.game.physics.arcade.collide(this.tank, this.weapon.bullets, this.bulletHit);
-        // collide with other tank's bullets
+        // collide with otherPlayers' bullets
         this.otherTanks.forEach(function (otherTank) {
             this.game.physics.arcade.collide(otherTank, this.weapon.bullets, this.bulletHit);
         }, this);
