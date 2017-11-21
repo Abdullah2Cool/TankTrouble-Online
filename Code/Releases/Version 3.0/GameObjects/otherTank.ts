@@ -13,7 +13,7 @@ class otherTank extends Phaser.Sprite {
     maxBullets: number = 10;
     sName: string;
     displayName: Phaser.Text;
-    // testBar;
+    testBar;
 
     constructor(game: Phaser.Game, x: number, y: number, id: any, layer: TilemapLayer, tank: Tank, sName: string) {
         super(game, x, y, "otherTank");
@@ -23,6 +23,9 @@ class otherTank extends Phaser.Sprite {
         this.layer = layer;
         this.tank = tank;
         this.sName = sName;
+
+        this.maxHealth = 20;
+        this.health = this.maxHealth;
 
         for (let i = 0; i < this.maxBullets; i++) {
             this.bulletInfo.push(0);
@@ -86,6 +89,23 @@ class otherTank extends Phaser.Sprite {
 
         this.displayName = this.game.add.text(0, 0, this.sName, style);
         this.displayName.anchor.set(0.5, 0.5);
+
+        // this.healthbar = this.game.add.graphics(0, 0);
+        this.testBar = new HealthBar(this.game, {
+                width: 100,
+                height: 10,
+                x: 0,
+                y: 0,
+                bg: {
+                    color: '#cdbe00'
+                },
+                bar: {
+                    color: '#651828'
+                },
+                animationDuration: 10,
+                flipped: false
+            }
+        );
     }
 
     bulletFire(bullet, weapon) {
@@ -125,8 +145,8 @@ class otherTank extends Phaser.Sprite {
         this.displayName.x = Math.floor(this.x);
         this.displayName.y = Math.floor(this.y - this.height / 2 - 15);
 
-        // this.testBar.setPosition(this.x, this.y - 70);
-        // this.testBar.setPercent((this.health / this.maxHealth) * 100);
+        this.testBar.setPosition(this.x, this.y - 70);
+        this.testBar.setPercent((this.health / this.maxHealth) * 100);
     }
 
     bulletHit(tank, bullet) {

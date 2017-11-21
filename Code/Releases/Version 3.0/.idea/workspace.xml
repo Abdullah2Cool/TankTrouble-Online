@@ -2,24 +2,39 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0dc2b29a-6dcf-43ca-ab07-6c1ed834e013" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HealthBar.standalone.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/GameObjects/otherTank.js.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/States/WelcomeState.js.map" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/WelcomeState.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/otherTank.js.map" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Blue Bullet.png" afterPath="$PROJECT_DIR$/Assets/Blue Bullet.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Blue Tank.png" afterPath="$PROJECT_DIR$/Assets/Blue Tank.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/GameState.js" afterPath="$PROJECT_DIR$/States/GameState.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/GameState.js.map" afterPath="$PROJECT_DIR$/States/GameState.js.map" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/GameState.ts" afterPath="$PROJECT_DIR$/States/GameState.ts" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HealthBar.standalone.js" afterPath="$PROJECT_DIR$/Plugins/HealthBar.standalone.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Play Button.png" afterPath="$PROJECT_DIR$/Assets/Play Button.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Red Bullet.png" afterPath="$PROJECT_DIR$/Assets/Red Bullet.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Red Tank.png" afterPath="$PROJECT_DIR$/Assets/Red Tank.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tank.js" afterPath="$PROJECT_DIR$/GameObjects/Tank.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tank.js.map" afterPath="$PROJECT_DIR$/GameObjects/Tank.js.map" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tank.ts" afterPath="$PROJECT_DIR$/GameObjects/Tank.ts" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tileset.png" afterPath="$PROJECT_DIR$/Assets/Tileset.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/WeaponPlugin.js" afterPath="$PROJECT_DIR$/Plugins/WeaponPlugin.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/WelcomeState.js" afterPath="$PROJECT_DIR$/States/WelcomeState.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/WelcomeState.ts" afterPath="$PROJECT_DIR$/States/WelcomeState.ts" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/arcade-joystick.json" afterPath="$PROJECT_DIR$/Assets/arcade-joystick.json" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/arcade-joystick.png" afterPath="$PROJECT_DIR$/Assets/arcade-joystick.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/gameMap.json" afterPath="$PROJECT_DIR$/Assets/gameMap.json" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/otherTank.js" afterPath="$PROJECT_DIR$/GameObjects/otherTank.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/otherTank.ts" afterPath="$PROJECT_DIR$/GameObjects/otherTank.ts" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/phaser-input.js" afterPath="$PROJECT_DIR$/Plugins/phaser-input.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/phaser-virtual-joystick.js" afterPath="$PROJECT_DIR$/Plugins/phaser-virtual-joystick.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/util_Firebase.js" afterPath="$PROJECT_DIR$/GameObjects/util_Firebase.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/util_Firebase.js.map" afterPath="$PROJECT_DIR$/GameObjects/util_Firebase.js.map" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/util_Firebase.ts" afterPath="$PROJECT_DIR$/GameObjects/util_Firebase.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../Documents/Journal.docx" afterPath="$PROJECT_DIR$/../../../Documents/Journal.docx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tank.js" afterPath="$PROJECT_DIR$/Tank.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tank.js.map" afterPath="$PROJECT_DIR$/Tank.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tank.ts" afterPath="$PROJECT_DIR$/Tank.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WelcomeState.js" afterPath="$PROJECT_DIR$/WelcomeState.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WelcomeState.js.map" afterPath="$PROJECT_DIR$/WelcomeState.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WelcomeState.ts" afterPath="$PROJECT_DIR$/WelcomeState.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.js" afterPath="$PROJECT_DIR$/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.js.map" afterPath="$PROJECT_DIR$/main.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.ts" afterPath="$PROJECT_DIR$/main.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/otherTank.js" afterPath="$PROJECT_DIR$/otherTank.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/otherTank.js.map" afterPath="$PROJECT_DIR$/otherTank.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/otherTank.ts" afterPath="$PROJECT_DIR$/otherTank.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util_Firebase.js" afterPath="$PROJECT_DIR$/util_Firebase.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util_Firebase.js.map" afterPath="$PROJECT_DIR$/util_Firebase.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util_Firebase.ts" afterPath="$PROJECT_DIR$/util_Firebase.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -36,7 +51,7 @@
       <file leaf-file-name="main.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
+            <state relative-caret-position="44">
               <caret line="2" column="26" lean-forward="false" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
               <folding />
             </state>
@@ -44,17 +59,17 @@
         </entry>
       </file>
       <file leaf-file-name="WelcomeState.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WelcomeState.ts">
+        <entry file="file://$PROJECT_DIR$/States/WelcomeState.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1496">
-              <caret line="68" column="9" lean-forward="false" selection-start-line="68" selection-start-column="9" selection-end-line="68" selection-end-column="9" />
+            <state relative-caret-position="506">
+              <caret line="23" column="72" lean-forward="false" selection-start-line="23" selection-start-column="72" selection-end-line="23" selection-end-column="72" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="GameState.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GameState.ts">
+        <entry file="file://$PROJECT_DIR$/States/GameState.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="440">
               <caret line="20" column="5" lean-forward="false" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
@@ -63,28 +78,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tank.ts" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Tank.ts">
+      <file leaf-file-name="Tank.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GameObjects/Tank.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="183" column="16" lean-forward="false" selection-start-line="183" selection-start-column="16" selection-end-line="183" selection-end-column="16" />
+            <state relative-caret-position="-683">
+              <caret line="59" column="35" lean-forward="true" selection-start-line="59" selection-start-column="35" selection-end-line="59" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="otherTank.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/otherTank.ts">
+        <entry file="file://$PROJECT_DIR$/GameObjects/otherTank.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1">
-              <caret line="108" column="18" lean-forward="true" selection-start-line="108" selection-start-column="18" selection-end-line="108" selection-end-column="18" />
+            <state relative-caret-position="263">
+              <caret line="102" column="35" lean-forward="false" selection-start-line="102" selection-start-column="35" selection-end-line="102" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="util_Firebase.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/util_Firebase.ts">
+        <entry file="file://$PROJECT_DIR$/GameObjects/util_Firebase.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1298">
               <caret line="59" column="26" lean-forward="false" selection-start-line="59" selection-start-column="26" selection-end-line="59" selection-end-column="26" />
@@ -93,11 +108,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="791">
-              <caret line="45" column="40" lean-forward="false" selection-start-line="45" selection-start-column="40" selection-end-line="45" selection-end-column="40" />
+            <state relative-caret-position="659">
+              <caret line="45" column="48" lean-forward="false" selection-start-line="45" selection-start-column="48" selection-end-line="45" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -133,8 +148,9 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/util_Firebase.ts" />
         <option value="$PROJECT_DIR$/HealthBar.standalone.js" />
-        <option value="$PROJECT_DIR$/otherTank.ts" />
         <option value="$PROJECT_DIR$/Tank.ts" />
+        <option value="$PROJECT_DIR$/otherTank.ts" />
+        <option value="$PROJECT_DIR$/States/WelcomeState.ts" />
       </list>
     </option>
   </component>
@@ -144,7 +160,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
@@ -191,6 +207,12 @@
     <property name="HbShouldOpenHtmlAsHb" value="" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\hafiz\Documents\TankTrouble-Online\Code\Releases\Version 3.0\GameObjects" />
+      <recent name="C:\Users\hafiz\Documents\TankTrouble-Online\Code\Releases\Version 3.0\Assets" />
+      <recent name="C:\Users\hafiz\Documents\TankTrouble-Online\Code\Releases\Version 3.0\States" />
+      <recent name="C:\Users\hafiz\Documents\TankTrouble-Online\Code\Releases\Version 3.0\Plugins" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\hafiz\Documents\TankTrouble-Online\Code\Releases\Version 3.0" />
       <recent name="C:\Users\hafiz\Documents\TankTrouble-Online\Code\Releases\Version 3.0\tsDefinitions" />
@@ -234,7 +256,7 @@
       <workItem from="1511054353928" duration="3967000" />
       <workItem from="1511063325651" duration="733000" />
       <workItem from="1511197434958" duration="3782000" />
-      <workItem from="1511283295683" duration="1609000" />
+      <workItem from="1511283295683" duration="3268000" />
     </task>
     <task id="LOCAL-00001" summary="Added a new map">
       <created>1511049476624</created>
@@ -247,10 +269,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62711000" />
+    <option name="totallyTimeSpent" value="64370000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.184375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -338,7 +360,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GameState.ts">
+    <entry file="file://$PROJECT_DIR$/States/GameState.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="9" column="16" lean-forward="true" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
@@ -346,7 +368,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tank.ts">
+    <entry file="file://$PROJECT_DIR$/GameObjects/Tank.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1826">
           <caret line="83" column="0" lean-forward="true" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
@@ -354,7 +376,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/otherTank.ts">
+    <entry file="file://$PROJECT_DIR$/GameObjects/otherTank.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="682">
           <caret line="31" column="53" lean-forward="false" selection-start-line="31" selection-start-column="53" selection-end-line="31" selection-end-column="53" />
@@ -370,7 +392,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WelcomeState.ts">
+    <entry file="file://$PROJECT_DIR$/States/WelcomeState.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="880">
           <caret line="40" column="31" lean-forward="false" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="31" />
@@ -386,7 +408,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GameState.ts">
+    <entry file="file://$PROJECT_DIR$/States/GameState.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
           <caret line="11" column="44" lean-forward="false" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
@@ -394,7 +416,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WelcomeState.ts">
+    <entry file="file://$PROJECT_DIR$/States/WelcomeState.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
           <caret line="21" column="69" lean-forward="false" selection-start-line="21" selection-start-column="69" selection-end-line="21" selection-end-column="69" />
@@ -402,7 +424,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tank.ts">
+    <entry file="file://$PROJECT_DIR$/GameObjects/Tank.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1034">
           <caret line="47" column="40" lean-forward="false" selection-start-line="47" selection-start-column="40" selection-end-line="47" selection-end-column="40" />
@@ -410,7 +432,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/otherTank.ts">
+    <entry file="file://$PROJECT_DIR$/GameObjects/otherTank.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="792">
           <caret line="36" column="40" lean-forward="false" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="40" />
@@ -434,7 +456,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GameState.ts">
+    <entry file="file://$PROJECT_DIR$/States/GameState.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
           <caret line="11" column="44" lean-forward="false" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
@@ -442,7 +464,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tank.ts">
+    <entry file="file://$PROJECT_DIR$/GameObjects/Tank.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1034">
           <caret line="47" column="40" lean-forward="false" selection-start-line="47" selection-start-column="40" selection-end-line="47" selection-end-column="40" />
@@ -450,7 +472,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/otherTank.ts">
+    <entry file="file://$PROJECT_DIR$/GameObjects/otherTank.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="792">
           <caret line="36" column="40" lean-forward="false" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="40" />
@@ -466,7 +488,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WelcomeState.ts">
+    <entry file="file://$PROJECT_DIR$/States/WelcomeState.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
           <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
@@ -474,7 +496,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tank.ts">
+    <entry file="file://$PROJECT_DIR$/GameObjects/Tank.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -482,7 +504,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/otherTank.ts">
+    <entry file="file://$PROJECT_DIR$/GameObjects/otherTank.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2332">
           <caret line="106" column="5" lean-forward="false" selection-start-line="106" selection-start-column="5" selection-end-line="106" selection-end-column="5" />
@@ -506,7 +528,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tank.ts">
+    <entry file="file://$PROJECT_DIR$/GameObjects/Tank.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1892">
           <caret line="86" column="33" lean-forward="false" selection-start-line="86" selection-start-column="33" selection-end-line="86" selection-end-column="33" />
@@ -514,7 +536,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/otherTank.ts">
+    <entry file="file://$PROJECT_DIR$/GameObjects/otherTank.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2332">
           <caret line="106" column="5" lean-forward="true" selection-start-line="106" selection-start-column="5" selection-end-line="106" selection-end-column="5" />
@@ -538,7 +560,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tank.ts">
+    <entry file="file://$PROJECT_DIR$/GameObjects/Tank.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1892">
           <caret line="86" column="33" lean-forward="true" selection-start-line="86" selection-start-column="33" selection-end-line="86" selection-end-column="33" />
@@ -546,7 +568,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/otherTank.ts">
+    <entry file="file://$PROJECT_DIR$/GameObjects/otherTank.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -554,7 +576,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tank.ts">
+    <entry file="file://$PROJECT_DIR$/GameObjects/Tank.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -562,21 +584,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WeaponPlugin.js">
+    <entry file="file://$PROJECT_DIR$/Plugins/WeaponPlugin.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gameMap.json">
+    <entry file="file://$PROJECT_DIR$/Assets/gameMap.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-990">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tank.js">
+    <entry file="file://$PROJECT_DIR$/GameObjects/Tank.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-462">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -584,7 +606,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/phaser-virtual-joystick.js">
+    <entry file="file://$PROJECT_DIR$/Plugins/phaser-virtual-joystick.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="862">
           <caret line="104" column="0" lean-forward="true" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
@@ -602,7 +624,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/phaser-virtual-joystick.js">
+    <entry file="file://$PROJECT_DIR$/Plugins/phaser-virtual-joystick.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
           <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
@@ -617,14 +639,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/arcade-joystick.json">
+    <entry file="file://$PROJECT_DIR$/Assets/arcade-joystick.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/arcade-joystick.png">
+    <entry file="file://$PROJECT_DIR$/Assets/arcade-joystick.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
@@ -636,7 +658,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/phaser-input.js">
+    <entry file="file://$PROJECT_DIR$/Plugins/phaser-input.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="821">
           <caret line="719" column="40" lean-forward="true" selection-start-line="719" selection-start-column="40" selection-end-line="719" selection-end-column="40" />
@@ -652,23 +674,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tank_body.json" />
-    <entry file="file://$PROJECT_DIR$/main.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="2" column="26" lean-forward="false" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WelcomeState.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1496">
-          <caret line="68" column="9" lean-forward="false" selection-start-line="68" selection-start-column="9" selection-end-line="68" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GameState.ts">
+    <entry file="file://$PROJECT_DIR$/States/GameState.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
           <caret line="20" column="5" lean-forward="false" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
@@ -676,7 +682,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/util_Firebase.ts">
+    <entry file="file://$PROJECT_DIR$/GameObjects/util_Firebase.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1298">
           <caret line="59" column="26" lean-forward="false" selection-start-line="59" selection-start-column="26" selection-end-line="59" selection-end-column="26" />
@@ -684,15 +690,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="791">
-          <caret line="45" column="40" lean-forward="false" selection-start-line="45" selection-start-column="40" selection-end-line="45" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HealthBar.standalone.js">
+    <entry file="file://$PROJECT_DIR$/Plugins/HealthBar.standalone.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="594">
           <caret line="147" column="2" lean-forward="true" selection-start-line="147" selection-start-column="2" selection-end-line="147" selection-end-column="2" />
@@ -700,18 +698,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/otherTank.ts">
+    <entry file="file://$PROJECT_DIR$/GameObjects/otherTank.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1">
-          <caret line="108" column="18" lean-forward="true" selection-start-line="108" selection-start-column="18" selection-end-line="108" selection-end-column="18" />
+        <state relative-caret-position="263">
+          <caret line="102" column="35" lean-forward="false" selection-start-line="102" selection-start-column="35" selection-end-line="102" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tank.ts">
+    <entry file="file://$PROJECT_DIR$/GameObjects/Tank.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="183" column="16" lean-forward="false" selection-start-line="183" selection-start-column="16" selection-end-line="183" selection-end-column="16" />
+        <state relative-caret-position="-683">
+          <caret line="59" column="35" lean-forward="true" selection-start-line="59" selection-start-column="35" selection-end-line="59" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="26" lean-forward="false" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/States/WelcomeState.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="23" column="72" lean-forward="false" selection-start-line="23" selection-start-column="72" selection-end-line="23" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="659">
+          <caret line="45" column="48" lean-forward="false" selection-start-line="45" selection-start-column="48" selection-end-line="45" selection-end-column="48" />
           <folding />
         </state>
       </provider>

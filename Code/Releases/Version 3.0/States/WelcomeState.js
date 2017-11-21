@@ -22,14 +22,14 @@ var WelcomeState = (function (_super) {
         return _this;
     }
     WelcomeState.prototype.preload = function () {
-        this.game.load.tilemap('map', 'gameMap.json', null, Phaser.Tilemap.TILED_JSON);
-        this.load.atlas('arcade', 'arcade-joystick.png', 'arcade-joystick.json');
-        this.game.load.image('tiles', 'Tileset.png');
-        this.game.load.image("tank", "Red Tank.png");
-        this.game.load.image("otherTank", "Blue Tank.png");
-        this.game.load.image("red_bullet", "Red Bullet.png");
-        this.game.load.image("blue_bullet", "Blue Bullet.png");
-        this.game.load.image("play_Button", "Play Button.png");
+        this.game.load.tilemap('map', 'Assets/gameMap.json', null, Phaser.Tilemap.TILED_JSON);
+        this.load.atlas('arcade', 'Assets/arcade-joystick.png', 'Assets/arcade-joystick.json');
+        this.game.load.image('tiles', 'Assets/Tileset.png');
+        this.game.load.image("tank", "Assets/Red Tank.png");
+        this.game.load.image("otherTank", "Assets/Blue Tank.png");
+        this.game.load.image("red_bullet", "Assets/Red Bullet.png");
+        this.game.load.image("blue_bullet", "Assets/Blue Bullet.png");
+        this.game.load.image("play_Button", "Assets/Play Button.png");
     };
     WelcomeState.prototype.create = function () {
         this.game.state.add("GameState", new GameState());

@@ -11,7 +11,6 @@ var __extends = (this && this.__extends) || (function () {
 var TilemapLayer = Phaser.TilemapLayer;
 var otherTank = (function (_super) {
     __extends(otherTank, _super);
-    // testBar;
     function otherTank(game, x, y, id, layer, tank, sName) {
         var _this = _super.call(this, game, x, y, "otherTank") || this;
         _this.bulletInfo = [];
@@ -22,6 +21,8 @@ var otherTank = (function (_super) {
         _this.layer = layer;
         _this.tank = tank;
         _this.sName = sName;
+        _this.maxHealth = 20;
+        _this.health = _this.maxHealth;
         for (var i = 0; i < _this.maxBullets; i++) {
             _this.bulletInfo.push(0);
         }
@@ -78,6 +79,21 @@ var otherTank = (function (_super) {
         };
         _this.displayName = _this.game.add.text(0, 0, _this.sName, style);
         _this.displayName.anchor.set(0.5, 0.5);
+        // this.healthbar = this.game.add.graphics(0, 0);
+        _this.testBar = new HealthBar(_this.game, {
+            width: 100,
+            height: 10,
+            x: 0,
+            y: 0,
+            bg: {
+                color: '#cdbe00'
+            },
+            bar: {
+                color: '#651828'
+            },
+            animationDuration: 10,
+            flipped: false
+        });
         return _this;
     }
     otherTank.prototype.bulletFire = function (bullet, weapon) {
@@ -113,8 +129,8 @@ var otherTank = (function (_super) {
         }, this);
         this.displayName.x = Math.floor(this.x);
         this.displayName.y = Math.floor(this.y - this.height / 2 - 15);
-        // this.testBar.setPosition(this.x, this.y - 70);
-        // this.testBar.setPercent((this.health / this.maxHealth) * 100);
+        this.testBar.setPosition(this.x, this.y - 70);
+        this.testBar.setPercent((this.health / this.maxHealth) * 100);
     };
     otherTank.prototype.bulletHit = function (tank, bullet) {
         console.log("Other tank shot me.");
