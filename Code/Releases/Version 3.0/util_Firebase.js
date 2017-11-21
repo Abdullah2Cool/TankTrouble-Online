@@ -38,14 +38,15 @@ var util_Firebase = (function () {
             });
         });
     };
-    util_Firebase.prototype.updatePlayerInfo = function (playerID, x, y, r, bullet, name) {
+    util_Firebase.prototype.updatePlayerInfo = function (playerID, x, y, r, bullet, name, health) {
         var ref = this.database.ref("Players/" + playerID);
         ref.set({
             x: x,
             y: y,
             r: r,
             bullets: bullet,
-            name: name
+            name: name,
+            health: health
         });
     };
     util_Firebase.prototype.onClose = function (myID) {

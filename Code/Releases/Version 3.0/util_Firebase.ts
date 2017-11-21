@@ -49,14 +49,15 @@ class util_Firebase {
             });
     }
 
-    updatePlayerInfo(playerID: any, x: number, y: number, r: number, bullet, name:string) {
+    updatePlayerInfo(playerID: any, x: number, y: number, r: number, bullet, name:string, health: number) {
         var ref = this.database.ref("Players/" + playerID);
         ref.set({
             x: x,
             y: y,
             r: r,
             bullets: bullet,
-            name:name
+            name:name,
+            health: health
         });
     }
 

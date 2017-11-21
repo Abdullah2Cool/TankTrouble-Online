@@ -8,6 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var HealthBar;
 var Tank = (function (_super) {
     __extends(Tank, _super);
     function Tank(game, x, y, sName, id, layer) {
@@ -19,6 +20,9 @@ var Tank = (function (_super) {
         _this.velocity = 250;
         _this.id = id;
         _this.layer = layer;
+        _this.randomGenerator = new Phaser.RandomDataGenerator();
+        _this.maxHealth = 20;
+        _this.health = _this.maxHealth;
         _this.FIREBASE = new util_Firebase();
         _this.otherTanks = game.add.group();
         console.log(sName);
@@ -67,6 +71,21 @@ var Tank = (function (_super) {
         }, _this);
         _this.shootButton.alignBottomRight(0);
         _this.shootButton.scale = 0.9;
+        // this.healthbar = this.game.add.graphics(0, 0);
+        _this.testBar = new HealthBar(_this.game, {
+            width: 100,
+            height: 10,
+            x: 0,
+            y: 0,
+            bg: {
+                color: '#651828'
+            },
+            bar: {
+                color: '#FEFF03'
+            },
+            animationDuration: 10,
+            flipped: false
+        });
         return _this;
     }
     Tank.prototype.bulletFire = function (bullet, weapon) {
@@ -81,10 +100,10 @@ var Tank = (function (_super) {
         // collide the bullets with the map
         this.game.physics.arcade.collide(this.weapon.bullets, this.layer);
         // collide with the the bullets
-        this.game.physics.arcade.collide(this, this.weapon.bullets, this.bulletHit);
+        this.game.physics.arcade.collide(this, this.weapon.bullets, this.bulletHit, null, this);
         // collide with other tank's bullets
         this.otherTanks.forEach(function (otherTank) {
-            this.game.physics.arcade.collide(otherTank, this.weapon.bullets, this.bulletHit);
+            this.game.physics.arcade.collide(otherTank, this.weapon.bullets, this.bulletHit, null, this);
         }, this);
         // this.game.physics.arcade.collide(this.weapon.bullets, this.weapon.bullets);
         this.body.velocity.x = 0;
@@ -115,7 +134,7 @@ var Tank = (function (_super) {
             }
             x++;
         }, this);
-        // this.game.debug.body(this);
+        this.game.debug.body(this);
         this.displayName.x = Math.floor(this.x);
         this.displayName.y = Math.floor(this.y - this.height / 2 - 15);
         // this.displayName.angle = Math.
@@ -123,12 +142,18 @@ var Tank = (function (_super) {
             this.game.physics.arcade.velocityFromRotation(this.stick.rotation, this.stick.force * this.velocity, this.body.velocity);
             this.rotation = this.stick.rotation;
         }
-        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletInfo, this.sName);
+        this.testBar.setPosition(this.x, this.y - 70);
+        this.testBar.setPercent((this.health / this.maxHealth) * 100);
+        if (this.health == 0) {
+            var p = this.randomGenerator.integerInRange(100, this.game.world.width - 100);
+            this.reset(p, p, this.maxHealth);
+        }
+        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletInfo, this.sName, this.health);
     };
     Tank.prototype.bulletHit = function (tank, bullet) {
-        // console.log(bullet);
         bullet.kill();
-        // tank.resetTank();
+        tank.health -= 1;
+        console.log(this.health);
     };
     Tank.prototype.addNewPlayer = function (player) {
         this.otherTanks.add(player);
@@ -138,13 +163,6 @@ var Tank = (function (_super) {
     };
     Tank.prototype.getOtherPlayers = function () {
         return this.otherTanks;
-    };
-    Tank.prototype.resetTank = function () {
-        this.x = Math.floor(50 + Math.random() * 200);
-        this.y = Math.floor(50 + Math.random() * 200);
-        this.weapon.bullets.forEach(function (bull) {
-            bull.kill();
-        }, this);
     };
     return Tank;
 }(Phaser.Sprite));

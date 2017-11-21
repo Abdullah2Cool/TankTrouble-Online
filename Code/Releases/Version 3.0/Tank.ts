@@ -1,3 +1,5 @@
+var HealthBar;
+
 class Tank extends Phaser.Sprite {
     sName: string;
     game: Phaser.Game;
@@ -18,6 +20,9 @@ class Tank extends Phaser.Sprite {
     JoyStickPlugin;
     stick;
     shootButton;
+    // healthbar;
+    testBar;
+    randomGenerator: Phaser.RandomDataGenerator;
 
     constructor(game: Phaser.Game, x: number, y: number, sName: string, id: any, layer: TilemapLayer) {
         super(game, x, y, "tank");
@@ -26,6 +31,11 @@ class Tank extends Phaser.Sprite {
         this.velocity = 250;
         this.id = id;
         this.layer = layer;
+
+        this.randomGenerator = new Phaser.RandomDataGenerator();
+
+        this.maxHealth = 20;
+        this.health = this.maxHealth;
 
         this.FIREBASE = new util_Firebase();
         this.otherTanks = game.add.group();
@@ -84,6 +94,23 @@ class Tank extends Phaser.Sprite {
         }, this);
         this.shootButton.alignBottomRight(0);
         this.shootButton.scale = 0.9;
+
+        // this.healthbar = this.game.add.graphics(0, 0);
+        this.testBar = new HealthBar(this.game, {
+                width: 100,
+                height: 10,
+                x: 0,
+                y: 0,
+                bg: {
+                    color: '#651828'
+                },
+                bar: {
+                    color: '#FEFF03'
+                },
+                animationDuration: 10,
+                flipped: false
+            }
+        );
     }
 
     bulletFire(bullet, weapon) {
@@ -101,10 +128,10 @@ class Tank extends Phaser.Sprite {
         // collide the bullets with the map
         this.game.physics.arcade.collide(this.weapon.bullets, this.layer);
         // collide with the the bullets
-        this.game.physics.arcade.collide(this, this.weapon.bullets, this.bulletHit);
+        this.game.physics.arcade.collide(this, this.weapon.bullets, this.bulletHit, null, this);
         // collide with other tank's bullets
         this.otherTanks.forEach(function (otherTank) {
-            this.game.physics.arcade.collide(otherTank, this.weapon.bullets, this.bulletHit);
+            this.game.physics.arcade.collide(otherTank, this.weapon.bullets, this.bulletHit, null, this);
         }, this);
 
         // this.game.physics.arcade.collide(this.weapon.bullets, this.weapon.bullets);
@@ -138,7 +165,7 @@ class Tank extends Phaser.Sprite {
             x++;
         }, this);
 
-        // this.game.debug.body(this);
+        this.game.debug.body(this);
 
         this.displayName.x = Math.floor(this.x);
         this.displayName.y = Math.floor(this.y - this.height / 2 - 15);
@@ -150,13 +177,20 @@ class Tank extends Phaser.Sprite {
             this.rotation = this.stick.rotation;
         }
 
-        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletInfo, this.sName);
+        this.testBar.setPosition(this.x, this.y - 70);
+        this.testBar.setPercent((this.health / this.maxHealth) * 100);
+        if (this.health == 0) {
+            let p = this.randomGenerator.integerInRange(100, this.game.world.width - 100);
+            this.reset(p, p, this.maxHealth);
+        }
+
+        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletInfo, this.sName, this.health);
     }
 
     bulletHit(tank, bullet) {
-        // console.log(bullet);
         bullet.kill();
-        // tank.resetTank();
+        tank.health -= 1;
+        console.log(this.health);
     }
 
     addNewPlayer(player: otherTank) {
@@ -168,14 +202,6 @@ class Tank extends Phaser.Sprite {
 
     getOtherPlayers(): Phaser.Group {
         return this.otherTanks;
-    }
-
-    resetTank() {
-        this.x = Math.floor(50 + Math.random() * 200);
-        this.y = Math.floor(50 + Math.random() * 200);
-        this.weapon.bullets.forEach(function (bull) {
-            bull.kill();
-        }, this);
     }
 }
        

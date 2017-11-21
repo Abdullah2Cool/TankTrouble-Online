@@ -11,6 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 var TilemapLayer = Phaser.TilemapLayer;
 var otherTank = (function (_super) {
     __extends(otherTank, _super);
+    // testBar;
     function otherTank(game, x, y, id, layer, tank, sName) {
         var _this = _super.call(this, game, x, y, "otherTank") || this;
         _this.bulletInfo = [];
@@ -49,6 +50,7 @@ var otherTank = (function (_super) {
                 _this.y = snap.val().y;
                 _this.rotation = snap.val().r;
                 _this.sName = snap.val().name;
+                _this.health = snap.val().health;
             }
         });
         _this.FIREBASE.getDatabase().ref("Players/" + _this.id + "/bullets").on("value", function (snap) {
@@ -111,9 +113,12 @@ var otherTank = (function (_super) {
         }, this);
         this.displayName.x = Math.floor(this.x);
         this.displayName.y = Math.floor(this.y - this.height / 2 - 15);
+        // this.testBar.setPosition(this.x, this.y - 70);
+        // this.testBar.setPercent((this.health / this.maxHealth) * 100);
     };
     otherTank.prototype.bulletHit = function (tank, bullet) {
         console.log("Other tank shot me.");
+        tank.health -= 1;
         bullet.kill();
     };
     otherTank.prototype.setOtherTanks = function (otherTanks) {

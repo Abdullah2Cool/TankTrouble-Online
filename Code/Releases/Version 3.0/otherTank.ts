@@ -13,6 +13,7 @@ class otherTank extends Phaser.Sprite {
     maxBullets: number = 10;
     sName: string;
     displayName: Phaser.Text;
+    // testBar;
 
     constructor(game: Phaser.Game, x: number, y: number, id: any, layer: TilemapLayer, tank: Tank, sName: string) {
         super(game, x, y, "otherTank");
@@ -55,6 +56,7 @@ class otherTank extends Phaser.Sprite {
                 this.y = snap.val().y;
                 this.rotation = snap.val().r;
                 this.sName = snap.val().name;
+                this.health = snap.val().health;
             }
         });
 
@@ -122,10 +124,14 @@ class otherTank extends Phaser.Sprite {
 
         this.displayName.x = Math.floor(this.x);
         this.displayName.y = Math.floor(this.y - this.height / 2 - 15);
+
+        // this.testBar.setPosition(this.x, this.y - 70);
+        // this.testBar.setPercent((this.health / this.maxHealth) * 100);
     }
 
     bulletHit(tank, bullet) {
         console.log("Other tank shot me.");
+        tank.health -= 1;
         bullet.kill();
     }
 
