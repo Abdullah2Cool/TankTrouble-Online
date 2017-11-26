@@ -38,24 +38,31 @@ var util_Firebase = (function () {
             });
         });
     };
-    util_Firebase.prototype.updatePlayerInfo = function (playerID, x, y, r, bullet, name, health) {
+    util_Firebase.prototype.updatePlayerInfo = function (playerID, x, y, r, bullets, name, health, message) {
         var ref = this.database.ref("Players/" + playerID);
-        ref.set({
+        ref.update({
             x: x,
             y: y,
             r: r,
-            bullets: bullet,
+            bullets: bullets,
             name: name,
             health: health
         });
+        if (message != null) {
+            console.log(message);
+        }
     };
+    // updateHealth(playerID: any, health) {
+    //     var ref = this.database.ref("Players/" + playerID);
+    //     ref.set({
+    //        health: health
+    //     });
+    //     console.log(playerID);
+    //     console.log(health);
+    // }
     util_Firebase.prototype.onClose = function (myID) {
         var ref = this.database.ref("Players/" + myID + "/");
         ref.onDisconnect().remove();
-        // ref = this.database.ref("Removed");
-        // ref.onDisconnect().update({
-        //     id: myID
-        // });
     };
     util_Firebase.prototype.getDatabase = function () {
         return this.database;

@@ -8,12 +8,12 @@ class otherTank extends Phaser.Sprite {
     FIREBASE: util_Firebase;
     layer: TilemapLayer;
     tank: Tank;
-    otherTanks: Phaser.Group;
-    bulletInfo = []
+    bulletInfo = [];
+    shotOnce = [];
     maxBullets: number = 10;
     sName: string;
     displayName: Phaser.Text;
-    testBar;
+    healthBar;
 
     constructor(game: Phaser.Game, x: number, y: number, id: any, layer: TilemapLayer, tank: Tank, sName: string) {
         super(game, x, y, "otherTank");
@@ -29,14 +29,15 @@ class otherTank extends Phaser.Sprite {
 
         for (let i = 0; i < this.maxBullets; i++) {
             this.bulletInfo.push(0);
+            this.shotOnce.push(0);
         }
 
-        this.otherTanks = tank.getOtherPlayers();
+        // this.otherTanks = tank.getOtherPlayers();
 
         this.anchor.setTo(0.5, 0.5);
         this.game.physics.arcade.enable(this);
 
-        this.weapon = game.add.weapon(6, 'blue_bullet');
+        this.weapon = game.add.weapon(this.maxBullets, 'blue_bullet');
         this.weapon.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
         this.weapon.bulletLifespan = 6000;
         this.weapon.bulletSpeed = 300;
@@ -54,6 +55,7 @@ class otherTank extends Phaser.Sprite {
                 this.destroy();
                 this.displayName.destroy();
                 this.weapon.bullets.destroy();
+                this.healthBar.kill();
             } else {
                 this.x = snap.val().x;
                 this.y = snap.val().y;
@@ -66,19 +68,13 @@ class otherTank extends Phaser.Sprite {
         this.FIREBASE.getDatabase().ref("Players/" + this.id + "/bullets").on("value", snap => {
             if (snap.exists()) {
                 let bulletsInCloud = snap.val();
-                console.log("Local: " + this.bulletInfo);
-                console.log("Cloud: " + bulletsInCloud);
-                this.bulletInfo = bulletsInCloud;
-                let x = 0;
-                this.weapon.bullets.forEach(function (bull) {
-                    if (bulletsInCloud[x] == 0) {
-                        this.bulletInfo[x] = 0;
-                    } else {
-                        this.bulletInfo[x] = 1;
-                    }
-                    x++;
-                }, this);
-                console.log("Updated: " + this.bulletInfo);
+                // console.log("Local: " + this.bulletInfo);
+                // console.log("Cloud: " + bulletsInCloud + "\n");
+                for (x = 0; x < this.maxBullets; x++) {
+                    // if the bullet is dead here and in firebase, reset shotOnce
+                    this.bulletInfo[x] = bulletsInCloud[x];
+                }
+                // console.log("Updated: " + this.bulletInfo);
             }
         });
 
@@ -90,17 +86,16 @@ class otherTank extends Phaser.Sprite {
         this.displayName = this.game.add.text(0, 0, this.sName, style);
         this.displayName.anchor.set(0.5, 0.5);
 
-        // this.healthbar = this.game.add.graphics(0, 0);
-        this.testBar = new HealthBar(this.game, {
+        this.healthBar = new HealthBar(this.game, {
                 width: 100,
                 height: 10,
                 x: 0,
                 y: 0,
                 bg: {
-                    color: '#cdbe00'
+                    color: '#ff000a'
                 },
                 bar: {
-                    color: '#651828'
+                    color: '#47ff00'
                 },
                 animationDuration: 10,
                 flipped: false
@@ -118,45 +113,32 @@ class otherTank extends Phaser.Sprite {
     }
 
     update() {
+        // collide my bullets with the walls
         this.game.physics.arcade.collide(this.weapon.bullets, this.layer);
-        // collide with the main player's bullets of this instance of the game
-        this.game.physics.arcade.collide(this.tank, this.weapon.bullets, this.bulletHit);
-        // collide with otherPlayers' bullets
-        this.otherTanks.forEach(function (otherTank) {
-            this.game.physics.arcade.collide(otherTank, this.weapon.bullets, this.bulletHit);
-        }, this);
-
-        let x = 0;
-        this.weapon.bullets.forEach(function (bull) {
-            if (this.bulletInfo[x] == 1) {
-                if (!bull.alive) {
-                    this.weapon.fire();
-                    console.log("Other Player shot bullet.");
-                }
-            } else {
-                if (bull.alive) {
-                    bull.kill();
-                    console.log("The bullet died.");
-                }
-            }
-            x++;
-        }, this);
+        // collide my bullets with myself
+        this.game.physics.arcade.collide(this, this.weapon.bullets, this.bulletHit, null, this);
 
         this.displayName.x = Math.floor(this.x);
         this.displayName.y = Math.floor(this.y - this.height / 2 - 15);
 
-        this.testBar.setPosition(this.x, this.y - 70);
-        this.testBar.setPercent((this.health / this.maxHealth) * 100);
+        this.healthBar.setPosition(this.x, this.y - 70);
+        this.healthBar.setPercent((this.health / this.maxHealth) * 100);
+
+        let x = 0;
+        this.weapon.bullets.forEach(function (bull) {
+            if (this.bulletInfo[x] == 0) {
+                bull.kill();
+            } else {
+                if (!bull.alive) {
+                    this.weapon.fire();
+                }
+            }
+            x++;
+        }, this);
     }
 
     bulletHit(tank, bullet) {
-        console.log("Other tank shot me.");
-        tank.health -= 1;
         bullet.kill();
-    }
-
-    setOtherTanks(otherTanks: Phaser.Group) {
-        this.otherTanks = otherTanks;
     }
 
 }

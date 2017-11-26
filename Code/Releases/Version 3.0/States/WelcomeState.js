@@ -21,6 +21,9 @@ var WelcomeState = (function (_super) {
         _this.zz = [];
         return _this;
     }
+    WelcomeState.prototype.init = function () {
+        this.game.stage.disableVisibilityChange = true;
+    };
     WelcomeState.prototype.preload = function () {
         this.game.load.tilemap('map', 'Assets/gameMap.json', null, Phaser.Tilemap.TILED_JSON);
         this.load.atlas('arcade', 'Assets/arcade-joystick.png', 'Assets/arcade-joystick.json');

@@ -12,7 +12,7 @@ class util_Firebase {
         return this.database.ref().push().key;
     }
 
-    pushNewestPlayer(playerID: number, name:string) {
+    pushNewestPlayer(playerID: number, name: string) {
         this.database.ref("New").set({
             id: playerID,
             name: name
@@ -49,25 +49,33 @@ class util_Firebase {
             });
     }
 
-    updatePlayerInfo(playerID: any, x: number, y: number, r: number, bullet, name:string, health: number) {
+    updatePlayerInfo(playerID: any, x: number, y: number, r: number, bullets, name: string, health: number, message) {
         var ref = this.database.ref("Players/" + playerID);
-        ref.set({
+        ref.update({
             x: x,
             y: y,
             r: r,
-            bullets: bullet,
-            name:name,
+            bullets: bullets,
+            name: name,
             health: health
         });
+        if (message != null) {
+            console.log(message);
+        }
     }
+
+    // updateHealth(playerID: any, health) {
+    //     var ref = this.database.ref("Players/" + playerID);
+    //     ref.set({
+    //        health: health
+    //     });
+    //     console.log(playerID);
+    //     console.log(health);
+    // }
 
     onClose(myID: any) {
         let ref = this.database.ref("Players/" + myID + "/");
         ref.onDisconnect().remove();
-        // ref = this.database.ref("Removed");
-        // ref.onDisconnect().update({
-        //     id: myID
-        // });
     }
 
     getDatabase(): any {

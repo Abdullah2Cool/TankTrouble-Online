@@ -72,16 +72,16 @@ var Tank = (function (_super) {
         _this.shootButton.alignBottomRight(0);
         _this.shootButton.scale = 0.9;
         // this.healthbar = this.game.add.graphics(0, 0);
-        _this.testBar = new HealthBar(_this.game, {
+        _this.healthBar = new HealthBar(_this.game, {
             width: 100,
             height: 10,
             x: 0,
             y: 0,
             bg: {
-                color: '#651828'
+                color: '#ff000a'
             },
             bar: {
-                color: '#FEFF03'
+                color: '#47ff00'
             },
             animationDuration: 10,
             flipped: false
@@ -100,10 +100,14 @@ var Tank = (function (_super) {
         // collide the bullets with the map
         this.game.physics.arcade.collide(this.weapon.bullets, this.layer);
         // collide with the the bullets
-        this.game.physics.arcade.collide(this, this.weapon.bullets, this.bulletHit, null, this);
-        // collide with other tank's bullets
+        this.game.physics.arcade.collide(this, this.weapon.bullets, this.bulletHitMe, null, this);
+        // collide my bullets with the other tanks
         this.otherTanks.forEach(function (otherTank) {
-            this.game.physics.arcade.collide(otherTank, this.weapon.bullets, this.bulletHit, null, this);
+            this.game.physics.arcade.collide(otherTank, this.weapon.bullets, this.bulletHitOther, null, this);
+        }, this);
+        // collide otherTank's bullets with me
+        this.otherTanks.forEach(function (otherTank) {
+            this.game.physics.arcade.collide(this, otherTank.weapon.bullets, this.bulletHitMefromOther, null, this);
         }, this);
         // this.game.physics.arcade.collide(this.weapon.bullets, this.weapon.bullets);
         this.body.velocity.x = 0;
@@ -142,24 +146,36 @@ var Tank = (function (_super) {
             this.game.physics.arcade.velocityFromRotation(this.stick.rotation, this.stick.force * this.velocity, this.body.velocity);
             this.rotation = this.stick.rotation;
         }
-        this.testBar.setPosition(this.x, this.y - 70);
-        this.testBar.setPercent((this.health / this.maxHealth) * 100);
-        if (this.health == 0) {
+        this.healthBar.setPosition(this.x, this.y - 70);
+        this.healthBar.setPercent((this.health / this.maxHealth) * 100);
+        if (this.health <= 0) {
             var p = this.randomGenerator.integerInRange(100, this.game.world.width - 100);
             this.reset(p, p, this.maxHealth);
         }
-        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletInfo, this.sName, this.health);
+        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletInfo, this.sName, this.health, null);
     };
-    Tank.prototype.bulletHit = function (tank, bullet) {
+    Tank.prototype.bulletHitMefromOther = function (tank, bullet) {
+        var t = this.game.time.create(true);
+        t.loop(1500, function () {
+            bullet.kill();
+            console.log("Times up.");
+            t.destroy();
+        }, this);
+        t.start();
+        tank.health -= 1;
+        console.log("Someone else's bullet hit me.");
+    };
+    Tank.prototype.bulletHitOther = function (tank, bullet) {
+        bullet.kill();
+        console.log("My bullet hit someone else.");
+    };
+    Tank.prototype.bulletHitMe = function (tank, bullet) {
         bullet.kill();
         tank.health -= 1;
-        console.log(this.health);
+        console.log("My bullet hit me.");
     };
     Tank.prototype.addNewPlayer = function (player) {
         this.otherTanks.add(player);
-        this.otherTanks.forEach(function (tank) {
-            tank.setOtherTanks(this.otherTanks);
-        }, this);
     };
     Tank.prototype.getOtherPlayers = function () {
         return this.otherTanks;

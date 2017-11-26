@@ -14,6 +14,7 @@ var otherTank = (function (_super) {
     function otherTank(game, x, y, id, layer, tank, sName) {
         var _this = _super.call(this, game, x, y, "otherTank") || this;
         _this.bulletInfo = [];
+        _this.shotOnce = [];
         _this.maxBullets = 10;
         _this.game = game;
         _this.id = id;
@@ -25,11 +26,12 @@ var otherTank = (function (_super) {
         _this.health = _this.maxHealth;
         for (var i = 0; i < _this.maxBullets; i++) {
             _this.bulletInfo.push(0);
+            _this.shotOnce.push(0);
         }
-        _this.otherTanks = tank.getOtherPlayers();
+        // this.otherTanks = tank.getOtherPlayers();
         _this.anchor.setTo(0.5, 0.5);
         _this.game.physics.arcade.enable(_this);
-        _this.weapon = game.add.weapon(6, 'blue_bullet');
+        _this.weapon = game.add.weapon(_this.maxBullets, 'blue_bullet');
         _this.weapon.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
         _this.weapon.bulletLifespan = 6000;
         _this.weapon.bulletSpeed = 300;
@@ -45,6 +47,7 @@ var otherTank = (function (_super) {
                 _this.destroy();
                 _this.displayName.destroy();
                 _this.weapon.bullets.destroy();
+                _this.healthBar.kill();
             }
             else {
                 _this.x = snap.val().x;
@@ -56,21 +59,14 @@ var otherTank = (function (_super) {
         });
         _this.FIREBASE.getDatabase().ref("Players/" + _this.id + "/bullets").on("value", function (snap) {
             if (snap.exists()) {
-                var bulletsInCloud_1 = snap.val();
-                console.log("Local: " + _this.bulletInfo);
-                console.log("Cloud: " + bulletsInCloud_1);
-                _this.bulletInfo = bulletsInCloud_1;
-                var x_1 = 0;
-                _this.weapon.bullets.forEach(function (bull) {
-                    if (bulletsInCloud_1[x_1] == 0) {
-                        this.bulletInfo[x_1] = 0;
-                    }
-                    else {
-                        this.bulletInfo[x_1] = 1;
-                    }
-                    x_1++;
-                }, _this);
-                console.log("Updated: " + _this.bulletInfo);
+                var bulletsInCloud = snap.val();
+                // console.log("Local: " + this.bulletInfo);
+                // console.log("Cloud: " + bulletsInCloud + "\n");
+                for (x = 0; x < _this.maxBullets; x++) {
+                    // if the bullet is dead here and in firebase, reset shotOnce
+                    _this.bulletInfo[x] = bulletsInCloud[x];
+                }
+                // console.log("Updated: " + this.bulletInfo);
             }
         });
         var style = {
@@ -79,17 +75,16 @@ var otherTank = (function (_super) {
         };
         _this.displayName = _this.game.add.text(0, 0, _this.sName, style);
         _this.displayName.anchor.set(0.5, 0.5);
-        // this.healthbar = this.game.add.graphics(0, 0);
-        _this.testBar = new HealthBar(_this.game, {
+        _this.healthBar = new HealthBar(_this.game, {
             width: 100,
             height: 10,
             x: 0,
             y: 0,
             bg: {
-                color: '#cdbe00'
+                color: '#ff000a'
             },
             bar: {
-                color: '#651828'
+                color: '#47ff00'
             },
             animationDuration: 10,
             flipped: false
@@ -104,41 +99,29 @@ var otherTank = (function (_super) {
         // this.bulletsShot -= 1;
     };
     otherTank.prototype.update = function () {
+        // collide my bullets with the walls
         this.game.physics.arcade.collide(this.weapon.bullets, this.layer);
-        // collide with the main player's bullets of this instance of the game
-        this.game.physics.arcade.collide(this.tank, this.weapon.bullets, this.bulletHit);
-        // collide with otherPlayers' bullets
-        this.otherTanks.forEach(function (otherTank) {
-            this.game.physics.arcade.collide(otherTank, this.weapon.bullets, this.bulletHit);
-        }, this);
+        // collide my bullets with myself
+        this.game.physics.arcade.collide(this, this.weapon.bullets, this.bulletHit, null, this);
+        this.displayName.x = Math.floor(this.x);
+        this.displayName.y = Math.floor(this.y - this.height / 2 - 15);
+        this.healthBar.setPosition(this.x, this.y - 70);
+        this.healthBar.setPercent((this.health / this.maxHealth) * 100);
         var x = 0;
         this.weapon.bullets.forEach(function (bull) {
-            if (this.bulletInfo[x] == 1) {
-                if (!bull.alive) {
-                    this.weapon.fire();
-                    console.log("Other Player shot bullet.");
-                }
+            if (this.bulletInfo[x] == 0) {
+                bull.kill();
             }
             else {
-                if (bull.alive) {
-                    bull.kill();
-                    console.log("The bullet died.");
+                if (!bull.alive) {
+                    this.weapon.fire();
                 }
             }
             x++;
         }, this);
-        this.displayName.x = Math.floor(this.x);
-        this.displayName.y = Math.floor(this.y - this.height / 2 - 15);
-        this.testBar.setPosition(this.x, this.y - 70);
-        this.testBar.setPercent((this.health / this.maxHealth) * 100);
     };
     otherTank.prototype.bulletHit = function (tank, bullet) {
-        console.log("Other tank shot me.");
-        tank.health -= 1;
         bullet.kill();
-    };
-    otherTank.prototype.setOtherTanks = function (otherTanks) {
-        this.otherTanks = otherTanks;
     };
     return otherTank;
 }(Phaser.Sprite));

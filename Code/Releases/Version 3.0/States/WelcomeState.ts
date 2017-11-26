@@ -19,6 +19,10 @@ class WelcomeState extends Phaser.State {
         super();
     }
 
+    init() {
+        this.game.stage.disableVisibilityChange = true;
+    }
+
     preload() {
         this.game.load.tilemap('map', 'Assets/gameMap.json', null, Phaser.Tilemap.TILED_JSON);
         this.load.atlas('arcade', 'Assets/arcade-joystick.png', 'Assets/arcade-joystick.json');
