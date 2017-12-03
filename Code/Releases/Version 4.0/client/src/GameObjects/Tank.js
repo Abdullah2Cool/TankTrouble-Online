@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 var HealthBar;
-var Tank = (function (_super) {
+var Tank = /** @class */ (function (_super) {
     __extends(Tank, _super);
     function Tank(game, x, y, sName, id, layer) {
         var _this = _super.call(this, game, x, y, "tank") || this;
@@ -182,4 +182,3 @@ var Tank = (function (_super) {
     };
     return Tank;
 }(Phaser.Sprite));
-//# sourceMappingURL=Tank.js.map
