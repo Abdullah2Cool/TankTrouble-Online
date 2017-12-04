@@ -4,54 +4,19 @@ class GameState extends Phaser.State {
     map: Phaser.Tilemap;
     layer: Phaser.TilemapLayer;
     tank: Tank;
-    FIREBASE: util_Firebase;
+    // FIREBASE: util_Firebase;
     id: any;
     name: string;
     otherPlayers = {};
 
     constructor() {
         super();
-        this.FIREBASE = new util_Firebase();
+        // this.FIREBASE = new util_Firebase();
 
     }
 
     init(name: string) {
         this.name = name;
-        this.socket = io();
-
-        this.socket.on("serverState", function (data) {
-            this.id = data.id;
-            this.otherPlayers = data.otherPlayers;
-
-            delete this.otherPlayers[this.id];
-            console.log("My id from server:", this.id);
-            console.log("Other Players:", this.otherPlayers);
-        });
-
-        this.socket.on("newPlayer", function (data) {
-            this.otherPlayers[data.id] = data.newPlayer;
-            console.log("Detected new player:", data.newPlayer);
-        });
-
-        this.socket.on("removed", function (data) {
-            delete this.otherPlayers[data.id];
-            console.log("Player Removed:", data.id);
-            console.log("Other's list:", this.otherPlayers);
-        });
-
-        this.socket.on("timer", function (data) {
-            console.log("Everyone else's info:");
-            for (var i in data) {
-                var x, y, r, id;
-                if (i != this.id) {
-                    x = data[i].x;
-                    y = data[i].y;
-                    r = data[i].r;
-                    id = data[i].id;
-                    console.log("id", i ,"x:", x, "y:", y, "r:", r);
-                }
-            }
-        });
     }
 
     preload() {
@@ -77,6 +42,16 @@ class GameState extends Phaser.State {
         // this.FIREBASE.checkForPreviousPlayers(this.tank.id, this.game, this.layer, this.tank);
         // this.FIREBASE.checkForNewPlayers(this.tank.id, this.game, this.layer, this.tank);
         // this.FIREBASE.onClose(this.tank.id);
+
+        this.socket = io();
+
+        this.socket.on("serverState", this.onServerState.bind(this));
+
+        this.socket.on("newPlayer", this.onNewPlayer.bind(this));
+
+        this.socket.on("removed", this.onRemoved.bind(this));
+
+        this.socket.on("timer", this.onTimer.bind(this));
     }
 
     update() {
@@ -86,6 +61,70 @@ class GameState extends Phaser.State {
             r: this.tank.rotation,
             id: this.id
         });
+    }
+
+    createPlayer(game, id) {
+        let p = new Tank(game, 0, 0, "other", id, this.layer);
+        game.add.existing(p);
+        return p;
+    }
+
+    onServerState(data) {
+        this.id = data.id;
+        this.otherPlayers = data.otherPlayers;
+
+        console.log("My id from server:", this.id);
+        console.log("Other Players:", this.otherPlayers);
+
+        for (var x in this.otherPlayers) {
+            var p = this.otherPlayers[x];
+            var t = new otherTank(this.game, p.x, p.y, p.id, this.layer, this.tank, "other")
+            this.otherPlayers[x] = t;
+            this.game.add.existing(t);
+        }
+    }
+
+    onNewPlayer(data) {
+        this.otherPlayers[data.id] = 0;
+        this.otherPlayers[data.id] = data.newPlayer;
+        console.log("Detected new player:", data.newPlayer);
+
+        console.log(data);
+        console.log(data.newPlayer.x, data.newPlayer.y, data.id, this.game);
+
+        var t = new otherTank(this.game, data.newPlayer.x, data.newPlayer.y, data.id, this.layer, this.tank, "NOOB");
+        this.otherPlayers[data.id] = t;
+        this.game.add.existing(t);
+
+    }
+
+    onRemoved(data) {
+        this.otherPlayers[data.id].destroy();
+        delete this.otherPlayers[data.id];
+        console.log("Player Removed:", data.id);
+        console.log("Other's list:", this.otherPlayers);
+    }
+
+    onTimer(data) {
+        // console.log("Everyone else's info:");
+        for (var i in data) {
+            var x, y, r, id;
+            if (i != this.id) {
+                x = data[i].x;
+                y = data[i].y;
+                r = data[i].r;
+                id = data[i].id;
+                // console.log("id", i, "x:", x, "y:", y, "r:", r);
+
+                // this.otherPlayers[i].x = x;
+                // this.otherPlayers[i].y = y;
+                // this.otherPlayers[i].rotation = r;
+
+                this.otherPlayers[i].updateInfo(x, y, r);
+
+                // console.log(this.otherPlayers[i]);
+            }
+        }
     }
 
 }

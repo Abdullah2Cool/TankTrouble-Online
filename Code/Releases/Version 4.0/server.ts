@@ -24,16 +24,16 @@ var ALL_PLAYERS = {};
 io.on('connect', function (socket) {
     console.log("Socket connected:", socket.id);
 
-    var player = new Player(socket.id);
-
-    ALL_SOCKETS[socket.id] = socket;
-    ALL_PLAYERS[socket.id] = player;
-
     // tell the client their own id and the rest of the player
     socket.emit("serverState", {
         id: socket.id,
         otherPlayers: ALL_PLAYERS
     });
+
+    var player = new Player(socket.id);
+
+    ALL_SOCKETS[socket.id] = socket;
+    ALL_PLAYERS[socket.id] = player;
 
     // tell everyone else that their is a new player
     socket.broadcast.emit("newPlayer", {
@@ -77,4 +77,4 @@ setInterval(function () {
         socket.emit("timer", pack);
     }
 
-}, 10000);
+}, 1000/30);

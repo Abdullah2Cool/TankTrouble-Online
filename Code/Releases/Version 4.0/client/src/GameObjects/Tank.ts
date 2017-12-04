@@ -11,7 +11,7 @@ class Tank extends Phaser.Sprite {
     velocity: number;
     weapon: Phaser.Weapon;
     id: any;
-    FIREBASE: util_Firebase;
+    // FIREBASE: util_Firebase;
     layer: TilemapLayer;
     otherTanks: Phaser.Group;
     maxBullets: number = 10;
@@ -36,7 +36,7 @@ class Tank extends Phaser.Sprite {
         this.maxHealth = 20;
         this.health = this.maxHealth;
 
-        this.FIREBASE = new util_Firebase();
+        // this.FIREBASE = new util_Firebase();
         this.otherTanks = game.add.group();
 
         console.log(sName);
@@ -190,8 +190,7 @@ class Tank extends Phaser.Sprite {
             this.reset(p, p, this.maxHealth);
         }
 
-        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletInfo, this.sName, this.health,
-            null);
+
     }
 
     bulletHitMeFromOther(tank, bullet) {

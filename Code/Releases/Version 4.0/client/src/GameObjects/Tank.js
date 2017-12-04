@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 var HealthBar;
-var Tank = /** @class */ (function (_super) {
+var Tank = (function (_super) {
     __extends(Tank, _super);
     function Tank(game, x, y, sName, id, layer) {
         var _this = _super.call(this, game, x, y, "tank") || this;
@@ -23,7 +23,7 @@ var Tank = /** @class */ (function (_super) {
         _this.randomGenerator = new Phaser.RandomDataGenerator();
         _this.maxHealth = 20;
         _this.health = _this.maxHealth;
-        _this.FIREBASE = new util_Firebase();
+        // this.FIREBASE = new util_Firebase();
         _this.otherTanks = game.add.group();
         console.log(sName);
         for (var i = 0; i < _this.maxBullets; i++) {
@@ -152,7 +152,6 @@ var Tank = /** @class */ (function (_super) {
             var p = this.randomGenerator.integerInRange(100, this.game.world.width - 100);
             this.reset(p, p, this.maxHealth);
         }
-        this.FIREBASE.updatePlayerInfo(this.id, this.x, this.y, this.rotation, this.bulletInfo, this.sName, this.health, null);
     };
     Tank.prototype.bulletHitMeFromOther = function (tank, bullet) {
         var t = this.game.time.create(true);

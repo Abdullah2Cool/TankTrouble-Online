@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Player = /** @class */ (function () {
+var Player = (function () {
     function Player(id) {
-        this.x = 0;
-        this.y = 0;
+        this.x = 400;
+        this.y = 400;
         this.r = 0;
         this.id = id;
     }

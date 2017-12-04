@@ -5,7 +5,7 @@ class otherTank extends Phaser.Sprite {
     game: Phaser.Game;
     weapon: Phaser.Weapon;
     id: any;
-    FIREBASE: util_Firebase;
+    // FIREBASE: util_Firebase;
     layer: TilemapLayer;
     tank: Tank;
     bulletInfo = [];
@@ -19,7 +19,7 @@ class otherTank extends Phaser.Sprite {
         super(game, x, y, "otherTank");
         this.game = game;
         this.id = id;
-        this.FIREBASE = new util_Firebase();
+        // this.FIREBASE = new util_Firebase();
         this.layer = layer;
         this.tank = tank;
         this.sName = sName;
@@ -47,36 +47,36 @@ class otherTank extends Phaser.Sprite {
         this.weapon.onKill.add(this.bulletDead, this);
 
         this.body.setCircle(33);
-        this.body.immovable = true;
+        // this.body.immovable = true;
 
-        this.FIREBASE.getDatabase().ref("Players/" + this.id).on("value", snap => {
-            if (!snap.exists()) {
-                console.log("Player doesn't exist anymore.");
-                this.destroy();
-                this.displayName.destroy();
-                this.weapon.bullets.destroy();
-                this.healthBar.kill();
-            } else {
-                this.x = snap.val().x;
-                this.y = snap.val().y;
-                this.rotation = snap.val().r;
-                this.sName = snap.val().name;
-                this.health = snap.val().health;
-            }
-        });
-
-        this.FIREBASE.getDatabase().ref("Players/" + this.id + "/bullets").on("value", snap => {
-            if (snap.exists()) {
-                let bulletsInCloud = snap.val();
-                // console.log("Local: " + this.bulletInfo);
-                // console.log("Cloud: " + bulletsInCloud + "\n");
-                for (x = 0; x < this.maxBullets; x++) {
-                    // if the bullet is dead here and in firebase, reset shotOnce
-                    this.bulletInfo[x] = bulletsInCloud[x];
-                }
-                // console.log("Updated: " + this.bulletInfo);
-            }
-        });
+        // this.FIREBASE.getDatabase().ref("Players/" + this.id).on("value", snap => {
+        //     if (!snap.exists()) {
+        //         console.log("Player doesn't exist anymore.");
+        //         this.destroy();
+        //         this.displayName.destroy();
+        //         this.weapon.bullets.destroy();
+        //         this.healthBar.kill();
+        //     } else {
+        //         this.x = snap.val().x;
+        //         this.y = snap.val().y;
+        //         this.rotation = snap.val().r;
+        //         this.sName = snap.val().name;
+        //         this.health = snap.val().health;
+        //     }
+        // });
+        //
+        // this.FIREBASE.getDatabase().ref("Players/" + this.id + "/bullets").on("value", snap => {
+        //     if (snap.exists()) {
+        //         let bulletsInCloud = snap.val();
+        //         // console.log("Local: " + this.bulletInfo);
+        //         // console.log("Cloud: " + bulletsInCloud + "\n");
+        //         for (x = 0; x < this.maxBullets; x++) {
+        //             // if the bullet is dead here and in firebase, reset shotOnce
+        //             this.bulletInfo[x] = bulletsInCloud[x];
+        //         }
+        //         // console.log("Updated: " + this.bulletInfo);
+        //     }
+        // });
 
         let style = {
             font: "32px Arial",
@@ -139,6 +139,10 @@ class otherTank extends Phaser.Sprite {
 
     bulletHit(tank, bullet) {
         bullet.kill();
+    }
+
+    updateInfo(x, y, r) {
+        this.game.add.tween(this).to({x: x, y: y, rotation: r}, 1000 / 60, "Sine.easeInOut", true);
     }
 
 }

@@ -1,6 +1,6 @@
 export class Player {
-    x = 0;
-    y = 0;
+    x = 400;
+    y = 400;
     r = 0;
     id;
 
