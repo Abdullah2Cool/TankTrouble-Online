@@ -19,7 +19,7 @@ class otherTank extends Phaser.Sprite {
         super(game, x, y, "otherTank");
         this.game = game;
         this.id = id;
-        // this.FIREBASE = new util_Firebase();
+
         this.layer = layer;
         this.tank = tank;
         this.sName = sName;
@@ -83,7 +83,7 @@ class otherTank extends Phaser.Sprite {
             fill: "#0009ff"
         };
 
-        this.displayName = this.game.add.text(0, 0, this.sName, style);
+        this.displayName = this.game.add.text(0, 0, sName, style);
         this.displayName.anchor.set(0.5, 0.5);
 
         this.healthBar = new HealthBar(this.game, {
@@ -141,8 +141,9 @@ class otherTank extends Phaser.Sprite {
         bullet.kill();
     }
 
-    updateInfo(x, y, r) {
+    updateInfo(x, y, r, health) {
         this.game.add.tween(this).to({x: x, y: y, rotation: r}, 1000 / 60, "Sine.easeInOut", true);
+        this.health = health;
     }
 
 }

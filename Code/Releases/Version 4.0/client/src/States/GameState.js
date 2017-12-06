@@ -38,6 +38,7 @@ var GameState = (function (_super) {
         // this.FIREBASE.checkForNewPlayers(this.tank.id, this.game, this.layer, this.tank);
         // this.FIREBASE.onClose(this.tank.id);
         this.socket = io();
+        this.socket.emit("start", { name: this.name });
         this.socket.on("serverState", this.onServerState.bind(this));
         this.socket.on("newPlayer", this.onNewPlayer.bind(this));
         this.socket.on("removed", this.onRemoved.bind(this));
@@ -48,37 +49,32 @@ var GameState = (function (_super) {
             x: this.tank.x,
             y: this.tank.y,
             r: this.tank.rotation,
-            id: this.id
+            id: this.id,
+            health: this.tank.health
         });
-    };
-    GameState.prototype.createPlayer = function (game, id) {
-        var p = new Tank(game, 0, 0, "other", id, this.layer);
-        game.add.existing(p);
-        return p;
     };
     GameState.prototype.onServerState = function (data) {
         this.id = data.id;
-        this.otherPlayers = data.otherPlayers;
         console.log("My id from server:", this.id);
         console.log("Other Players:", this.otherPlayers);
-        for (var x in this.otherPlayers) {
-            var p = this.otherPlayers[x];
-            var t = new otherTank(this.game, p.x, p.y, p.id, this.layer, this.tank, "other");
+        for (var x in data.otherPlayers) {
+            var p = data.otherPlayers[x];
+            var t = new otherTank(this.game, p.x, p.y, p.id, this.layer, this.tank, p.name);
             this.otherPlayers[x] = t;
             this.game.add.existing(t);
         }
     };
     GameState.prototype.onNewPlayer = function (data) {
-        this.otherPlayers[data.id] = 0;
-        this.otherPlayers[data.id] = data.newPlayer;
         console.log("Detected new player:", data.newPlayer);
         console.log(data);
-        console.log(data.newPlayer.x, data.newPlayer.y, data.id, this.game);
-        var t = new otherTank(this.game, data.newPlayer.x, data.newPlayer.y, data.id, this.layer, this.tank, "NOOB");
+        var t = new otherTank(this.game, data.newPlayer.x, data.newPlayer.y, data.id, this.layer, this.tank, data.name);
         this.otherPlayers[data.id] = t;
         this.game.add.existing(t);
     };
     GameState.prototype.onRemoved = function (data) {
+        this.otherPlayers[data.id].displayName.destroy();
+        this.otherPlayers[data.id].weapon.bullets.destroy();
+        this.otherPlayers[data.id].healthBar.kill();
         this.otherPlayers[data.id].destroy();
         delete this.otherPlayers[data.id];
         console.log("Player Removed:", data.id);
@@ -87,18 +83,20 @@ var GameState = (function (_super) {
     GameState.prototype.onTimer = function (data) {
         // console.log("Everyone else's info:");
         for (var i in data) {
-            var x, y, r, id;
+            var x, y, r, id, health;
             if (i != this.id) {
                 x = data[i].x;
                 y = data[i].y;
                 r = data[i].r;
                 id = data[i].id;
+                health = data[i].health;
                 // console.log("id", i, "x:", x, "y:", y, "r:", r);
-                // this.otherPlayers[i].x = x;
-                // this.otherPlayers[i].y = y;
-                // this.otherPlayers[i].rotation = r;
-                this.otherPlayers[i].updateInfo(x, y, r);
-                // console.log(this.otherPlayers[i]);
+                if (this.otherPlayers[i] == null) {
+                    console.log("Player is null.");
+                }
+                else {
+                    this.otherPlayers[i].updateInfo(x, y, r, health);
+                }
             }
         }
     };

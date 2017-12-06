@@ -18,7 +18,6 @@ var otherTank = (function (_super) {
         _this.maxBullets = 10;
         _this.game = game;
         _this.id = id;
-        // this.FIREBASE = new util_Firebase();
         _this.layer = layer;
         _this.tank = tank;
         _this.sName = sName;
@@ -73,7 +72,7 @@ var otherTank = (function (_super) {
             font: "32px Arial",
             fill: "#0009ff"
         };
-        _this.displayName = _this.game.add.text(0, 0, _this.sName, style);
+        _this.displayName = _this.game.add.text(0, 0, sName, style);
         _this.displayName.anchor.set(0.5, 0.5);
         _this.healthBar = new HealthBar(_this.game, {
             width: 100,
@@ -123,8 +122,9 @@ var otherTank = (function (_super) {
     otherTank.prototype.bulletHit = function (tank, bullet) {
         bullet.kill();
     };
-    otherTank.prototype.updateInfo = function (x, y, r) {
+    otherTank.prototype.updateInfo = function (x, y, r, health) {
         this.game.add.tween(this).to({ x: x, y: y, rotation: r }, 1000 / 60, "Sine.easeInOut", true);
+        this.health = health;
     };
     return otherTank;
 }(Phaser.Sprite));

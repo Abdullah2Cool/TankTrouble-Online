@@ -23,29 +23,40 @@ var ALL_PLAYERS = {};
 
 io.on('connect', function (socket) {
     console.log("Socket connected:", socket.id);
-
-    // tell the client their own id and the rest of the player
-    socket.emit("serverState", {
-        id: socket.id,
-        otherPlayers: ALL_PLAYERS
-    });
-
-    var player = new Player(socket.id);
-
     ALL_SOCKETS[socket.id] = socket;
-    ALL_PLAYERS[socket.id] = player;
 
-    // tell everyone else that their is a new player
-    socket.broadcast.emit("newPlayer", {
-        id: socket.id,
-        newPlayer: player
+    var player;
+
+    socket.on("start", function (data) {
+
+        player = new Player(socket.id, data.name)
+
+        console.log("Recieved Name:", data.name);
+
+        // tell the client their own id and the rest of the player
+        socket.emit("serverState", {
+            id: socket.id,
+            otherPlayers: ALL_PLAYERS
+        });
+
+        ALL_PLAYERS[socket.id] = player;
+
+        // tell everyone else that their is a new player
+        socket.broadcast.emit("newPlayer", {
+            id: socket.id,
+            newPlayer: player,
+            name: data.name
+        });
     });
+
 
     socket.on("position", function (data) {
         // console.log(data);
         ALL_PLAYERS[socket.id].x = data.x;
         ALL_PLAYERS[socket.id].y = data.y;
         ALL_PLAYERS[socket.id].r = data.r;
+        ALL_PLAYERS[socket.id].health = data.health;
+        // console.log("ID:", socket.id, "Received health:", data.health);
     });
 
     socket.on("disconnect", function () {
@@ -62,13 +73,14 @@ io.on('connect', function (socket) {
 
 setInterval(function () {
     var pack = {};
-    for (var  i in ALL_PLAYERS) {
+    for (var i in ALL_PLAYERS) {
         var player;
         player = ALL_PLAYERS[i];
         pack[i] = {
             x: player.x,
             y: player.y,
-            r: player.r
+            r: player.r,
+            health: player.health,
         };
     }
 
@@ -77,4 +89,4 @@ setInterval(function () {
         socket.emit("timer", pack);
     }
 
-}, 1000/30);
+}, 1000 / 30);
