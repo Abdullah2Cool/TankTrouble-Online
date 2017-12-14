@@ -24,6 +24,7 @@ class GameState extends Phaser.State {
     }
 
     create() {
+        this.socket = io();
 
         this.game.stage.backgroundColor = '#dfdfdf';
         this.map = this.game.add.tilemap('map');
@@ -34,7 +35,7 @@ class GameState extends Phaser.State {
 
         // this.tank = new Tank(this.game, this.game.rnd.integerInRange(100, this.game.width - 100),
         //     this.game.rnd.integerInRange(100, this.game.height), "tank", this.id);
-        this.tank = new Tank(this.game, 400, 400, this.name, this.id, this.layer);
+        this.tank = new Tank(this.game, 400, 400, this.name, this.id, this.layer, this.socket);
         this.game.add.existing(this.tank);
         this.game.camera.follow(this.tank);
 
@@ -42,8 +43,6 @@ class GameState extends Phaser.State {
         // this.FIREBASE.checkForPreviousPlayers(this.tank.id, this.game, this.layer, this.tank);
         // this.FIREBASE.checkForNewPlayers(this.tank.id, this.game, this.layer, this.tank);
         // this.FIREBASE.onClose(this.tank.id);
-
-        this.socket = io();
 
         this.socket.emit("start", {name: this.name});
 
@@ -54,6 +53,10 @@ class GameState extends Phaser.State {
         this.socket.on("removed", this.onRemoved.bind(this));
 
         this.socket.on("timer", this.onTimer.bind(this));
+
+        this.socket.on("selfHit", this.onSelfHit.bind(this));
+
+        this.socket.on("shoot", this.onShoot.bind(this));
     }
 
     update() {
@@ -62,8 +65,28 @@ class GameState extends Phaser.State {
             y: this.tank.y,
             r: this.tank.rotation,
             id: this.id,
-            health: this.tank.health
+            health: this.tank.health,
+            // bulletInfo: this.tank.bulletInfo
         });
+
+
+    }
+
+    onShoot (data) {
+        this.otherPlayers[data.id].weapon.fire();
+        console.log(data.id, "shot a bullet.")
+    }
+
+    onSelfHit (data) {
+        let b = 0;
+        this.tank.weapon.forEach(function (bull) {
+            if (b == data.bullet) {
+                bull.kill();
+                this.tank.health -= 1;
+                this.tank.bulletInfo[b] = -1;
+            }
+            b += 1;
+        }, this);
     }
 
     onServerState(data) {
@@ -78,7 +101,8 @@ class GameState extends Phaser.State {
             var t = new otherTank(this.game, p.x, p.y, p.id, this.layer, this.tank, p.name);
 
             this.otherPlayers[x] = t;
-            this.game.add.existing(t);
+            // this.game.add.existing(t);
+            this.tank.addNewPlayer(t);
         }
     }
 
@@ -90,7 +114,8 @@ class GameState extends Phaser.State {
         var t = new otherTank(this.game, data.newPlayer.x, data.newPlayer.y, data.id, this.layer,
             this.tank, data.name);
         this.otherPlayers[data.id] = t;
-        this.game.add.existing(t);
+        // this.game.add.existing(t);
+        this.tank.addNewPlayer(t);
     }
 
     onRemoved(data) {
@@ -107,15 +132,18 @@ class GameState extends Phaser.State {
         // console.log("Everyone else's info:");
 
         for (var i in data) {
-            var x, y, r, id, health;
+            var x, y, r, id, health, bulletInfo;
             if (i != this.id) {
                 x = data[i].x;
                 y = data[i].y;
                 r = data[i].r;
                 id = data[i].id;
-                health = data[i].health;
+                health = data[i].health
+                // bulletInfo = data[i].bulletInfo;
 
                 // console.log("id", i, "x:", x, "y:", y, "r:", r);
+
+                // console.log("Update info:", bulletInfo);
 
                 if (this.otherPlayers[i] == null) {
                     console.log("Player is null.");
@@ -125,5 +153,4 @@ class GameState extends Phaser.State {
             }
         }
     }
-
 }

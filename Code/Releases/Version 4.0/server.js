@@ -43,7 +43,11 @@ io.on('connect', function (socket) {
         ALL_PLAYERS[socket.id].y = data.y;
         ALL_PLAYERS[socket.id].r = data.r;
         ALL_PLAYERS[socket.id].health = data.health;
+        // ALL_PLAYERS[socket.id].bulletInfo = data.bulletInfo;
         // console.log("ID:", socket.id, "Received health:", data.health);
+    });
+    socket.on('shoot', function (data) {
+        socket.broadcast.emit('shoot', { id: socket.id });
     });
     socket.on("disconnect", function () {
         delete ALL_SOCKETS[socket.id];
@@ -71,3 +75,11 @@ setInterval(function () {
         socket.emit("timer", pack);
     }
 }, 1000 / 30);
+setInterval(function () {
+    console.log("Debug Info:");
+    for (var i in ALL_PLAYERS) {
+        var p = ALL_PLAYERS[i];
+        console.log("id:", p.id);
+        // console.log(p.bulletInfo);
+    }
+}, 2000);

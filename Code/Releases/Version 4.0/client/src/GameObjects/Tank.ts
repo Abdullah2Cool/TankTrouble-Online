@@ -15,21 +15,24 @@ class Tank extends Phaser.Sprite {
     layer: TilemapLayer;
     otherTanks: Phaser.Group;
     maxBullets: number = 10;
-    bulletInfo = []
+    bulletInfo = {};
     displayName: Phaser.Text;
     JoyStickPlugin;
     stick;
     shootButton;
     healthBar;
     randomGenerator: Phaser.RandomDataGenerator;
+    socket;
 
-    constructor(game: Phaser.Game, x: number, y: number, sName: string, id: any, layer: TilemapLayer) {
+    constructor(game: Phaser.Game, x: number, y: number, sName: string, id: any, layer: TilemapLayer, socket) {
         super(game, x, y, "tank");
         this.game = game;
         this.sName = sName;
         this.velocity = 250;
         this.id = id;
         this.layer = layer;
+
+        this.socket = socket;
 
         this.randomGenerator = new Phaser.RandomDataGenerator();
 
@@ -42,17 +45,16 @@ class Tank extends Phaser.Sprite {
         console.log(sName);
 
         for (let i = 0; i < this.maxBullets; i++) {
-            this.bulletInfo.push(0);
+            this.bulletInfo[i] = 0;
         }
 
         this.anchor.setTo(0.5, 0.5);
         this.game.physics.arcade.enable(this);
-        // this.scale.setTo(0.8, 0.8);
-        //  Creates 30 bullets, using the 'bullet' graphic
+
         this.weapon = game.add.weapon(this.maxBullets, 'red_bullet');
         //  The bullets will be automatically killed when they are 2000ms old
         this.weapon.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
-        this.weapon.bulletLifespan = 6000;
+        this.weapon.bulletLifespan = 5000;
         //  The speed at which the bullet is fired
         this.weapon.bulletSpeed = 300;
         //  Speed-up the rate of fire, allowing them to shoot 1 bullet every 60ms
@@ -61,6 +63,7 @@ class Tank extends Phaser.Sprite {
         //  With no offsets from the position
         //  But the 'true' argument tells the weapon to track sprite rotation
         this.weapon.trackSprite(this, 38, 0, true);
+        // this.weapon.bulletInheritSpriteSpeed = true;
         this.weapon.onFire.add(this.bulletFire, this);
         this.weapon.onKill.add(this.bulletDead, this);
 
@@ -115,11 +118,12 @@ class Tank extends Phaser.Sprite {
 
     bulletFire(bullet, weapon) {
         bullet.body.bounce.setTo(1, 1);
-        this.game.world.bringToTop(this);
+        // console.log(this.bulletInfo);
+        this.socket.emit('shoot');
     }
 
     bulletDead(sprite) {
-
+        // console.table(this.weapon.bullets.children, ['visible', 'alive', 'fancy']);
     }
 
     update() {
@@ -161,15 +165,6 @@ class Tank extends Phaser.Sprite {
         if (this.shootKey.isDown) {
             this.weapon.fire();
         }
-        let x = 0;
-        this.weapon.bullets.forEach(function (bull) {
-            if (bull.alive) {
-                this.bulletInfo[x] = 1;
-            } else {
-                this.bulletInfo[x] = 0;
-            }
-            x++;
-        }, this);
 
         this.game.debug.body(this);
 
@@ -190,17 +185,22 @@ class Tank extends Phaser.Sprite {
             this.reset(p, p, this.maxHealth);
         }
 
+        this.weapon.debug(16, 16, true);
+
+        let x = 0;
+        this.weapon.bullets.forEach(function (bull) {
+            if (bull.alive) {
+                this.bulletInfo[x] = 1;
+            } else {
+                this.bulletInfo[x] = 0;
+            }
+            x++;
+        }, this);
 
     }
 
     bulletHitMeFromOther(tank, bullet) {
-        let t = this.game.time.create(true);
-        t.loop(1000, function () {
-            bullet.kill();
-            console.log("Times up.");
-            t.destroy();
-        }, this);
-        t.start();
+        bullet.kill();
         tank.health -= 1;
         console.log("Someone else's bullet hit me.")
     }

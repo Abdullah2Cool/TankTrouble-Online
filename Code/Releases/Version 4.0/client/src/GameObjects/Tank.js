@@ -11,15 +11,16 @@ var __extends = (this && this.__extends) || (function () {
 var HealthBar;
 var Tank = (function (_super) {
     __extends(Tank, _super);
-    function Tank(game, x, y, sName, id, layer) {
+    function Tank(game, x, y, sName, id, layer, socket) {
         var _this = _super.call(this, game, x, y, "tank") || this;
         _this.maxBullets = 10;
-        _this.bulletInfo = [];
+        _this.bulletInfo = {};
         _this.game = game;
         _this.sName = sName;
         _this.velocity = 250;
         _this.id = id;
         _this.layer = layer;
+        _this.socket = socket;
         _this.randomGenerator = new Phaser.RandomDataGenerator();
         _this.maxHealth = 20;
         _this.health = _this.maxHealth;
@@ -27,16 +28,14 @@ var Tank = (function (_super) {
         _this.otherTanks = game.add.group();
         console.log(sName);
         for (var i = 0; i < _this.maxBullets; i++) {
-            _this.bulletInfo.push(0);
+            _this.bulletInfo[i] = 0;
         }
         _this.anchor.setTo(0.5, 0.5);
         _this.game.physics.arcade.enable(_this);
-        // this.scale.setTo(0.8, 0.8);
-        //  Creates 30 bullets, using the 'bullet' graphic
         _this.weapon = game.add.weapon(_this.maxBullets, 'red_bullet');
         //  The bullets will be automatically killed when they are 2000ms old
         _this.weapon.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
-        _this.weapon.bulletLifespan = 6000;
+        _this.weapon.bulletLifespan = 5000;
         //  The speed at which the bullet is fired
         _this.weapon.bulletSpeed = 300;
         //  Speed-up the rate of fire, allowing them to shoot 1 bullet every 60ms
@@ -45,6 +44,7 @@ var Tank = (function (_super) {
         //  With no offsets from the position
         //  But the 'true' argument tells the weapon to track sprite rotation
         _this.weapon.trackSprite(_this, 38, 0, true);
+        // this.weapon.bulletInheritSpriteSpeed = true;
         _this.weapon.onFire.add(_this.bulletFire, _this);
         _this.weapon.onKill.add(_this.bulletDead, _this);
         _this.upKey = _this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
@@ -90,9 +90,11 @@ var Tank = (function (_super) {
     }
     Tank.prototype.bulletFire = function (bullet, weapon) {
         bullet.body.bounce.setTo(1, 1);
-        this.game.world.bringToTop(this);
+        // console.log(this.bulletInfo);
+        this.socket.emit('shoot');
     };
     Tank.prototype.bulletDead = function (sprite) {
+        // console.table(this.weapon.bullets.children, ['visible', 'alive', 'fancy']);
     };
     Tank.prototype.update = function () {
         // collide with the map
@@ -128,16 +130,6 @@ var Tank = (function (_super) {
         if (this.shootKey.isDown) {
             this.weapon.fire();
         }
-        var x = 0;
-        this.weapon.bullets.forEach(function (bull) {
-            if (bull.alive) {
-                this.bulletInfo[x] = 1;
-            }
-            else {
-                this.bulletInfo[x] = 0;
-            }
-            x++;
-        }, this);
         this.game.debug.body(this);
         this.displayName.x = Math.floor(this.x);
         this.displayName.y = Math.floor(this.y - this.height / 2 - 15);
@@ -152,15 +144,20 @@ var Tank = (function (_super) {
             var p = this.randomGenerator.integerInRange(100, this.game.world.width - 100);
             this.reset(p, p, this.maxHealth);
         }
+        this.weapon.debug(16, 16, true);
+        var x = 0;
+        this.weapon.bullets.forEach(function (bull) {
+            if (bull.alive) {
+                this.bulletInfo[x] = 1;
+            }
+            else {
+                this.bulletInfo[x] = 0;
+            }
+            x++;
+        }, this);
     };
     Tank.prototype.bulletHitMeFromOther = function (tank, bullet) {
-        var t = this.game.time.create(true);
-        t.loop(1000, function () {
-            bullet.kill();
-            console.log("Times up.");
-            t.destroy();
-        }, this);
-        t.start();
+        bullet.kill();
         tank.health -= 1;
         console.log("Someone else's bullet hit me.");
     };

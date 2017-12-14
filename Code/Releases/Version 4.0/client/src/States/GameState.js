@@ -22,6 +22,7 @@ var GameState = (function (_super) {
     GameState.prototype.preload = function () {
     };
     GameState.prototype.create = function () {
+        this.socket = io();
         this.game.stage.backgroundColor = '#dfdfdf';
         this.map = this.game.add.tilemap('map');
         this.map.addTilesetImage('tiles');
@@ -30,19 +31,20 @@ var GameState = (function (_super) {
         this.map.setCollision([33]);
         // this.tank = new Tank(this.game, this.game.rnd.integerInRange(100, this.game.width - 100),
         //     this.game.rnd.integerInRange(100, this.game.height), "tank", this.id);
-        this.tank = new Tank(this.game, 400, 400, this.name, this.id, this.layer);
+        this.tank = new Tank(this.game, 400, 400, this.name, this.id, this.layer, this.socket);
         this.game.add.existing(this.tank);
         this.game.camera.follow(this.tank);
         // this.FIREBASE.pushNewestPlayer(this.tank.id, this.name);
         // this.FIREBASE.checkForPreviousPlayers(this.tank.id, this.game, this.layer, this.tank);
         // this.FIREBASE.checkForNewPlayers(this.tank.id, this.game, this.layer, this.tank);
         // this.FIREBASE.onClose(this.tank.id);
-        this.socket = io();
         this.socket.emit("start", { name: this.name });
         this.socket.on("serverState", this.onServerState.bind(this));
         this.socket.on("newPlayer", this.onNewPlayer.bind(this));
         this.socket.on("removed", this.onRemoved.bind(this));
         this.socket.on("timer", this.onTimer.bind(this));
+        this.socket.on("selfHit", this.onSelfHit.bind(this));
+        this.socket.on("shoot", this.onShoot.bind(this));
     };
     GameState.prototype.update = function () {
         this.socket.emit('position', {
@@ -50,8 +52,23 @@ var GameState = (function (_super) {
             y: this.tank.y,
             r: this.tank.rotation,
             id: this.id,
-            health: this.tank.health
+            health: this.tank.health,
         });
+    };
+    GameState.prototype.onShoot = function (data) {
+        this.otherPlayers[data.id].weapon.fire();
+        console.log(data.id, "shot a bullet.");
+    };
+    GameState.prototype.onSelfHit = function (data) {
+        var b = 0;
+        this.tank.weapon.forEach(function (bull) {
+            if (b == data.bullet) {
+                bull.kill();
+                this.tank.health -= 1;
+                this.tank.bulletInfo[b] = -1;
+            }
+            b += 1;
+        }, this);
     };
     GameState.prototype.onServerState = function (data) {
         this.id = data.id;
@@ -61,7 +78,8 @@ var GameState = (function (_super) {
             var p = data.otherPlayers[x];
             var t = new otherTank(this.game, p.x, p.y, p.id, this.layer, this.tank, p.name);
             this.otherPlayers[x] = t;
-            this.game.add.existing(t);
+            // this.game.add.existing(t);
+            this.tank.addNewPlayer(t);
         }
     };
     GameState.prototype.onNewPlayer = function (data) {
@@ -69,7 +87,8 @@ var GameState = (function (_super) {
         console.log(data);
         var t = new otherTank(this.game, data.newPlayer.x, data.newPlayer.y, data.id, this.layer, this.tank, data.name);
         this.otherPlayers[data.id] = t;
-        this.game.add.existing(t);
+        // this.game.add.existing(t);
+        this.tank.addNewPlayer(t);
     };
     GameState.prototype.onRemoved = function (data) {
         this.otherPlayers[data.id].displayName.destroy();
@@ -83,14 +102,16 @@ var GameState = (function (_super) {
     GameState.prototype.onTimer = function (data) {
         // console.log("Everyone else's info:");
         for (var i in data) {
-            var x, y, r, id, health;
+            var x, y, r, id, health, bulletInfo;
             if (i != this.id) {
                 x = data[i].x;
                 y = data[i].y;
                 r = data[i].r;
                 id = data[i].id;
                 health = data[i].health;
+                // bulletInfo = data[i].bulletInfo;
                 // console.log("id", i, "x:", x, "y:", y, "r:", r);
+                // console.log("Update info:", bulletInfo);
                 if (this.otherPlayers[i] == null) {
                     console.log("Player is null.");
                 }

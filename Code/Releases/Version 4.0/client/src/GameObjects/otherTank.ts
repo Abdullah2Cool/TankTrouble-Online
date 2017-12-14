@@ -8,7 +8,7 @@ class otherTank extends Phaser.Sprite {
     // FIREBASE: util_Firebase;
     layer: TilemapLayer;
     tank: Tank;
-    bulletInfo = [];
+    bulletInfo = {};
     shotOnce = [];
     maxBullets: number = 10;
     sName: string;
@@ -28,8 +28,7 @@ class otherTank extends Phaser.Sprite {
         this.health = this.maxHealth;
 
         for (let i = 0; i < this.maxBullets; i++) {
-            this.bulletInfo.push(0);
-            this.shotOnce.push(0);
+            this.bulletInfo[i] = -1;
         }
 
         // this.otherTanks = tank.getOtherPlayers();
@@ -37,9 +36,10 @@ class otherTank extends Phaser.Sprite {
         this.anchor.setTo(0.5, 0.5);
         this.game.physics.arcade.enable(this);
 
+
         this.weapon = game.add.weapon(this.maxBullets, 'blue_bullet');
         this.weapon.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
-        this.weapon.bulletLifespan = 6000;
+        this.weapon.bulletLifespan = 5000;
         this.weapon.bulletSpeed = 300;
         this.weapon.fireRate = 100;
         this.weapon.trackSprite(this, 38, 0, true);
@@ -47,36 +47,7 @@ class otherTank extends Phaser.Sprite {
         this.weapon.onKill.add(this.bulletDead, this);
 
         this.body.setCircle(33);
-        // this.body.immovable = true;
-
-        // this.FIREBASE.getDatabase().ref("Players/" + this.id).on("value", snap => {
-        //     if (!snap.exists()) {
-        //         console.log("Player doesn't exist anymore.");
-        //         this.destroy();
-        //         this.displayName.destroy();
-        //         this.weapon.bullets.destroy();
-        //         this.healthBar.kill();
-        //     } else {
-        //         this.x = snap.val().x;
-        //         this.y = snap.val().y;
-        //         this.rotation = snap.val().r;
-        //         this.sName = snap.val().name;
-        //         this.health = snap.val().health;
-        //     }
-        // });
-        //
-        // this.FIREBASE.getDatabase().ref("Players/" + this.id + "/bullets").on("value", snap => {
-        //     if (snap.exists()) {
-        //         let bulletsInCloud = snap.val();
-        //         // console.log("Local: " + this.bulletInfo);
-        //         // console.log("Cloud: " + bulletsInCloud + "\n");
-        //         for (x = 0; x < this.maxBullets; x++) {
-        //             // if the bullet is dead here and in firebase, reset shotOnce
-        //             this.bulletInfo[x] = bulletsInCloud[x];
-        //         }
-        //         // console.log("Updated: " + this.bulletInfo);
-        //     }
-        // });
+        this.body.immovable = true;
 
         let style = {
             font: "32px Arial",
@@ -106,10 +77,11 @@ class otherTank extends Phaser.Sprite {
     bulletFire(bullet, weapon) {
         bullet.body.bounce.setTo(1, 1);
         this.game.world.bringToTop(this);
+        console.log("Other Tank Shot Bullet");
     }
 
     bulletDead(sprite) {
-        // this.bulletsShot -= 1;
+        console.log("Bullet Died.");
     }
 
     update() {
@@ -124,17 +96,6 @@ class otherTank extends Phaser.Sprite {
         this.healthBar.setPosition(this.x, this.y - 70);
         this.healthBar.setPercent((this.health / this.maxHealth) * 100);
 
-        let x = 0;
-        this.weapon.bullets.forEach(function (bull) {
-            if (this.bulletInfo[x] == 0) {
-                bull.kill();
-            } else {
-                if (!bull.alive) {
-                    this.weapon.fire();
-                }
-            }
-            x++;
-        }, this);
     }
 
     bulletHit(tank, bullet) {
@@ -144,6 +105,38 @@ class otherTank extends Phaser.Sprite {
     updateInfo(x, y, r, health) {
         this.game.add.tween(this).to({x: x, y: y, rotation: r}, 1000 / 60, "Sine.easeInOut", true);
         this.health = health;
+
+        // console.log("Recieved Info form otherTank:", bulletInfo);
+
+        // let t = 0;
+        // this.weapon.bullets.forEach(function (bull) {
+        //     if (bulletInfo[t] == 0) {
+        //         bull.kill();
+        //     } else {
+        //         if (!bull.alive) {
+        //             this.weapon.fire();
+        //         }
+        //     }
+        //     t++;
+        // }, this);
+
+        // let t = 0;
+        // this.weapon.bullets.forEach(function (bull) {
+        //     // console.log(bull);
+        //     if (bulletInfo[t] == -1) {
+        //         if (bull.alive) {
+        //             bull.kill();
+        //         }
+        //     } else {
+        //         if (bull.alive) {
+        //             bull.x = bulletInfo[t].x;
+        //             bull.y = bulletInfo[t].y;
+        //         } else {
+        //             this.weapon.fire();
+        //         }
+        //     }
+        //     t += 1;
+        // }, this);
     }
 
 }
