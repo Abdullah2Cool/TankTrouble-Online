@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Player_1 = require("./server/Player");
+const Player_1 = require("./server/Player");
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
@@ -38,12 +38,10 @@ io.on('connect', function (socket) {
         });
     });
     socket.on("position", function (data) {
-        // console.log(data);
         ALL_PLAYERS[socket.id].x = data.x;
         ALL_PLAYERS[socket.id].y = data.y;
         ALL_PLAYERS[socket.id].r = data.r;
         ALL_PLAYERS[socket.id].health = data.health;
-        // ALL_PLAYERS[socket.id].bulletInfo = data.bulletInfo;
         // console.log("ID:", socket.id, "Received health:", data.health);
     });
     socket.on('shoot', function (data) {
@@ -72,14 +70,14 @@ setInterval(function () {
     }
     for (var i in ALL_SOCKETS) {
         var socket = ALL_SOCKETS[i];
-        socket.emit("timer", pack);
+        socket.emit("update", pack);
     }
 }, 1000 / 30);
 setInterval(function () {
-    console.log("Debug Info:");
-    for (var i in ALL_PLAYERS) {
-        var p = ALL_PLAYERS[i];
-        console.log("id:", p.id);
-        // console.log(p.bulletInfo);
-    }
+    // console.log("Debug Info:");
+    // for (var i in ALL_PLAYERS) {
+    //     let p = ALL_PLAYERS[i];
+    //     console.log("id:", p.id);
+    //     // console.log(p.bulletInfo);
+    // }
 }, 2000);

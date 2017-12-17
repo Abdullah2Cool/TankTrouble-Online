@@ -4,7 +4,7 @@ class WelcomeState extends Phaser.State {
     playButton: Phaser.Button;
     name: string = "Enter name here";
     InputPlugin;
-    testInput;
+    inputField;
 
     distance = 300;
     speed = 6;
@@ -53,7 +53,7 @@ class WelcomeState extends Phaser.State {
         this.playButton = this.game.add.button(this.game.world.centerX, this.game.world.centerY + 50, "play_Button", this.startNext, this);
         this.playButton.anchor.set(0.5, 0.5);
 
-        this.testInput = this.game.add.inputField(this.game.world.centerX - 250, this.game.height / 2 - 120, {
+        this.inputField = this.game.add.inputField(this.game.world.centerX - 250, this.game.height / 2 - 120, {
             font: '50px Arial',
             fill: '#0005ff',
             fontWeight: 'bold',
@@ -100,8 +100,8 @@ class WelcomeState extends Phaser.State {
 
 
     startNext() {
-        if (this.testInput.value != "") {
-            this.game.state.start("GameState", true, false, this.testInput.value);
+        if (this.inputField.value != "") {
+            this.game.state.start("GameState", true, false, this.inputField.value);
         } else {
             this.game.state.start("GameState", true, false, "NOOB");
         }

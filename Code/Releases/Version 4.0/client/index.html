@@ -4,20 +4,6 @@
     <meta charset="UTF-8">
     <title>TankTrouble Version 4.0</title>
 
-    <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
-    <script>
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyBiRVH6DEyouNRjU92fUdVpSRFbqg6BkzP1dY",
-            authDomain: "tank-trouble-online.firebaseapp.com",
-            databaseURL: "https://tank-trouble-online.firebaseio.com",
-            projectId: "tank-trouble-online",
-            storageBucket: "tank-trouble-online.appspot.com",
-            messagingSenderId: "446961097968"
-        };
-        firebase.initializeApp(config);
-    </script>
-
     <script src="/socket.io/socket.io.js"></script>
 
     <script type="text/javascript" src="phaser.js"></script>
@@ -28,13 +14,12 @@
 
     <script type="text/javascript" src="src/GameObjects/otherTank.js"></script>
     <script type="text/javascript" src="src/GameObjects/Tank.js"></script>
-    <script type="text/javascript" src="src/GameObjects/util_Firebase.js"></script>
 
     <script type="text/javascript" src="src/States/GameState.js"></script>
     <script type="text/javascript" src="src/States/WelcomeState.js"></script>
     <script src="main.js"></script>
 </head>
 <body>
-<div id="content"></div>
+<div id="game"></div>
 </body>
 </html>

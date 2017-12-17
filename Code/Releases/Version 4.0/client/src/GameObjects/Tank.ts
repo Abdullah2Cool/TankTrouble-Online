@@ -1,20 +1,16 @@
 var HealthBar;
 
 class Tank extends Phaser.Sprite {
-    sName: string;
     game: Phaser.Game;
+    velocity: number;
+    weapon: Phaser.Weapon;
+    shootKey: Phaser.Key;
     upKey: Phaser.Key;
     downKey: Phaser.Key;
     lefKey: Phaser.Key;
     rightKey: Phaser.Key;
-    shootKey: Phaser.Key;
-    velocity: number;
-    weapon: Phaser.Weapon;
     id: any;
-    // FIREBASE: util_Firebase;
-    layer: TilemapLayer;
-    otherTanks: Phaser.Group;
-    maxBullets: number = 10;
+    maxBullets: number;
     bulletInfo = {};
     displayName: Phaser.Text;
     JoyStickPlugin;
@@ -24,14 +20,14 @@ class Tank extends Phaser.Sprite {
     randomGenerator: Phaser.RandomDataGenerator;
     socket;
 
-    constructor(game: Phaser.Game, x: number, y: number, sName: string, id: any, layer: TilemapLayer, socket) {
+    constructor(game: Phaser.Game, x: number, y: number, sName: string, id: any, socket) {
         super(game, x, y, "tank");
         this.game = game;
-        this.sName = sName;
-        this.velocity = 250;
-        this.id = id;
-        this.layer = layer;
+        this.name = sName;
+        this.velocity = 200;
 
+
+        this.id = id;
         this.socket = socket;
 
         this.randomGenerator = new Phaser.RandomDataGenerator();
@@ -39,8 +35,7 @@ class Tank extends Phaser.Sprite {
         this.maxHealth = 20;
         this.health = this.maxHealth;
 
-        // this.FIREBASE = new util_Firebase();
-        this.otherTanks = game.add.group();
+        this.maxBullets = 10;
 
         console.log(sName);
 
@@ -52,18 +47,11 @@ class Tank extends Phaser.Sprite {
         this.game.physics.arcade.enable(this);
 
         this.weapon = game.add.weapon(this.maxBullets, 'red_bullet');
-        //  The bullets will be automatically killed when they are 2000ms old
         this.weapon.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
         this.weapon.bulletLifespan = 5000;
-        //  The speed at which the bullet is fired
         this.weapon.bulletSpeed = 300;
-        //  Speed-up the rate of fire, allowing them to shoot 1 bullet every 60ms
         this.weapon.fireRate = 100;
-        //  Tell the Weapon to track the 'player' Sprite
-        //  With no offsets from the position
-        //  But the 'true' argument tells the weapon to track sprite rotation
         this.weapon.trackSprite(this, 38, 0, true);
-        // this.weapon.bulletInheritSpriteSpeed = true;
         this.weapon.onFire.add(this.bulletFire, this);
         this.weapon.onKill.add(this.bulletDead, this);
 
@@ -81,7 +69,7 @@ class Tank extends Phaser.Sprite {
             fill: "#ff0044"
         };
 
-        this.displayName = this.game.add.text(0, 0, this.sName, style);
+        this.displayName = this.game.add.text(0, 0, this.name, style);
         this.displayName.anchor.set(0.5, 0.5);
 
         this.JoyStickPlugin = this.game.plugins.add(Phaser.VirtualJoystick);
@@ -116,36 +104,7 @@ class Tank extends Phaser.Sprite {
 
     }
 
-    bulletFire(bullet, weapon) {
-        bullet.body.bounce.setTo(1, 1);
-        // console.log(this.bulletInfo);
-        this.socket.emit('shoot');
-    }
-
-    bulletDead(sprite) {
-        // console.table(this.weapon.bullets.children, ['visible', 'alive', 'fancy']);
-    }
-
     update() {
-        // collide with the map
-        this.game.physics.arcade.collide(this, this.layer);
-        // collide the bullets with the map
-        this.game.physics.arcade.collide(this.weapon.bullets, this.layer);
-        // collide with the the bullets
-        this.game.physics.arcade.collide(this, this.weapon.bullets, this.bulletHitMe, null, this);
-
-        // collide my bullets with the other tanks
-        this.otherTanks.forEach(function (otherTank) {
-            this.game.physics.arcade.collide(otherTank, this.weapon.bullets, this.bulletHitOther, null, this);
-        }, this);
-
-        // collide otherTank's bullets with me
-        this.otherTanks.forEach(function (otherTank) {
-            this.game.physics.arcade.collide(this, otherTank.weapon.bullets, this.bulletHitMeFromOther, null, this);
-        }, this);
-
-        // this.game.physics.arcade.collide(this.weapon.bullets, this.weapon.bullets);
-
         this.body.velocity.x = 0;
         this.body.velocity.y = 0;
         this.body.angularVelocity = 0;
@@ -162,11 +121,10 @@ class Tank extends Phaser.Sprite {
         } else if (this.downKey.isDown) {
             this.game.physics.arcade.velocityFromAngle(this.angle, -this.velocity, this.body.velocity);
         }
+
         if (this.shootKey.isDown) {
             this.weapon.fire();
         }
-
-        this.game.debug.body(this);
 
         this.displayName.x = Math.floor(this.x);
         this.displayName.y = Math.floor(this.y - this.height / 2 - 15);
@@ -185,7 +143,6 @@ class Tank extends Phaser.Sprite {
             this.reset(p, p, this.maxHealth);
         }
 
-        this.weapon.debug(16, 16, true);
 
         let x = 0;
         this.weapon.bullets.forEach(function (bull) {
@@ -197,31 +154,18 @@ class Tank extends Phaser.Sprite {
             x++;
         }, this);
 
+        // this.game.debug.body(this);
+        // this.weapon.debug(16, 16, true);
     }
 
-    bulletHitMeFromOther(tank, bullet) {
-        bullet.kill();
-        tank.health -= 1;
-        console.log("Someone else's bullet hit me.")
+    bulletFire(bullet, weapon) {
+        bullet.body.bounce.setTo(1, 1);
+        // this.game.world.bringToTop(this);
+        this.socket.emit('shoot');
     }
 
-    bulletHitOther(tank, bullet) {
-        bullet.kill();
-        console.log("My bullet hit someone else.")
-    }
-
-    bulletHitMe(tank, bullet) {
-        bullet.kill();
-        tank.health -= 1;
-        console.log("My bullet hit me.")
-    }
-
-    addNewPlayer(player: otherTank) {
-        this.otherTanks.add(player);
-    }
-
-    getOtherPlayers(): Phaser.Group {
-        return this.otherTanks;
+    bulletDead(sprite) {
+        // console.table(this.weapon.bullets.children, ['visible', 'alive', 'fancy']);
     }
 }
        

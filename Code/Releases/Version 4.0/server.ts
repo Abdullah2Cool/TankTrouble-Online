@@ -51,13 +51,10 @@ io.on('connect', function (socket) {
 
 
     socket.on("position", function (data) {
-
-        // console.log(data);
         ALL_PLAYERS[socket.id].x = data.x;
         ALL_PLAYERS[socket.id].y = data.y;
         ALL_PLAYERS[socket.id].r = data.r;
         ALL_PLAYERS[socket.id].health = data.health;
-        // ALL_PLAYERS[socket.id].bulletInfo = data.bulletInfo;
         // console.log("ID:", socket.id, "Received health:", data.health);
     });
 
@@ -88,22 +85,21 @@ setInterval(function () {
             y: player.y,
             r: player.r,
             health: player.health,
-            // bulletInfo: player.bulletInfo
         };
     }
 
     for (var i in ALL_SOCKETS) {
         var socket = ALL_SOCKETS[i];
-        socket.emit("timer", pack);
+        socket.emit("update", pack);
     }
 
 }, 1000 / 30);
 
 setInterval(function () {
-    console.log("Debug Info:");
-    for (var i in ALL_PLAYERS) {
-        let p = ALL_PLAYERS[i];
-        console.log("id:", p.id);
-        // console.log(p.bulletInfo);
-    }
+    // console.log("Debug Info:");
+    // for (var i in ALL_PLAYERS) {
+    //     let p = ALL_PLAYERS[i];
+    //     console.log("id:", p.id);
+    //     // console.log(p.bulletInfo);
+    // }
 }, 2000);

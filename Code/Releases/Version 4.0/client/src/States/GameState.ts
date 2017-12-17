@@ -4,15 +4,13 @@ class GameState extends Phaser.State {
     map: Phaser.Tilemap;
     layer: Phaser.TilemapLayer;
     tank: Tank;
-    // FIREBASE: util_Firebase;
     id: any;
     name: string;
     otherPlayers = {};
+    otherGroup: Phaser.Group;
 
     constructor() {
         super();
-        // this.FIREBASE = new util_Firebase();
-
     }
 
     init(name: string) {
@@ -26,6 +24,8 @@ class GameState extends Phaser.State {
     create() {
         this.socket = io();
 
+        this.otherGroup = this.game.add.group();
+
         this.game.stage.backgroundColor = '#dfdfdf';
         this.map = this.game.add.tilemap('map');
         this.map.addTilesetImage('tiles');
@@ -33,29 +33,17 @@ class GameState extends Phaser.State {
         this.layer.resizeWorld();
         this.map.setCollision([33]);
 
-        // this.tank = new Tank(this.game, this.game.rnd.integerInRange(100, this.game.width - 100),
-        //     this.game.rnd.integerInRange(100, this.game.height), "tank", this.id);
-        this.tank = new Tank(this.game, 400, 400, this.name, this.id, this.layer, this.socket);
+        this.tank = new Tank(this.game, 400, 400, this.name, this.id, this.socket);
         this.game.add.existing(this.tank);
         this.game.camera.follow(this.tank);
 
-        // this.FIREBASE.pushNewestPlayer(this.tank.id, this.name);
-        // this.FIREBASE.checkForPreviousPlayers(this.tank.id, this.game, this.layer, this.tank);
-        // this.FIREBASE.checkForNewPlayers(this.tank.id, this.game, this.layer, this.tank);
-        // this.FIREBASE.onClose(this.tank.id);
 
         this.socket.emit("start", {name: this.name});
 
         this.socket.on("serverState", this.onServerState.bind(this));
-
         this.socket.on("newPlayer", this.onNewPlayer.bind(this));
-
         this.socket.on("removed", this.onRemoved.bind(this));
-
-        this.socket.on("timer", this.onTimer.bind(this));
-
-        this.socket.on("selfHit", this.onSelfHit.bind(this));
-
+        this.socket.on("update", this.onUpdate.bind(this));
         this.socket.on("shoot", this.onShoot.bind(this));
     }
 
@@ -66,27 +54,60 @@ class GameState extends Phaser.State {
             r: this.tank.rotation,
             id: this.id,
             health: this.tank.health,
-            // bulletInfo: this.tank.bulletInfo
         });
 
+        ////////////////////////////////////// handle all collisions ///////////////////////////////////////////
 
-    }
+        // tank-with walls
+        this.game.physics.arcade.collide(this.tank, this.layer);
 
-    onShoot (data) {
-        this.otherPlayers[data.id].weapon.fire();
-        console.log(data.id, "shot a bullet.")
-    }
+        // otherTanks with walls
+        this.game.physics.arcade.collide(this.otherGroup, this.layer);
 
-    onSelfHit (data) {
-        let b = 0;
-        this.tank.weapon.forEach(function (bull) {
-            if (b == data.bullet) {
-                bull.kill();
-                this.tank.health -= 1;
-                this.tank.bulletInfo[b] = -1;
-            }
-            b += 1;
+        // tank bullets with walls
+        this.game.physics.arcade.collide(this.tank.weapon.bullets, this.layer);
+
+        // otherTanks bullets with walls
+        this.otherGroup.forEach(function (t) {
+            this.game.physics.arcade.collide(t.weapon.bullets, this.layer);
         }, this);
+
+        // tank with it's own bullets
+        this.game.physics.arcade.collide(this.tank, this.tank.weapon.bullets, function (tank, bullet) {
+            bullet.kill();
+            tank.health -= 1;
+            console.log("I shot myself.");
+        });
+
+        // otherTanks with their own bullets
+        this.otherGroup.forEach(function (t) {
+            this.game.physics.arcade.collide(t, t.weapon.bullets, function (tank, bullet) {
+                bullet.kill();
+                console.log("Other tank shot himself.")
+            });
+        }, this)
+
+        // tank bullets with otherTanks
+        this.otherGroup.forEach(function (t) {
+            this.game.physics.arcade.collide(t, this.tank.weapon.bullets, function (tank, bullet) {
+                bullet.kill();
+                console.log("I shot other Tank");
+            })
+        }, this);
+
+        // otherTanks bullets with me
+        this.otherGroup.forEach(function (t) {
+            this.game.physics.arcade.collide(this.tank, t.weapon.bullets, function (tank, bullet) {
+                bullet.kill();
+                tank.health -= 1;
+                console.log("Other tank shot me.");
+            });
+        }, this);
+    }
+
+    onShoot(data) {
+        this.otherPlayers[data.id].weapon.fire();
+        // console.log(data.id, "shot a bullet.");
     }
 
     onServerState(data) {
@@ -97,12 +118,11 @@ class GameState extends Phaser.State {
 
         for (var x in data.otherPlayers) {
             var p = data.otherPlayers[x];
-
-            var t = new otherTank(this.game, p.x, p.y, p.id, this.layer, this.tank, p.name);
+            var t = new otherTank(this.game, p.x, p.y, p.id, p.name);
 
             this.otherPlayers[x] = t;
-            // this.game.add.existing(t);
-            this.tank.addNewPlayer(t);
+            // this.tank.addNewPlayer(t);
+            this.otherGroup.add(t)
         }
     }
 
@@ -111,12 +131,12 @@ class GameState extends Phaser.State {
 
         console.log(data);
 
-        var t = new otherTank(this.game, data.newPlayer.x, data.newPlayer.y, data.id, this.layer,
-            this.tank, data.name);
+        var t = new otherTank(this.game, data.newPlayer.x, data.newPlayer.y, data.id, data.name);
         this.otherPlayers[data.id] = t;
-        // this.game.add.existing(t);
-        this.tank.addNewPlayer(t);
+        // this.tank.addNewPlayer(t);
+        this.otherGroup.add(t)
     }
+
 
     onRemoved(data) {
         this.otherPlayers[data.id].displayName.destroy();
@@ -128,22 +148,17 @@ class GameState extends Phaser.State {
         console.log("Other's list:", this.otherPlayers);
     }
 
-    onTimer(data) {
+    onUpdate(data) {
         // console.log("Everyone else's info:");
 
         for (var i in data) {
-            var x, y, r, id, health, bulletInfo;
+            var x, y, r, id, health;
             if (i != this.id) {
                 x = data[i].x;
                 y = data[i].y;
                 r = data[i].r;
                 id = data[i].id;
                 health = data[i].health
-                // bulletInfo = data[i].bulletInfo;
-
-                // console.log("id", i, "x:", x, "y:", y, "r:", r);
-
-                // console.log("Update info:", bulletInfo);
 
                 if (this.otherPlayers[i] == null) {
                     console.log("Player is null.");

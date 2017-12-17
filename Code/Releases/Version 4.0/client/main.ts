@@ -6,6 +6,6 @@ class TankTrouble extends Phaser.Game {
 }
 
 window.onload = () => {
-    new TankTrouble("content");
+    new TankTrouble("game");
 };
 
