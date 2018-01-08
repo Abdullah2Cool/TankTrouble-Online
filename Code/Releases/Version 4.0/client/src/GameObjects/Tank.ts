@@ -128,7 +128,6 @@ class Tank extends Phaser.Sprite {
 
         this.displayName.x = Math.floor(this.x);
         this.displayName.y = Math.floor(this.y - this.height / 2 - 15);
-        // this.displayName.angle = Math.
 
 
         if (this.stick.isDown) {

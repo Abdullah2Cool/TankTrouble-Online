@@ -26,10 +26,9 @@ io.on('connect', function (socket) {
     ALL_SOCKETS[socket.id] = socket;
 
     var player;
-
     socket.on("start", function (data) {
 
-        player = new Player(socket.id, data.name)
+        player = new Player(socket.id, data.name);
 
         console.log("Recieved Name:", data.name);
 
